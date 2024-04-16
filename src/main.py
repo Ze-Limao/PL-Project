@@ -40,16 +40,24 @@ def main(args):
     lexer = Lexer()
     translator = Translator()
     parser = Parser(lexer, translator)
-    while True:
-        try:
-            s = input('calc >> ')
-        except EOFError or KeyboardInterrupt:
-            break
-        if not s: 
-            continue
-        result = parser.parse(s)
-        if result:
-            print(result)
+    if len(args) > 1:
+        with open(args[1], 'r') as file:
+            data = file.readlines()
+        for line in data:
+            result = parser.parse(line)
+            if result:
+                print(result)
+    else:
+        while True:
+            try:
+                s = input('calc >> ')
+            except EOFError or KeyboardInterrupt:
+                break
+            if not s: 
+                continue
+            result = parser.parse(s)
+            if result:
+                print(result)
     
     print(translator.code)
     translator.code_to_file()
