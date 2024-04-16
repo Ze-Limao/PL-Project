@@ -1,57 +1,81 @@
 import sys
-from ply import yacc
-from analisadorlexico import tokens, lexer
+import ply.yacc as yacc
+from analisadorlexico import Lexer, tokens
+from translator import Translator
 
 
 class Parser:
     def __init__(self):
-        self.parser = yacc()
+        self.translator = Translator()
+        self.lexer = Lexer()
+        self.parser = yacc.yacc()
+        self.parser.exito = True
 
-    def build(self):
-        self.parser.parse(lexer=lexer)
+    def run(self, filename):
+        print("Analisando o arquivo:", filename)
+        try:
+            with open(filename, 'r') as file:
+                for line in file:
+                    result = self.parser.parse(line)
+                    if self.parser.exito:
+                        self.translator.code_to_file()
+                        print("Análise bem-sucedida!")
+                    else:
+                        print("Erro na análise sintática.")
+        except FileNotFoundError:
+            print("Arquivo não encontrado:", filename)
+        except Exception as e:
+            print("Ocorreu um erro durante a análise:", e)
+    
+    def test(self):
+        for line in sys.stdin: # isto é provisório
+            result = self.parser.parse(line)
+            if(self.parser.exito):
+                print("correu bem")
+'''
 
-    def test(self, data):
-        return self.parser.parse(data)
+Program : Expression
+        |
 
-parser = yacc()
-parser.exito = True
+Expression : NUMBER
+           | STRING
+           | Expression Expression MATH_OPERATOR
+           | Expression DOT
+           | Expression IF Expression THEN Expression ELSE Expression
+           | Function
+           |
 
+Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Expression SEMICOLON
+
+Arguments : ARGUMENT
+          | Arguments ARGUMENT
+          |  
+
+'''
+    
 def p_expression(p):
     '''
-    expression : NUMBER
+    Expression : NUMBER
                 | STRING
-                | expression expression MATH_OPERATOR
-                | expression DOT
-                | expression IF expression THEN expression ELSE expression
+                | Expression Expression MATH_OPERATOR
+                | Expression DOT
+                | Expression IF Expression THEN Expression ELSE Expression
                 | function
                 |
     '''
 
-def p_math_operator(p):
-    '''
-    MATH_OPERATOR : PLUS
-                    | MINUS
-                    | TIMES
-                    | DIVIDE
-                    | MOD
-                    | LESS
-                    | GREATER
-                    | EQUAL
-    '''
-    p[0] = ('math_operator', p[1])
-
 
 def p_function(p):
     '''
-    function : COLON NAME LPAREN ARGUMENTS ARGDELIMITER ARGUMENT RPAREN expression SEMICOLON
+    function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Expression SEMICOLON
     '''
     p[0] = ('function', p[2], p[3], p[5])
 
 
 def p_arguments(p):
     '''
-    arguments : ARGUMENT
-              | arguments ARGUMENT
+    Arguments : ARGUMENT
+              | Arguments ARGUMENT
               |
     '''
     if len(p) == 2:
@@ -62,4 +86,13 @@ def p_arguments(p):
 
 def p_error(p):
     print("Erro Sintático")
-    parser.exito = False
+    Parser.parser.exito = False
+
+
+def main(args):
+    file = args[1]
+    parser = Parser()
+    parser.test()
+
+if __name__ == '__main__':
+    main(args=sys.argv)

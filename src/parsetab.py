@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ID INT PP PRECOLC : LC CatLC : CatCat : ID ':' ProdsProds : Prods ProdutoProds : Produto : '-' INT PP ID PP PRECO PP INT ';'"
+_lr_signature = 'ARGDELIMITER ARGUMENT CHAR COLON COMMENT CR DOT ELSE EMIT FUNCTION_DEFINITION IF KEY LPAREN MATH_OPERATOR NAME NUMBER RPAREN SEMICOLON SPACE SPACES STRING THEN\n    Expression : NUMBER\n                | STRING\n                | Expression Expression MATH_OPERATOR\n                | Expression DOT\n                | Expression IF Expression THEN Expression ELSE Expression\n                | function\n                |\n    \n    function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Expression SEMICOLON\n    \n    Arguments : ARGUMENT\n              | Arguments ARGUMENT\n              |\n    '
     
-_lr_action_items = {'ID':([0,1,2,4,5,6,7,10,16,],[3,3,-2,-1,-5,-3,-4,11,-6,]),'$end':([1,2,4,5,6,7,16,],[0,-2,-1,-5,-3,-4,-6,]),':':([3,],[5,]),'-':([5,6,7,16,],[-5,8,-4,-6,]),'INT':([8,14,],[9,15,]),'PP':([9,11,13,],[10,12,14,]),'PRECO':([12,],[13,]),';':([15,],[16,]),}
+_lr_action_items = {'NUMBER':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[2,2,-1,-2,-6,2,-4,2,-3,2,2,2,2,2,2,2,-8,]),'STRING':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[3,3,-1,-2,-6,3,-4,3,-3,3,3,3,3,3,3,3,-8,]),'DOT':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[-7,7,-1,-2,-6,7,-4,-7,-3,7,-7,7,-7,7,-7,7,-8,]),'IF':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[-7,8,-1,-2,-6,8,-4,-7,-3,8,-7,8,-7,8,-7,8,-8,]),'COLON':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[5,5,-1,-2,-6,5,-4,5,-3,5,5,5,5,5,5,5,-8,]),'$end':([0,1,2,3,4,7,10,19,21,24,],[-7,0,-1,-2,-6,-4,-3,-7,-5,-8,]),'MATH_OPERATOR':([0,1,2,3,4,6,7,8,10,11,13,16,19,21,22,23,24,],[-7,-7,-1,-2,-6,10,-4,-7,-3,-7,-7,-7,-7,-5,-7,-7,-8,]),'THEN':([2,3,4,7,8,10,11,19,21,24,],[-1,-2,-6,-4,-7,-3,13,-7,-5,-8,]),'ELSE':([2,3,4,7,10,13,16,19,21,24,],[-1,-2,-6,-4,-3,-7,19,-7,-5,-8,]),'SEMICOLON':([2,3,4,7,10,19,21,22,23,24,],[-1,-2,-6,-4,-3,-7,-5,-7,24,-8,]),'NAME':([5,],[9,]),'LPAREN':([9,],[12,]),'ARGUMENT':([12,14,15,17,18,],[15,18,-9,20,-10,]),'ARGDELIMITER':([12,14,15,18,],[-11,17,-9,-10,]),'RPAREN':([20,],[22,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'LC':([0,],[1,]),'Cat':([0,1,],[2,4,]),'Prods':([5,],[6,]),'Produto':([6,],[7,]),}
+_lr_goto_items = {'Expression':([0,1,6,8,11,13,16,19,21,22,23,],[1,6,6,11,6,16,6,21,6,23,6,]),'function':([0,1,6,8,11,13,16,19,21,22,23,],[4,4,4,4,4,4,4,4,4,4,4,]),'Arguments':([12,],[14,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,11 +26,16 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> LC","S'",1,None,None,None),
-  ('LC -> LC Cat','LC',2,'p_LC1','dsadsad.py',83),
-  ('LC -> Cat','LC',1,'p_LC2','dsadsad.py',84),
-  ('Cat -> ID : Prods','Cat',3,'p_Cat','dsadsad.py',86),
-  ('Prods -> Prods Produto','Prods',2,'p_Prods1','dsadsad.py',88),
-  ('Prods -> <empty>','Prods',0,'p_Prods2','dsadsad.py',89),
-  ('Produto -> - INT PP ID PP PRECO PP INT ;','Produto',9,'p_Produto','dsadsad.py',91),
+  ("S' -> Expression","S'",1,None,None,None),
+  ('Expression -> NUMBER','Expression',1,'p_expression','analisadorsintatico.py',43),
+  ('Expression -> STRING','Expression',1,'p_expression','analisadorsintatico.py',44),
+  ('Expression -> Expression Expression MATH_OPERATOR','Expression',3,'p_expression','analisadorsintatico.py',45),
+  ('Expression -> Expression DOT','Expression',2,'p_expression','analisadorsintatico.py',46),
+  ('Expression -> Expression IF Expression THEN Expression ELSE Expression','Expression',7,'p_expression','analisadorsintatico.py',47),
+  ('Expression -> function','Expression',1,'p_expression','analisadorsintatico.py',48),
+  ('Expression -> <empty>','Expression',0,'p_expression','analisadorsintatico.py',49),
+  ('function -> COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Expression SEMICOLON','function',9,'p_function','analisadorsintatico.py',55),
+  ('Arguments -> ARGUMENT','Arguments',1,'p_arguments','analisadorsintatico.py',62),
+  ('Arguments -> Arguments ARGUMENT','Arguments',2,'p_arguments','analisadorsintatico.py',63),
+  ('Arguments -> <empty>','Arguments',0,'p_arguments','analisadorsintatico.py',64),
 ]

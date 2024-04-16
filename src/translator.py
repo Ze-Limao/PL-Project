@@ -76,3 +76,9 @@ class Translator:
         self.code.append("swap")
         return a, b
 
+
+    def code_to_file(self):
+        filename = "output.txt"
+        with open(filename, 'w') as file:
+            for line in self.code:
+                file.write(f"{line}\n")
