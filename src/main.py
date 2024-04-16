@@ -1,10 +1,7 @@
 import sys 
-import ply.lex as lex
-
 from translator import Translator
-import analisadorlexico as analisadorlexico
-import analisadorsintatico as analisadorsintatico
-import sys
+from analisadorlexico import Lexer
+from analisadorsintatico import Parser
 
 
 # Versão analisador lexico
@@ -40,11 +37,22 @@ import sys
 #    print(translation.code)
             
 def main(args):
-    lexer = analisadorlexico.Lexer()
-    parser = analisadorsintatico.Parser()
-    parser.run(args[1])
-    print(parser.parser.exito)
-
+    lexer = Lexer()
+    translator = Translator()
+    parser = Parser(lexer, translator)
+    while True:
+        try:
+            s = input('calc >> ')
+        except EOFError or KeyboardInterrupt:
+            break
+        if not s: 
+            continue
+        result = parser.parse(s)
+        if result:
+            print(result)
+    
+    print(translator.code)
+    translator.code_to_file()
 
 
 if __name__ == '__main__':

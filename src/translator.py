@@ -8,7 +8,7 @@ class Translator:
     
     def forth_push(self, value):
         self.stack.append(value)
-        self.code.append(f"push {value}")
+        self.code.append(f"pushi {value}")
         return value
     
     def forth_math(self, operator):
@@ -43,7 +43,8 @@ class Translator:
         self.stack.append(result)
         return result
 
-    def forth_pop(self):
+    def forth_pop(self): 
+        #self.code.append("pop")
         return self.stack.pop()
     
     def forth_print(self):
@@ -78,7 +79,7 @@ class Translator:
 
 
     def code_to_file(self):
-        filename = "output.txt"
+        filename = "../outputs/output.txt"
         with open(filename, 'w') as file:
             for line in self.code:
                 file.write(f"{line}\n")
