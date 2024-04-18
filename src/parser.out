@@ -1,0 +1,122 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARGDELIMITER
+    ARGUMENT
+    CHAR
+    COLON
+    COMMENT
+    CR
+    ELSE
+    EMIT
+    FUNCTION_DEFINITION
+    IF
+    KEY
+    LPAREN
+    NAME
+    PRINTSTRING
+    RPAREN
+    SEMICOLON
+    SPACE
+    SPACES
+    STRING
+    THEN
+
+Grammar
+
+Rule 0     S' -> Exp
+Rule 1     Exp -> Exp NUMBER
+Rule 2     Exp -> Exp DOT
+Rule 3     Exp -> Exp MATH_OPERATOR
+Rule 4     Exp -> <empty>
+
+Terminals, with rules where they appear
+
+ARGDELIMITER         : 
+ARGUMENT             : 
+CHAR                 : 
+COLON                : 
+COMMENT              : 
+CR                   : 
+DOT                  : 2
+ELSE                 : 
+EMIT                 : 
+FUNCTION_DEFINITION  : 
+IF                   : 
+KEY                  : 
+LPAREN               : 
+MATH_OPERATOR        : 3
+NAME                 : 
+NUMBER               : 1
+PRINTSTRING          : 
+RPAREN               : 
+SEMICOLON            : 
+SPACE                : 
+SPACES               : 
+STRING               : 
+THEN                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+Exp                  : 1 2 3 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Exp
+    (1) Exp -> . Exp NUMBER
+    (2) Exp -> . Exp DOT
+    (3) Exp -> . Exp MATH_OPERATOR
+    (4) Exp -> .
+
+    NUMBER          reduce using rule 4 (Exp -> .)
+    DOT             reduce using rule 4 (Exp -> .)
+    MATH_OPERATOR   reduce using rule 4 (Exp -> .)
+    $end            reduce using rule 4 (Exp -> .)
+
+    Exp                            shift and go to state 1
+
+state 1
+
+    (0) S' -> Exp .
+    (1) Exp -> Exp . NUMBER
+    (2) Exp -> Exp . DOT
+    (3) Exp -> Exp . MATH_OPERATOR
+
+    NUMBER          shift and go to state 2
+    DOT             shift and go to state 3
+    MATH_OPERATOR   shift and go to state 4
+
+
+state 2
+
+    (1) Exp -> Exp NUMBER .
+
+    NUMBER          reduce using rule 1 (Exp -> Exp NUMBER .)
+    DOT             reduce using rule 1 (Exp -> Exp NUMBER .)
+    MATH_OPERATOR   reduce using rule 1 (Exp -> Exp NUMBER .)
+    $end            reduce using rule 1 (Exp -> Exp NUMBER .)
+
+
+state 3
+
+    (2) Exp -> Exp DOT .
+
+    NUMBER          reduce using rule 2 (Exp -> Exp DOT .)
+    DOT             reduce using rule 2 (Exp -> Exp DOT .)
+    MATH_OPERATOR   reduce using rule 2 (Exp -> Exp DOT .)
+    $end            reduce using rule 2 (Exp -> Exp DOT .)
+
+
+state 4
+
+    (3) Exp -> Exp MATH_OPERATOR .
+
+    NUMBER          reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
+    DOT             reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
+    $end            reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
+
