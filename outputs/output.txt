@@ -1,0 +1,8 @@
+start
+
+pushi 30
+pushi 5
+add
+pushi 7
+div
+print
