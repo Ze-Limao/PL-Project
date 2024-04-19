@@ -42,7 +42,7 @@ class Lexer():
 
     def t_PRINTSTRING(self, t):
         r'\."\s[^"]*"'
-        t.value = t.value[2:-1]  # Remove as aspas duplas
+        t.value = t.value[3:-1]  # Remove as aspas duplas
         return t
 
     def t_STRING(self, t):
@@ -56,7 +56,7 @@ class Lexer():
         return t
 
     def t_MATH_OPERATOR(self, t):
-        r"\+|-|\*|>|<|=|/|%|<=|>="
+        r"\+|-|\*|>=|<=|>|<|=|/|%"
         return t
 
     def t_EMIT(self, t):

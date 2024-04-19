@@ -30,6 +30,8 @@ class Parser():
     Math_operation : Number Number MATH_OPERATOR
 
     Print : DOT
+          | EMIT
+          | CHAR
     '''
 
     def p_string(self, p):
@@ -43,9 +45,16 @@ class Parser():
         self.translator.push(p[2])
 
     def p_dot(self, p):
-        '''Exp : Exp DOT'''
+        '''Exp : Exp DOT
+                | Exp EMIT
+        '''
         p[0] = p[1]
         self.translator.print()
+    
+    def p_char(self, p):
+        '''Exp : Exp CHAR'''
+        p[0] = p[1]
+        self.translator.char()
     
     def p_printstring(self, p):
         '''Exp : Exp PRINTSTRING'''

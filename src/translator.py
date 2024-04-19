@@ -89,6 +89,12 @@ class Translator:
             self.code.append("writes")
         return result
     
+    def char(self):
+        result = self.stack.pop()
+        result = ord(result[0])
+        self.code.append(f"pushi {result}")
+        self.code.append("writei")
+    
     def print_string(self, value):
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
