@@ -14,6 +14,7 @@ class Parser():
     Expression : Number
                | STRING
                | COMMENT
+               | PRINTSTRING
                | Math_operation
                | Print
                | Expression IF Expression THEN Expression ELSE Expression
@@ -31,21 +32,30 @@ class Parser():
     Print : DOT
     '''
 
+    def p_string(self, p):
+        '''Exp : Exp STRING'''
+        p[0] = p[1]
+        self.translator.push(p[2])
 
     def p_number(self, p):
         '''Exp : Exp NUMBER'''
         p[0] = p[2]
-        self.translator.forth_push(p[2])
+        self.translator.push(p[2])
 
     def p_dot(self, p):
         '''Exp : Exp DOT'''
         p[0] = p[1]
-        self.translator.forth_print()
+        self.translator.print()
+    
+    def p_printstring(self, p):
+        '''Exp : Exp PRINTSTRING'''
+        p[0] = p[1]
+        self.translator.print_string(p[2])
         
     def p_math_operator(self, p):
         '''Exp : Exp MATH_OPERATOR'''
         p[0] = p[2]
-        self.translator.forth_math(p[2])
+        self.translator.math(p[2])
         
     def p_Empty(self,p):
         '''

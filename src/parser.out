@@ -15,21 +15,21 @@ Unused terminals:
     KEY
     LPAREN
     NAME
-    PRINTSTRING
     RPAREN
     SEMICOLON
     SPACE
     SPACES
-    STRING
     THEN
 
 Grammar
 
 Rule 0     S' -> Exp
-Rule 1     Exp -> Exp NUMBER
-Rule 2     Exp -> Exp DOT
-Rule 3     Exp -> Exp MATH_OPERATOR
-Rule 4     Exp -> <empty>
+Rule 1     Exp -> Exp STRING
+Rule 2     Exp -> Exp NUMBER
+Rule 3     Exp -> Exp DOT
+Rule 4     Exp -> Exp PRINTSTRING
+Rule 5     Exp -> Exp MATH_OPERATOR
+Rule 6     Exp -> <empty>
 
 Terminals, with rules where they appear
 
@@ -39,84 +39,122 @@ CHAR                 :
 COLON                : 
 COMMENT              : 
 CR                   : 
-DOT                  : 2
+DOT                  : 3
 ELSE                 : 
 EMIT                 : 
 FUNCTION_DEFINITION  : 
 IF                   : 
 KEY                  : 
 LPAREN               : 
-MATH_OPERATOR        : 3
+MATH_OPERATOR        : 5
 NAME                 : 
-NUMBER               : 1
-PRINTSTRING          : 
+NUMBER               : 2
+PRINTSTRING          : 4
 RPAREN               : 
 SEMICOLON            : 
 SPACE                : 
 SPACES               : 
-STRING               : 
+STRING               : 1
 THEN                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-Exp                  : 1 2 3 0
+Exp                  : 1 2 3 4 5 0
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . Exp
-    (1) Exp -> . Exp NUMBER
-    (2) Exp -> . Exp DOT
-    (3) Exp -> . Exp MATH_OPERATOR
-    (4) Exp -> .
+    (1) Exp -> . Exp STRING
+    (2) Exp -> . Exp NUMBER
+    (3) Exp -> . Exp DOT
+    (4) Exp -> . Exp PRINTSTRING
+    (5) Exp -> . Exp MATH_OPERATOR
+    (6) Exp -> .
 
-    NUMBER          reduce using rule 4 (Exp -> .)
-    DOT             reduce using rule 4 (Exp -> .)
-    MATH_OPERATOR   reduce using rule 4 (Exp -> .)
-    $end            reduce using rule 4 (Exp -> .)
+    STRING          reduce using rule 6 (Exp -> .)
+    NUMBER          reduce using rule 6 (Exp -> .)
+    DOT             reduce using rule 6 (Exp -> .)
+    PRINTSTRING     reduce using rule 6 (Exp -> .)
+    MATH_OPERATOR   reduce using rule 6 (Exp -> .)
+    $end            reduce using rule 6 (Exp -> .)
 
     Exp                            shift and go to state 1
 
 state 1
 
     (0) S' -> Exp .
-    (1) Exp -> Exp . NUMBER
-    (2) Exp -> Exp . DOT
-    (3) Exp -> Exp . MATH_OPERATOR
+    (1) Exp -> Exp . STRING
+    (2) Exp -> Exp . NUMBER
+    (3) Exp -> Exp . DOT
+    (4) Exp -> Exp . PRINTSTRING
+    (5) Exp -> Exp . MATH_OPERATOR
 
-    NUMBER          shift and go to state 2
-    DOT             shift and go to state 3
-    MATH_OPERATOR   shift and go to state 4
+    STRING          shift and go to state 2
+    NUMBER          shift and go to state 3
+    DOT             shift and go to state 4
+    PRINTSTRING     shift and go to state 5
+    MATH_OPERATOR   shift and go to state 6
 
 
 state 2
 
-    (1) Exp -> Exp NUMBER .
+    (1) Exp -> Exp STRING .
 
-    NUMBER          reduce using rule 1 (Exp -> Exp NUMBER .)
-    DOT             reduce using rule 1 (Exp -> Exp NUMBER .)
-    MATH_OPERATOR   reduce using rule 1 (Exp -> Exp NUMBER .)
-    $end            reduce using rule 1 (Exp -> Exp NUMBER .)
+    STRING          reduce using rule 1 (Exp -> Exp STRING .)
+    NUMBER          reduce using rule 1 (Exp -> Exp STRING .)
+    DOT             reduce using rule 1 (Exp -> Exp STRING .)
+    PRINTSTRING     reduce using rule 1 (Exp -> Exp STRING .)
+    MATH_OPERATOR   reduce using rule 1 (Exp -> Exp STRING .)
+    $end            reduce using rule 1 (Exp -> Exp STRING .)
 
 
 state 3
 
-    (2) Exp -> Exp DOT .
+    (2) Exp -> Exp NUMBER .
 
-    NUMBER          reduce using rule 2 (Exp -> Exp DOT .)
-    DOT             reduce using rule 2 (Exp -> Exp DOT .)
-    MATH_OPERATOR   reduce using rule 2 (Exp -> Exp DOT .)
-    $end            reduce using rule 2 (Exp -> Exp DOT .)
+    STRING          reduce using rule 2 (Exp -> Exp NUMBER .)
+    NUMBER          reduce using rule 2 (Exp -> Exp NUMBER .)
+    DOT             reduce using rule 2 (Exp -> Exp NUMBER .)
+    PRINTSTRING     reduce using rule 2 (Exp -> Exp NUMBER .)
+    MATH_OPERATOR   reduce using rule 2 (Exp -> Exp NUMBER .)
+    $end            reduce using rule 2 (Exp -> Exp NUMBER .)
 
 
 state 4
 
-    (3) Exp -> Exp MATH_OPERATOR .
+    (3) Exp -> Exp DOT .
 
-    NUMBER          reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
-    DOT             reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
-    $end            reduce using rule 3 (Exp -> Exp MATH_OPERATOR .)
+    STRING          reduce using rule 3 (Exp -> Exp DOT .)
+    NUMBER          reduce using rule 3 (Exp -> Exp DOT .)
+    DOT             reduce using rule 3 (Exp -> Exp DOT .)
+    PRINTSTRING     reduce using rule 3 (Exp -> Exp DOT .)
+    MATH_OPERATOR   reduce using rule 3 (Exp -> Exp DOT .)
+    $end            reduce using rule 3 (Exp -> Exp DOT .)
+
+
+state 5
+
+    (4) Exp -> Exp PRINTSTRING .
+
+    STRING          reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+    NUMBER          reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+    DOT             reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+    PRINTSTRING     reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+    MATH_OPERATOR   reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+    $end            reduce using rule 4 (Exp -> Exp PRINTSTRING .)
+
+
+state 6
+
+    (5) Exp -> Exp MATH_OPERATOR .
+
+    STRING          reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
+    NUMBER          reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
+    DOT             reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
+    $end            reduce using rule 5 (Exp -> Exp MATH_OPERATOR .)
 

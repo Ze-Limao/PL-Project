@@ -56,7 +56,7 @@ class Lexer():
         return t
 
     def t_MATH_OPERATOR(self, t):
-        r"\+|-|\*|>|<|=|/|%"
+        r"\+|-|\*|>|<|=|/|%|<=|>="
         return t
 
     def t_EMIT(self, t):
