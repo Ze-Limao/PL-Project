@@ -58,8 +58,8 @@ class Parser():
         self.translator.push(p[2])
 
     def p_print(self, p):
-        '''Cmd : STRING DOT
-               | NUMBER EMIT
+        '''Cmd : Cmd DOT
+               | Cmd EMIT
         '''
         p[0] = p[1]
         self.translator.print()
@@ -70,7 +70,7 @@ class Parser():
         self.translator.char()
 
     def p_printChar(self, p):
-        '''Cmd : Cmd CHAR CHR'''
+        '''Cmd : Cmd CHR'''
         p[0] = p[1]
         self.translator.print_char(p[2])
     

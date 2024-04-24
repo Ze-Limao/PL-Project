@@ -1,8 +1,7 @@
 start
 
-pushi 30
-pushi 5
+pushi 63
+pushi 2
 add
-pushi 7
-div
-print
+writechr
+stop
