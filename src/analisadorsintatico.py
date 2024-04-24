@@ -60,7 +60,9 @@ class Parser():
     def p_print2(self, p):
         '''Print2 : EMIT
                   | DOT
+                  
         '''
+        p[0] = p[1]    
 
     def p_print(self, p):
         '''
@@ -70,10 +72,18 @@ class Parser():
         self.translator.print()
     
     def p_char(self, p):
-        '''Cmd : Cmd CHR CHAR'''
+        '''Cmd : Cmd CHR CHAR
+               | Cmd CHR MATH_OPERATOR
+        '''
         p[0] = p[1]
         self.translator.char(p[3])
     
+    def p_dup(self,p):
+        '''Cmd : Cmd DUP CHAR 
+        
+        '''
+        p[0] = p[1]
+
     def p_printstring(self, p):
         '''Cmd : Cmd PRINTSTRING'''
         p[0] = p[1]

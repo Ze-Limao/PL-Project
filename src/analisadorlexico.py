@@ -31,7 +31,8 @@ class Lexer():
         'COMMENT',
         'FUNCTION_DEFINITION',
         'MATH_OPERATOR',
-        'PRINTSTRING'
+        'PRINTSTRING',
+        'DUP'
     ]
 
     t_LPAREN = r'\('
@@ -88,6 +89,10 @@ class Lexer():
         r"[Cc][Rr]"
         return t
 
+    def t_DUP(self, t):
+        r"[Dd][Uu][Pp]"
+        return t
+
     def t_NAME(self, t):
         r"[a-zA-Z_][a-zA-Z0-9_]*"
         return t
@@ -109,9 +114,6 @@ class Lexer():
         r"[a-z][A-Z0-9]+"
         return t
     
-    def t_DUP(self, t):
-        r"[Dd][Uu][Pp]"
-        return t
 
 
     def t_COMMENT(self, t):

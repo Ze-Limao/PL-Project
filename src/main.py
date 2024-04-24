@@ -37,6 +37,7 @@ from analisadorsintatico import Parser
 #    print(translation.code)
             
 def main(args):
+    i = 0
     lexer = Lexer()
     translator = Translator()
     parser = Parser(lexer, translator)
@@ -45,6 +46,8 @@ def main(args):
             data = file.readlines()
         for line in data:
             result = parser.parse(line)
+            print(i)
+            i+=1
             if result:
                 print(result)
     else:
