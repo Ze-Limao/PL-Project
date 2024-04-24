@@ -57,22 +57,22 @@ class Parser():
         p[0] = p[1]
         self.translator.push(p[2])
 
+    def p_print2(self, p):
+        '''Print2 : EMIT
+                  | DOT
+        '''
+
     def p_print(self, p):
-        '''Cmd : Cmd DOT
-               | Cmd EMIT
+        '''
+        Cmd : Cmd Print2
         '''
         p[0] = p[1]
         self.translator.print()
     
     def p_char(self, p):
-        '''Cmd : Cmd CHAR'''
+        '''Cmd : Cmd CHR CHAR'''
         p[0] = p[1]
-        self.translator.char()
-
-    def p_printChar(self, p):
-        '''Cmd : Cmd CHR'''
-        p[0] = p[1]
-        self.translator.print_char(p[2])
+        self.translator.char(p[3])
     
     def p_printstring(self, p):
         '''Cmd : Cmd PRINTSTRING'''

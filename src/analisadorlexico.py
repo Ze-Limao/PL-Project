@@ -81,8 +81,7 @@ class Lexer():
         return t
 
     def t_CHAR(self, t):
-        r'"[^"]"'
-        t.value = t.value[1:-1]  # Remove as aspas duplas
+        r'\b[^ ]\b'
         return t
 
     def t_CR(self, t):
