@@ -6,7 +6,6 @@ Unused terminals:
     ARGUMENT
     COLON
     COMMENT
-    CR
     ELSE
     FUNCTION_DEFINITION
     IF
@@ -21,24 +20,34 @@ Unused terminals:
 
 Grammar
 
-Rule 0     S' -> Exp
-Rule 1     Exp -> Exp STRING
-Rule 2     Exp -> Exp NUMBER
-Rule 3     Exp -> Exp DOT
-Rule 4     Exp -> Exp EMIT
-Rule 5     Exp -> Exp CHAR
-Rule 6     Exp -> Exp PRINTSTRING
-Rule 7     Exp -> Exp MATH_OPERATOR
-Rule 8     Exp -> <empty>
+Rule 0     S' -> Cmd
+Rule 1     Cmd -> Cmd CR
+Rule 2     Cmd -> Cmd STRING
+Rule 3     Cmd -> Cmd DOT
+Rule 4     Cmd -> Cmd EMIT
+Rule 5     Cmd -> Cmd CHAR
+Rule 6     Cmd -> Cmd CHAR CHR
+Rule 7     Cmd -> Cmd PRINTSTRING
+Rule 8     Cmd -> Cmd NUMBER
+Rule 9     Cmd -> Cmd MATH_OPERATOR
+Rule 10    Cmd -> <empty>
+Rule 11    Function -> <empty>
+Rule 12    Line -> Line Exp
+Rule 13    Line -> Line Function
+Rule 14    Line -> <empty>
+Rule 15    Exp -> Cmd Exp
+Rule 16    Exp -> Cmd
+Rule 17    Exp -> <empty>
 
 Terminals, with rules where they appear
 
 ARGDELIMITER         : 
 ARGUMENT             : 
-CHAR                 : 5
+CHAR                 : 5 6
+CHR                  : 6
 COLON                : 
 COMMENT              : 
-CR                   : 
+CR                   : 1
 DOT                  : 3
 ELSE                 : 
 EMIT                 : 4
@@ -46,161 +55,209 @@ FUNCTION_DEFINITION  :
 IF                   : 
 KEY                  : 
 LPAREN               : 
-MATH_OPERATOR        : 7
+MATH_OPERATOR        : 9
 NAME                 : 
-NUMBER               : 2
-PRINTSTRING          : 6
+NUMBER               : 8
+PRINTSTRING          : 7
 RPAREN               : 
 SEMICOLON            : 
 SPACE                : 
 SPACES               : 
-STRING               : 1
+STRING               : 2
 THEN                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-Exp                  : 1 2 3 4 5 6 7 0
+Cmd                  : 1 2 3 4 5 6 7 8 9 15 16 0
+Exp                  : 12 15
+Function             : 13
+Line                 : 12 13
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . Exp
-    (1) Exp -> . Exp STRING
-    (2) Exp -> . Exp NUMBER
-    (3) Exp -> . Exp DOT
-    (4) Exp -> . Exp EMIT
-    (5) Exp -> . Exp CHAR
-    (6) Exp -> . Exp PRINTSTRING
-    (7) Exp -> . Exp MATH_OPERATOR
-    (8) Exp -> .
+    (0) S' -> . Cmd
+    (1) Cmd -> . Cmd CR
+    (2) Cmd -> . Cmd STRING
+    (3) Cmd -> . Cmd DOT
+    (4) Cmd -> . Cmd EMIT
+    (5) Cmd -> . Cmd CHAR
+    (6) Cmd -> . Cmd CHAR CHR
+    (7) Cmd -> . Cmd PRINTSTRING
+    (8) Cmd -> . Cmd NUMBER
+    (9) Cmd -> . Cmd MATH_OPERATOR
+    (10) Cmd -> .
 
-    STRING          reduce using rule 8 (Exp -> .)
-    NUMBER          reduce using rule 8 (Exp -> .)
-    DOT             reduce using rule 8 (Exp -> .)
-    EMIT            reduce using rule 8 (Exp -> .)
-    CHAR            reduce using rule 8 (Exp -> .)
-    PRINTSTRING     reduce using rule 8 (Exp -> .)
-    MATH_OPERATOR   reduce using rule 8 (Exp -> .)
-    $end            reduce using rule 8 (Exp -> .)
+    CR              reduce using rule 10 (Cmd -> .)
+    STRING          reduce using rule 10 (Cmd -> .)
+    DOT             reduce using rule 10 (Cmd -> .)
+    EMIT            reduce using rule 10 (Cmd -> .)
+    CHAR            reduce using rule 10 (Cmd -> .)
+    PRINTSTRING     reduce using rule 10 (Cmd -> .)
+    NUMBER          reduce using rule 10 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 10 (Cmd -> .)
+    $end            reduce using rule 10 (Cmd -> .)
 
-    Exp                            shift and go to state 1
+    Cmd                            shift and go to state 1
 
 state 1
 
-    (0) S' -> Exp .
-    (1) Exp -> Exp . STRING
-    (2) Exp -> Exp . NUMBER
-    (3) Exp -> Exp . DOT
-    (4) Exp -> Exp . EMIT
-    (5) Exp -> Exp . CHAR
-    (6) Exp -> Exp . PRINTSTRING
-    (7) Exp -> Exp . MATH_OPERATOR
+    (0) S' -> Cmd .
+    (1) Cmd -> Cmd . CR
+    (2) Cmd -> Cmd . STRING
+    (3) Cmd -> Cmd . DOT
+    (4) Cmd -> Cmd . EMIT
+    (5) Cmd -> Cmd . CHAR
+    (6) Cmd -> Cmd . CHAR CHR
+    (7) Cmd -> Cmd . PRINTSTRING
+    (8) Cmd -> Cmd . NUMBER
+    (9) Cmd -> Cmd . MATH_OPERATOR
 
-    STRING          shift and go to state 2
-    NUMBER          shift and go to state 3
+    CR              shift and go to state 2
+    STRING          shift and go to state 3
     DOT             shift and go to state 4
     EMIT            shift and go to state 5
     CHAR            shift and go to state 6
     PRINTSTRING     shift and go to state 7
-    MATH_OPERATOR   shift and go to state 8
+    NUMBER          shift and go to state 8
+    MATH_OPERATOR   shift and go to state 9
 
 
 state 2
 
-    (1) Exp -> Exp STRING .
+    (1) Cmd -> Cmd CR .
 
-    STRING          reduce using rule 1 (Exp -> Exp STRING .)
-    NUMBER          reduce using rule 1 (Exp -> Exp STRING .)
-    DOT             reduce using rule 1 (Exp -> Exp STRING .)
-    EMIT            reduce using rule 1 (Exp -> Exp STRING .)
-    CHAR            reduce using rule 1 (Exp -> Exp STRING .)
-    PRINTSTRING     reduce using rule 1 (Exp -> Exp STRING .)
-    MATH_OPERATOR   reduce using rule 1 (Exp -> Exp STRING .)
-    $end            reduce using rule 1 (Exp -> Exp STRING .)
+    CR              reduce using rule 1 (Cmd -> Cmd CR .)
+    STRING          reduce using rule 1 (Cmd -> Cmd CR .)
+    DOT             reduce using rule 1 (Cmd -> Cmd CR .)
+    EMIT            reduce using rule 1 (Cmd -> Cmd CR .)
+    CHAR            reduce using rule 1 (Cmd -> Cmd CR .)
+    PRINTSTRING     reduce using rule 1 (Cmd -> Cmd CR .)
+    NUMBER          reduce using rule 1 (Cmd -> Cmd CR .)
+    MATH_OPERATOR   reduce using rule 1 (Cmd -> Cmd CR .)
+    $end            reduce using rule 1 (Cmd -> Cmd CR .)
 
 
 state 3
 
-    (2) Exp -> Exp NUMBER .
+    (2) Cmd -> Cmd STRING .
 
-    STRING          reduce using rule 2 (Exp -> Exp NUMBER .)
-    NUMBER          reduce using rule 2 (Exp -> Exp NUMBER .)
-    DOT             reduce using rule 2 (Exp -> Exp NUMBER .)
-    EMIT            reduce using rule 2 (Exp -> Exp NUMBER .)
-    CHAR            reduce using rule 2 (Exp -> Exp NUMBER .)
-    PRINTSTRING     reduce using rule 2 (Exp -> Exp NUMBER .)
-    MATH_OPERATOR   reduce using rule 2 (Exp -> Exp NUMBER .)
-    $end            reduce using rule 2 (Exp -> Exp NUMBER .)
+    CR              reduce using rule 2 (Cmd -> Cmd STRING .)
+    STRING          reduce using rule 2 (Cmd -> Cmd STRING .)
+    DOT             reduce using rule 2 (Cmd -> Cmd STRING .)
+    EMIT            reduce using rule 2 (Cmd -> Cmd STRING .)
+    CHAR            reduce using rule 2 (Cmd -> Cmd STRING .)
+    PRINTSTRING     reduce using rule 2 (Cmd -> Cmd STRING .)
+    NUMBER          reduce using rule 2 (Cmd -> Cmd STRING .)
+    MATH_OPERATOR   reduce using rule 2 (Cmd -> Cmd STRING .)
+    $end            reduce using rule 2 (Cmd -> Cmd STRING .)
 
 
 state 4
 
-    (3) Exp -> Exp DOT .
+    (3) Cmd -> Cmd DOT .
 
-    STRING          reduce using rule 3 (Exp -> Exp DOT .)
-    NUMBER          reduce using rule 3 (Exp -> Exp DOT .)
-    DOT             reduce using rule 3 (Exp -> Exp DOT .)
-    EMIT            reduce using rule 3 (Exp -> Exp DOT .)
-    CHAR            reduce using rule 3 (Exp -> Exp DOT .)
-    PRINTSTRING     reduce using rule 3 (Exp -> Exp DOT .)
-    MATH_OPERATOR   reduce using rule 3 (Exp -> Exp DOT .)
-    $end            reduce using rule 3 (Exp -> Exp DOT .)
+    CR              reduce using rule 3 (Cmd -> Cmd DOT .)
+    STRING          reduce using rule 3 (Cmd -> Cmd DOT .)
+    DOT             reduce using rule 3 (Cmd -> Cmd DOT .)
+    EMIT            reduce using rule 3 (Cmd -> Cmd DOT .)
+    CHAR            reduce using rule 3 (Cmd -> Cmd DOT .)
+    PRINTSTRING     reduce using rule 3 (Cmd -> Cmd DOT .)
+    NUMBER          reduce using rule 3 (Cmd -> Cmd DOT .)
+    MATH_OPERATOR   reduce using rule 3 (Cmd -> Cmd DOT .)
+    $end            reduce using rule 3 (Cmd -> Cmd DOT .)
 
 
 state 5
 
-    (4) Exp -> Exp EMIT .
+    (4) Cmd -> Cmd EMIT .
 
-    STRING          reduce using rule 4 (Exp -> Exp EMIT .)
-    NUMBER          reduce using rule 4 (Exp -> Exp EMIT .)
-    DOT             reduce using rule 4 (Exp -> Exp EMIT .)
-    EMIT            reduce using rule 4 (Exp -> Exp EMIT .)
-    CHAR            reduce using rule 4 (Exp -> Exp EMIT .)
-    PRINTSTRING     reduce using rule 4 (Exp -> Exp EMIT .)
-    MATH_OPERATOR   reduce using rule 4 (Exp -> Exp EMIT .)
-    $end            reduce using rule 4 (Exp -> Exp EMIT .)
+    CR              reduce using rule 4 (Cmd -> Cmd EMIT .)
+    STRING          reduce using rule 4 (Cmd -> Cmd EMIT .)
+    DOT             reduce using rule 4 (Cmd -> Cmd EMIT .)
+    EMIT            reduce using rule 4 (Cmd -> Cmd EMIT .)
+    CHAR            reduce using rule 4 (Cmd -> Cmd EMIT .)
+    PRINTSTRING     reduce using rule 4 (Cmd -> Cmd EMIT .)
+    NUMBER          reduce using rule 4 (Cmd -> Cmd EMIT .)
+    MATH_OPERATOR   reduce using rule 4 (Cmd -> Cmd EMIT .)
+    $end            reduce using rule 4 (Cmd -> Cmd EMIT .)
 
 
 state 6
 
-    (5) Exp -> Exp CHAR .
+    (5) Cmd -> Cmd CHAR .
+    (6) Cmd -> Cmd CHAR . CHR
 
-    STRING          reduce using rule 5 (Exp -> Exp CHAR .)
-    NUMBER          reduce using rule 5 (Exp -> Exp CHAR .)
-    DOT             reduce using rule 5 (Exp -> Exp CHAR .)
-    EMIT            reduce using rule 5 (Exp -> Exp CHAR .)
-    CHAR            reduce using rule 5 (Exp -> Exp CHAR .)
-    PRINTSTRING     reduce using rule 5 (Exp -> Exp CHAR .)
-    MATH_OPERATOR   reduce using rule 5 (Exp -> Exp CHAR .)
-    $end            reduce using rule 5 (Exp -> Exp CHAR .)
+    CR              reduce using rule 5 (Cmd -> Cmd CHAR .)
+    STRING          reduce using rule 5 (Cmd -> Cmd CHAR .)
+    DOT             reduce using rule 5 (Cmd -> Cmd CHAR .)
+    EMIT            reduce using rule 5 (Cmd -> Cmd CHAR .)
+    CHAR            reduce using rule 5 (Cmd -> Cmd CHAR .)
+    PRINTSTRING     reduce using rule 5 (Cmd -> Cmd CHAR .)
+    NUMBER          reduce using rule 5 (Cmd -> Cmd CHAR .)
+    MATH_OPERATOR   reduce using rule 5 (Cmd -> Cmd CHAR .)
+    $end            reduce using rule 5 (Cmd -> Cmd CHAR .)
+    CHR             shift and go to state 10
 
 
 state 7
 
-    (6) Exp -> Exp PRINTSTRING .
+    (7) Cmd -> Cmd PRINTSTRING .
 
-    STRING          reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    NUMBER          reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    DOT             reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    EMIT            reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    CHAR            reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    PRINTSTRING     reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    MATH_OPERATOR   reduce using rule 6 (Exp -> Exp PRINTSTRING .)
-    $end            reduce using rule 6 (Exp -> Exp PRINTSTRING .)
+    CR              reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    STRING          reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    DOT             reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    EMIT            reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    CHAR            reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    PRINTSTRING     reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    NUMBER          reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    MATH_OPERATOR   reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
+    $end            reduce using rule 7 (Cmd -> Cmd PRINTSTRING .)
 
 
 state 8
 
-    (7) Exp -> Exp MATH_OPERATOR .
+    (8) Cmd -> Cmd NUMBER .
 
-    STRING          reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    NUMBER          reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    DOT             reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    EMIT            reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    CHAR            reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    PRINTSTRING     reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
-    $end            reduce using rule 7 (Exp -> Exp MATH_OPERATOR .)
+    CR              reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    STRING          reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    DOT             reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    EMIT            reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    CHAR            reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    PRINTSTRING     reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    NUMBER          reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    MATH_OPERATOR   reduce using rule 8 (Cmd -> Cmd NUMBER .)
+    $end            reduce using rule 8 (Cmd -> Cmd NUMBER .)
+
+
+state 9
+
+    (9) Cmd -> Cmd MATH_OPERATOR .
+
+    CR              reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    STRING          reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    DOT             reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    EMIT            reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    CHAR            reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    NUMBER          reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+    $end            reduce using rule 9 (Cmd -> Cmd MATH_OPERATOR .)
+
+
+state 10
+
+    (6) Cmd -> Cmd CHAR CHR .
+
+    CR              reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    STRING          reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    DOT             reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    EMIT            reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    CHAR            reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    PRINTSTRING     reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    NUMBER          reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    MATH_OPERATOR   reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
+    $end            reduce using rule 6 (Cmd -> Cmd CHAR CHR .)
 

@@ -11,66 +11,112 @@ class Parser():
         return self.parser.parse(data, lexer = self.lexer.lexer)
 
     '''
-    Expression : Number
-               | STRING
-               | COMMENT
-               | PRINTSTRING
-               | Math_operation
-               | Print
-               | Expression IF Expression THEN Expression ELSE Expression
-               | Function
-               |
+    Line : Line Exp
+         | Line Function
+         | Empty
 
-    Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Expression SEMICOLON
+    Exp : Cmd Exp
+        | Cmd
+
+    Cmd : NUMBER
+        | MATH_OPERATION
+        | Print
+        | PRINTSTRING
+        | CHAR CHR
+        | CR
+        | STRING
+        | COMMENT
+        | If Exp Else Exp EndOfIf
+        | Loop
+        | VARIABLE NAME
+        | NAME WordExec
+        |
+
+    Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Cmd SEMICOLON
 
     Arguments : ARGUMENT
               | Arguments ARGUMENT
-              |  
-
-    Math_operation : Number Number MATH_OPERATOR
+              | 
 
     Print : DOT
           | EMIT
-          | CHAR
+
+    If : IF
+    Else : ELSE Exp
+         | 
+    EndOfIf : THEN
     '''
 
+    def p_cr(self, p):
+        '''Cmd : Cmd CR'''
+        p[0] = p[1]
+        self.translator.cr()
+
     def p_string(self, p):
-        '''Exp : Exp STRING'''
+        '''Cmd : Cmd STRING'''
         p[0] = p[1]
         self.translator.push(p[2])
 
-    def p_number(self, p):
-        '''Exp : Exp NUMBER'''
-        p[0] = p[2]
-        self.translator.push(p[2])
-
-    def p_dot(self, p):
-        '''Exp : Exp DOT
-                | Exp EMIT
+    def p_print(self, p):
+        '''Cmd : STRING DOT
+               | NUMBER EMIT
         '''
         p[0] = p[1]
         self.translator.print()
     
     def p_char(self, p):
-        '''Exp : Exp CHAR'''
+        '''Cmd : Cmd CHAR'''
         p[0] = p[1]
         self.translator.char()
+
+    def p_printChar(self, p):
+        '''Cmd : Cmd CHAR CHR'''
+        p[0] = p[1]
+        self.translator.print_char(p[2])
     
     def p_printstring(self, p):
-        '''Exp : Exp PRINTSTRING'''
+        '''Cmd : Cmd PRINTSTRING'''
         p[0] = p[1]
         self.translator.print_string(p[2])
+
+    def p_number(self, p):
+        '''Cmd : Cmd NUMBER'''
+        p[0] = p[2]
+        self.translator.push(p[2])
         
     def p_math_operator(self, p):
-        '''Exp : Exp MATH_OPERATOR'''
+        '''Cmd : Cmd MATH_OPERATOR'''
         p[0] = p[2]
         self.translator.math(p[2])
-        
-    def p_Empty(self,p):
-        '''
-        Exp : 
-        '''
 
+
+    def p_cmdEmpty(self, p):
+        '''Cmd : '''
+        pass
+    
+    ## Function
+
+    def p_function(self, p):
+        '''
+        Function : 
+        '''
+        return p
+        
+
+    def p_line(self, p):
+        '''Line : Line Exp
+                | Line Function
+                | 
+        '''
+        return p
+
+    def p_exp(self, p):
+        '''Exp : Cmd Exp
+               | Cmd
+               |
+        '''
+        return p
+    
 
     def p_error(self, p):
         print("Erro de sintaxe:", p)

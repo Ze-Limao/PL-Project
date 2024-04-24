@@ -84,7 +84,7 @@ class Translator:
     def print(self): 
         result = self.stack.pop()
         if type(result) == int:
-            self.code.append("writei")
+            self.code.append("writechr")
         elif type(result) == str:
             self.code.append("writes")
         return result
@@ -99,6 +99,13 @@ class Translator:
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
         return value
+    
+    def emit(self, value):
+        self.code.append(f"WRITECHR {ord(value)}") 
+        return value
+
+    def cr(self):
+        self.code.append("cr")
 
     def _if(self):
         self.code.append("if")

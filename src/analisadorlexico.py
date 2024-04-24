@@ -20,6 +20,7 @@ class Lexer():
         'SPACE', #output a space
         'SPACES', #output n spaces
         'CHAR', #convert to ASCII
+        'CHR', #CHAR
         'CR', #start new line , carriage return
         'NAME',
         'ARGUMENT',
@@ -75,8 +76,13 @@ class Lexer():
         r"[Ss][Pp][Aa][Cc][Ee][Ss]"
         return t
 
-    def t_CHAR(self, t):
+    def t_CHR(self, t):
         r"[Cc][Hh][Aa][Rr]"
+        return t
+
+    def t_CHAR(self, t):
+        r'"[^"]"'
+        t.value = t.value[1:-1]  # Remove as aspas duplas
         return t
 
     def t_CR(self, t):
@@ -102,6 +108,10 @@ class Lexer():
 
     def t_ARGUMENT(self, t):
         r"[a-z][A-Z0-9]+"
+        return t
+    
+    def t_DUP(self, t):
+        r"[Dd][Uu][Pp]"
         return t
 
 
