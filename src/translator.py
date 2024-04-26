@@ -5,6 +5,7 @@ class Translator:
         self.code = []
         self.code.append("start")
         self.code.append("")
+        self.var_counter = 0
     
     def nop(self):
         self.code.append("nop") # Nope operation does nothing
@@ -31,7 +32,7 @@ class Translator:
     def dup(self):
         value = self.stack[-1]
         self.stack.append(value)
-        self.code.append("dup")
+        self.code.append("dup 1")
         return value
 
     def swap(self):
@@ -83,10 +84,10 @@ class Translator:
 
     def print(self): 
         result = self.stack.pop()
-        if type(result) == int:
-            self.code.append("writechr")
-        elif type(result) == str:
-            self.code.append("writes")
+        if isinstance(result, int):
+            self.code.append(f"writei") # EMIT
+        elif isinstance(result, str):
+            self.code.append(f"writes")
         return result
     
     def char(self, value):
@@ -97,10 +98,9 @@ class Translator:
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
         return value
-    
-    def emit(self, value):
-        self.code.append(f"WRITECHR {ord(value)}") 
-        return value
+
+    def emit(self):
+        self.code.append(f"writechr") 
 
     def cr(self):
         self.code.append("cr")
@@ -158,6 +158,35 @@ class Translator:
         self.stack.append(float(value))
         self.code.append("strf")
         return float(value)
+
+# Variables
+    def init_var(self, name):
+        if name not in self.variables:
+            self.variables[name] = [len(self.variables), 0]  # index and value
+            self.code.append(f"pushi 0")
+            self.code.append(f"storeg {self.variables[name][0]}")
+            return name
+        else:
+            print(f"Variable {name} already exists")
+            return None
+    
+    def getset(self, name, value):
+        if name in self.variables:
+            index = self.variables[name][0]
+            if value == "!":  # Set
+                if self.stack:
+                    self.variables[name][1] = self.stack.pop()
+                    self.code.append(f"storeg {index}")
+                    return name, self.variables[name][1]
+                else:
+                    return None
+            elif value == "@":  # Get
+                self.stack.append(self.variables[name][1])
+                self.code.append(f"pushg {index}")
+                return self.variables[name][1]
+        else:
+            print(f"Variable {name} does not exist")
+            return None
 
 # Control Operations
 

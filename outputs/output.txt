@@ -1,7 +1,15 @@
 start
 
-pushi 63
-pushi 2
+pushi 87
+writei
+pushi 37
+dup 1
+writei
+writechr
+pushi 65
+dup 1
+writei
+pushi 32
 add
 writechr
 stop

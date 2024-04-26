@@ -22,6 +22,9 @@ class Lexer():
         'CHAR', #convert to ASCII
         'CHR', #CHAR
         'CR', #start new line , carriage return
+        'VARIABLE',
+        'GET',
+        'SET',
         'NAME',
         'ARGUMENT',
         'IF',
@@ -94,9 +97,23 @@ class Lexer():
         return t
 
     def t_NAME(self, t):
-        r"[a-zA-Z_][a-zA-Z0-9_]*"
+        r"ASa"
         return t
 
+    ## Variaveis
+    def t_VARIABLE(self, t):
+        r"[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]"
+        return t
+    
+    def t_GET(self, t):
+        r"\!"
+        return t
+    
+    def t_SET(self, t):
+        r"\@"
+        return t
+
+    ## IF THEN ELSE
 
     def t_IF(self, t):
         r"[Ii][Ff]"

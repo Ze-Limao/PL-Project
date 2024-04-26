@@ -29,7 +29,7 @@ class Parser():
         | If Exp Else Exp EndOfIf
         | Loop
         | VARIABLE NAME
-        | NAME WordExec
+        | NAME Getset
         |
 
     Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Cmd SEMICOLON
@@ -45,7 +45,26 @@ class Parser():
     Else : ELSE Exp
          | 
     EndOfIf : THEN
+
+    Getset : '!'
+           | '@'
+    
     '''
+
+    def p_set(self, p):
+        '''Cmd : Cmd NAME SET '''
+        p[0] = p[1]
+        self.translator.getset(p[2], p[3])
+
+    def p_get(self, p):
+        '''Cmd : Cmd NAME GET '''
+        p[0] = p[1]
+        self.translator.getset(p[2], p[3])
+
+    def p_init_var(self, p):
+        '''Cmd : Cmd VARIABLE NAME '''
+        p[0] = p[1]
+        self.translator.init_var(p[3])
 
     def p_cr(self, p):
         '''Cmd : Cmd CR'''
@@ -58,15 +77,13 @@ class Parser():
         self.translator.push(p[2])
 
     def p_print2(self, p):
-        '''Print2 : EMIT
-                  | DOT
-                  
+        '''Cmd : Cmd EMIT
         '''
         p[0] = p[1]    
+        self.translator.emit()
 
     def p_print(self, p):
-        '''
-        Cmd : Cmd Print2
+        '''Cmd : Cmd DOT
         '''
         p[0] = p[1]
         self.translator.print()
@@ -79,10 +96,10 @@ class Parser():
         self.translator.char(p[3])
     
     def p_dup(self,p):
-        '''Cmd : Cmd DUP CHAR 
-        
+        '''Cmd : Cmd DUP        
         '''
         p[0] = p[1]
+        self.translator.dup()
 
     def p_printstring(self, p):
         '''Cmd : Cmd PRINTSTRING'''

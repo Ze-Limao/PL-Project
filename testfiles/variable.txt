@@ -1,0 +1,4 @@
+VARIABLE ASa
+ASa @
+10 ASa !
+.
