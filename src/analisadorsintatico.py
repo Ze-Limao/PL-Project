@@ -123,13 +123,37 @@ class Parser():
     
     ## Function
 
-    def p_function(self, p):
+    def p_define_void_func(self, p):
         '''
-        Function : 
+        DefineString : COLON NAME Cmd SEMICOLON Line
+        '''
+        p[0] = p[5]
+        self.translator.init_func(p[2], p[3], [], None) # nome, comandos, argummentos, return
+
+    def p_arguments(self, p):
+        '''
+        Arguments : ARGUMENT
+                  | Arguments ARGUMENT
+                  | 
         '''
         return p
-        
 
+    def p_function(self, p):
+        '''
+        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Cmd SEMICOLON Line
+                 | DefineString
+                 | 
+        '''
+        p[0] = p[9]
+        self.translator.init_func(p[2], p[8], p[4], p[6]) # nome, comandos, argummentos, return
+        return p
+
+    def p_exp(self, p):
+        '''Exp : Cmd Exp
+               |
+        '''
+        return p
+    
     def p_line(self, p):
         '''Line : Line Exp
                 | Line Function
@@ -137,13 +161,6 @@ class Parser():
         '''
         return p
 
-    def p_exp(self, p):
-        '''Exp : Cmd Exp
-               | Cmd
-               |
-        '''
-        return p
-    
 
     def p_error(self, p):
         print("Erro de sintaxe:", p)
