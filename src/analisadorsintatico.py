@@ -66,6 +66,11 @@ class Parser():
         p[0] = p[1]
         self.translator.init_var(p[3])
 
+    def p_init_func(self, p):
+        '''Cmd : Cmd NAME '''
+        p[0] = p[1]
+        self.translator.init_func(p[2])
+
     def p_cr(self, p):
         '''Cmd : Cmd CR'''
         p[0] = p[1]

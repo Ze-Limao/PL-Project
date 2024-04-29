@@ -2,6 +2,7 @@ class Translator:
     def __init__(self):
         self.stack = []
         self.variables = {}
+        self.functions = dict[str, list[str]] #Possivel dicionario de listas de código para cada função
         self.code = []
         self.code.append("start")
         self.code.append("")
@@ -170,6 +171,17 @@ class Translator:
             print(f"Variable {name} already exists")
             return None
     
+    def init_func(self,name): # TODO
+        if name not in self.functions:
+            self.functions[name] = [len(self.functions), 0]  # index and value
+            self.code.append(f"pushi 0")
+            self.code.append(f"storeg {self.variables[name][0]}")
+            return name
+        else:
+            print(f"Function {name} already exists")
+            return None        
+        
+
     def getset(self, name, value):
         if name in self.variables:
             index = self.variables[name][0]
