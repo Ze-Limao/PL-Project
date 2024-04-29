@@ -1,8 +1,10 @@
+from function import Function
+
 class Translator:
     def __init__(self):
         self.stack = []
         self.variables = {}
-        self.functions = dict[str, list[str]] #Possivel dicionario de listas de código para cada função
+        self.functions = dict[str, Function]
         self.code = []
         self.code.append("start")
         self.code.append("")
@@ -95,6 +97,11 @@ class Translator:
         result = ord(value)
         self.push(result)
     
+    def input_key(self):
+        self.code.append("read")
+        self.code.append("atoi")
+        return None
+    
     def print_string(self, value):
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
@@ -117,11 +124,6 @@ class Translator:
     def then(self):
         self.code.append("then")
         return self.stack.pop()
-    
-    def function(self, name, args, body):
-        self.variables[name] = (args, body)
-        self.code.append(f"function {name}")
-        return name
     
     def load(self, name, arg):
         self.stack.append(self.variables[name]) # Coloca as variaveis na stack
@@ -169,18 +171,7 @@ class Translator:
             return name
         else:
             print(f"Variable {name} already exists")
-            return None
-    
-    def init_func(self,name): # TODO
-        if name not in self.functions:
-            self.functions[name] = [len(self.functions), 0]  # index and value
-            self.code.append(f"pushi 0")
-            self.code.append(f"storeg {self.variables[name][0]}")
-            return name
-        else:
-            print(f"Function {name} already exists")
-            return None        
-        
+            return None     
 
     def getset(self, name, value):
         if name in self.variables:
@@ -199,6 +190,20 @@ class Translator:
         else:
             print(f"Variable {name} does not exist")
             return None
+
+# Functions
+
+    def init_func(self, name, body, arguments, _return):
+        if name not in self.functions:
+            arguments = arguments + _return
+            self.functions[name] = [name, function(name, arguments, body)]
+            self.code.append(f"pusha {name}")
+            self.code.append(f"call")
+            return name
+        else:
+            print(f"Function {name} already exists")
+            return None 
+
 
 # Control Operations
 

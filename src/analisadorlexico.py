@@ -35,7 +35,8 @@ class Lexer():
         'FUNCTION_DEFINITION',
         'MATH_OPERATOR',
         'PRINTSTRING',
-        'DUP'
+        'DUP',
+        'FUNCONTENT'
     ]
 
     t_LPAREN = r'\('
@@ -106,11 +107,11 @@ class Lexer():
         return t
     
     def t_GET(self, t):
-        r"\!"
+        r"\@"
         return t
     
     def t_SET(self, t):
-        r"\@"
+        r"\!"
         return t
 
     ## IF THEN ELSE
@@ -131,6 +132,8 @@ class Lexer():
         r"[a-z][A-Z0-9]+"
         return t
     
+    def t_FUNCONTENT(self, t):
+        r'[^:;]?;'
 
 
     def t_COMMENT(self, t):

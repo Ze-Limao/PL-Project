@@ -71,6 +71,11 @@ class Parser():
         p[0] = p[1]
         self.translator.init_func(p[2])
 
+    def p_input_key(self, p):
+        '''Cmd : Cmd KEY'''
+        p[0] = p[1]
+        self.translator.input_key(p[2])
+
     def p_cr(self, p):
         '''Cmd : Cmd CR'''
         p[0] = p[1]
@@ -130,7 +135,7 @@ class Parser():
 
     def p_define_void_func(self, p):
         '''
-        DefineString : COLON NAME Cmd SEMICOLON Line
+        DefineString : COLON NAME FUNCONTENT SEMICOLON Line
         '''
         p[0] = p[5]
         self.translator.init_func(p[2], p[3], [], None) # nome, comandos, argummentos, return
@@ -145,11 +150,11 @@ class Parser():
 
     def p_function(self, p):
         '''
-        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Cmd SEMICOLON Line
+        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON Line
                  | DefineString
                  | 
         '''
-        p[0] = p[9]
+        p[0] = p[10]
         self.translator.init_func(p[2], p[8], p[4], p[6]) # nome, comandos, argummentos, return
         return p
 
