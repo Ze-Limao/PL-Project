@@ -4,7 +4,7 @@ class Parser():
     def __init__(self, lexer, translator):
       self.lexer = lexer
       self.tokens = self.lexer.tokens
-      self.parser = yacc.yacc(module=self)
+      self.parser = yacc.yacc(module=self, start='Line')
       self.translator = translator
 
     def parse(self, data):
@@ -135,9 +135,8 @@ class Parser():
 
     def p_define_void_func(self, p):
         '''
-        DefineString : COLON NAME FUNCONTENT SEMICOLON Line
+        DefineString : COLON NAME FUNCONTENT SEMICOLON
         '''
-        p[0] = p[5]
         self.translator.init_func(p[2], p[3], [], None) # nome, comandos, argummentos, return
 
     def p_arguments(self, p):
@@ -146,18 +145,19 @@ class Parser():
                   | Arguments ARGUMENT
                   | 
         '''
+        p[0] = [p[1]] if len(p) == 2 else p[1] + p[2]
         return p
 
     def p_function(self, p):
         '''
-        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON Line
+        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON
                  | DefineString
                  | 
         '''
-        p[0] = p[10]
         self.translator.init_func(p[2], p[8], p[4], p[6]) # nome, comandos, argummentos, return
         return p
 
+    # coisas que nao podem ter funcoes, usar em vez do funcontent
     def p_exp(self, p):
         '''Exp : Cmd Exp
                |
@@ -165,7 +165,7 @@ class Parser():
         return p
     
     def p_line(self, p):
-        '''Line : Line Exp
+        '''Line : Line Cmd
                 | Line Function
                 | 
         '''

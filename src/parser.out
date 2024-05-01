@@ -13,128 +13,126 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> Line
-Rule 1     Line -> Line Exp
-Rule 2     Line -> Line Function
-Rule 3     Line -> <empty>
-Rule 4     Cmd -> Cmd NAME SET
-Rule 5     Cmd -> Cmd NAME GET
-Rule 6     Cmd -> Cmd VARIABLE NAME
-Rule 7     Cmd -> Cmd NAME
-Rule 8     Cmd -> Cmd KEY
-Rule 9     Cmd -> Cmd CR
-Rule 10    Cmd -> Cmd STRING
-Rule 11    Cmd -> Cmd EMIT
-Rule 12    Cmd -> Cmd DOT
-Rule 13    Cmd -> Cmd CHR CHAR
-Rule 14    Cmd -> Cmd CHR MATH_OPERATOR
-Rule 15    Cmd -> Cmd DUP
-Rule 16    Cmd -> Cmd PRINTSTRING
-Rule 17    Cmd -> Cmd NUMBER
-Rule 18    Cmd -> Cmd MATH_OPERATOR
-Rule 19    Cmd -> <empty>
-Rule 20    DefineString -> COLON NAME FUNCONTENT SEMICOLON Line
-Rule 21    Arguments -> ARGUMENT
-Rule 22    Arguments -> Arguments ARGUMENT
-Rule 23    Arguments -> <empty>
-Rule 24    Function -> COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON Line
-Rule 25    Function -> DefineString
-Rule 26    Function -> <empty>
-Rule 27    Exp -> Cmd Exp
-Rule 28    Exp -> <empty>
+Rule 1     Cmd -> Cmd NAME SET
+Rule 2     Cmd -> Cmd NAME GET
+Rule 3     Cmd -> Cmd VARIABLE NAME
+Rule 4     Cmd -> Cmd NAME
+Rule 5     Cmd -> Cmd KEY
+Rule 6     Cmd -> Cmd CR
+Rule 7     Cmd -> Cmd STRING
+Rule 8     Cmd -> Cmd EMIT
+Rule 9     Cmd -> Cmd DOT
+Rule 10    Cmd -> Cmd CHR CHAR
+Rule 11    Cmd -> Cmd CHR MATH_OPERATOR
+Rule 12    Cmd -> Cmd DUP
+Rule 13    Cmd -> Cmd PRINTSTRING
+Rule 14    Cmd -> Cmd NUMBER
+Rule 15    Cmd -> Cmd MATH_OPERATOR
+Rule 16    Cmd -> <empty>
+Rule 17    DefineString -> COLON NAME FUNCONTENT SEMICOLON
+Rule 18    Arguments -> ARGUMENT
+Rule 19    Arguments -> Arguments ARGUMENT
+Rule 20    Arguments -> <empty>
+Rule 21    Function -> COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON
+Rule 22    Function -> DefineString
+Rule 23    Function -> <empty>
+Rule 24    Exp -> Cmd Exp
+Rule 25    Exp -> <empty>
+Rule 26    Line -> Line Cmd
+Rule 27    Line -> Line Function
+Rule 28    Line -> <empty>
 
 Terminals, with rules where they appear
 
-ARGDELIMITER         : 24
-ARGUMENT             : 21 22 24
-CHAR                 : 13
-CHR                  : 13 14
-COLON                : 20 24
+ARGDELIMITER         : 21
+ARGUMENT             : 18 19 21
+CHAR                 : 10
+CHR                  : 10 11
+COLON                : 17 21
 COMMENT              : 
-CR                   : 9
-DOT                  : 12
-DUP                  : 15
+CR                   : 6
+DOT                  : 9
+DUP                  : 12
 ELSE                 : 
-EMIT                 : 11
-FUNCONTENT           : 20 24
+EMIT                 : 8
+FUNCONTENT           : 17 21
 FUNCTION_DEFINITION  : 
-GET                  : 5
+GET                  : 2
 IF                   : 
-KEY                  : 8
-LPAREN               : 24
-MATH_OPERATOR        : 14 18
-NAME                 : 4 5 6 7 20 24
-NUMBER               : 17
-PRINTSTRING          : 16
-RPAREN               : 24
-SEMICOLON            : 20 24
-SET                  : 4
+KEY                  : 5
+LPAREN               : 21
+MATH_OPERATOR        : 11 15
+NAME                 : 1 2 3 4 17 21
+NUMBER               : 14
+PRINTSTRING          : 13
+RPAREN               : 21
+SEMICOLON            : 17 21
+SET                  : 1
 SPACE                : 
 SPACES               : 
-STRING               : 10
+STRING               : 7
 THEN                 : 
-VARIABLE             : 6
+VARIABLE             : 3
 error                : 
 
 Nonterminals, with rules where they appear
 
-Arguments            : 22 24
-Cmd                  : 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 27
-DefineString         : 25
-Exp                  : 1 27
-Function             : 2
-Line                 : 1 2 20 24 0
+Arguments            : 19 21
+Cmd                  : 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 24 26
+DefineString         : 22
+Exp                  : 24
+Function             : 27
+Line                 : 26 27 0
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . Line
-    (1) Line -> . Line Exp
-    (2) Line -> . Line Function
-    (3) Line -> .
+    (26) Line -> . Line Cmd
+    (27) Line -> . Line Function
+    (28) Line -> .
 
-    COLON           reduce using rule 3 (Line -> .)
-    $end            reduce using rule 3 (Line -> .)
-    NAME            reduce using rule 3 (Line -> .)
-    VARIABLE        reduce using rule 3 (Line -> .)
-    KEY             reduce using rule 3 (Line -> .)
-    CR              reduce using rule 3 (Line -> .)
-    STRING          reduce using rule 3 (Line -> .)
-    EMIT            reduce using rule 3 (Line -> .)
-    DOT             reduce using rule 3 (Line -> .)
-    CHR             reduce using rule 3 (Line -> .)
-    DUP             reduce using rule 3 (Line -> .)
-    PRINTSTRING     reduce using rule 3 (Line -> .)
-    NUMBER          reduce using rule 3 (Line -> .)
-    MATH_OPERATOR   reduce using rule 3 (Line -> .)
+    COLON           reduce using rule 28 (Line -> .)
+    $end            reduce using rule 28 (Line -> .)
+    NAME            reduce using rule 28 (Line -> .)
+    VARIABLE        reduce using rule 28 (Line -> .)
+    KEY             reduce using rule 28 (Line -> .)
+    CR              reduce using rule 28 (Line -> .)
+    STRING          reduce using rule 28 (Line -> .)
+    EMIT            reduce using rule 28 (Line -> .)
+    DOT             reduce using rule 28 (Line -> .)
+    CHR             reduce using rule 28 (Line -> .)
+    DUP             reduce using rule 28 (Line -> .)
+    PRINTSTRING     reduce using rule 28 (Line -> .)
+    NUMBER          reduce using rule 28 (Line -> .)
+    MATH_OPERATOR   reduce using rule 28 (Line -> .)
 
     Line                           shift and go to state 1
 
 state 1
 
     (0) S' -> Line .
-    (1) Line -> Line . Exp
-    (2) Line -> Line . Function
-    (27) Exp -> . Cmd Exp
-    (28) Exp -> .
-    (24) Function -> . COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON Line
-    (25) Function -> . DefineString
-    (26) Function -> .
-    (4) Cmd -> . Cmd NAME SET
-    (5) Cmd -> . Cmd NAME GET
-    (6) Cmd -> . Cmd VARIABLE NAME
-    (7) Cmd -> . Cmd NAME
-    (8) Cmd -> . Cmd KEY
-    (9) Cmd -> . Cmd CR
-    (10) Cmd -> . Cmd STRING
-    (11) Cmd -> . Cmd EMIT
-    (12) Cmd -> . Cmd DOT
-    (13) Cmd -> . Cmd CHR CHAR
-    (14) Cmd -> . Cmd CHR MATH_OPERATOR
-    (15) Cmd -> . Cmd DUP
-    (16) Cmd -> . Cmd PRINTSTRING
-    (17) Cmd -> . Cmd NUMBER
-    (18) Cmd -> . Cmd MATH_OPERATOR
-    (19) Cmd -> .
-    (20) DefineString -> . COLON NAME FUNCONTENT SEMICOLON Line
+    (26) Line -> Line . Cmd
+    (27) Line -> Line . Function
+    (1) Cmd -> . Cmd NAME SET
+    (2) Cmd -> . Cmd NAME GET
+    (3) Cmd -> . Cmd VARIABLE NAME
+    (4) Cmd -> . Cmd NAME
+    (5) Cmd -> . Cmd KEY
+    (6) Cmd -> . Cmd CR
+    (7) Cmd -> . Cmd STRING
+    (8) Cmd -> . Cmd EMIT
+    (9) Cmd -> . Cmd DOT
+    (10) Cmd -> . Cmd CHR CHAR
+    (11) Cmd -> . Cmd CHR MATH_OPERATOR
+    (12) Cmd -> . Cmd DUP
+    (13) Cmd -> . Cmd PRINTSTRING
+    (14) Cmd -> . Cmd NUMBER
+    (15) Cmd -> . Cmd MATH_OPERATOR
+    (16) Cmd -> .
+    (21) Function -> . COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON
+    (22) Function -> . DefineString
+    (23) Function -> .
+    (17) DefineString -> . COLON NAME FUNCONTENT SEMICOLON
 
