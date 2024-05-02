@@ -165,9 +165,11 @@ class Translator:
 # Variables
     def init_var(self, name):
         if name not in self.variables:
-            self.variables[name] = [len(self.variables), 0]  # index and value
+            self.variables[name] = [self.var_counter, 0]  # index and value
+            self.code.insert(0, f"pushi 0")
             self.code.append(f"pushi 0")
             self.code.append(f"storeg {self.variables[name][0]}")
+            self.var_counter += 1
             return name
         else:
             print(f"Variable {name} already exists")
@@ -196,9 +198,10 @@ class Translator:
     def init_func(self, name, body, arguments, _return):
         if name not in self.functions:
             arguments = arguments + _return
-            self.functions[name] = [name, function(name, arguments, body)]
+            self.functions[name] = [name, function(name, self.var_counter, arguments, body)]
             self.code.append(f"pusha {name}")
             self.code.append(f"call")
+            self.var_counter += 1
             return name
         else:
             print(f"Function {name} already exists")

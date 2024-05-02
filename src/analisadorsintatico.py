@@ -4,52 +4,13 @@ class Parser():
     def __init__(self, lexer, translator):
       self.lexer = lexer
       self.tokens = self.lexer.tokens
-      self.parser = yacc.yacc(module=self, start='Line')
+      self.parser = yacc.yacc(module=self, start='Cmd')
       self.translator = translator
 
     def parse(self, data):
         return self.parser.parse(data, lexer = self.lexer.lexer)
 
-    '''
-    Line : Line Exp
-         | Line Function
-         | Empty
-
-    Exp : Cmd Exp
-        | Cmd
-
-    Cmd : NUMBER
-        | MATH_OPERATION
-        | Print
-        | PRINTSTRING
-        | CHAR CHR
-        | CR
-        | STRING
-        | COMMENT
-        | If Exp Else Exp EndOfIf
-        | Loop
-        | VARIABLE NAME
-        | NAME Getset
-        |
-
-    Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN Cmd SEMICOLON
-
-    Arguments : ARGUMENT
-              | Arguments ARGUMENT
-              | 
-
-    Print : DOT
-          | EMIT
-
-    If : IF
-    Else : ELSE Exp
-         | 
-    EndOfIf : THEN
-
-    Getset : '!'
-           | '@'
-    
-    '''
+    ## Grammar
 
     def p_set(self, p):
         '''Cmd : Cmd NAME SET '''
@@ -62,14 +23,14 @@ class Parser():
         self.translator.getset(p[2], p[3])
 
     def p_init_var(self, p):
-        '''Cmd : Cmd VARIABLE NAME '''
+        '''Cmd : Cmd VARIABLE NAME'''
         p[0] = p[1]
         self.translator.init_var(p[3])
 
-    def p_init_func(self, p):
+    def p_call(self, p):
         '''Cmd : Cmd NAME '''
         p[0] = p[1]
-        self.translator.init_func(p[2])
+        self.translator.call(p[2])
 
     def p_input_key(self, p):
         '''Cmd : Cmd KEY'''
@@ -135,14 +96,14 @@ class Parser():
 
     def p_define_void_func(self, p):
         '''
-        DefineString : COLON NAME FUNCONTENT SEMICOLON
+        VoidFunc : COLON NAME FUNCONTENT SEMICOLON
         '''
         self.translator.init_func(p[2], p[3], [], None) # nome, comandos, argummentos, return
 
     def p_arguments(self, p):
         '''
-        Arguments : ARGUMENT
-                  | Arguments ARGUMENT
+        Arguments : NAME
+                  | Arguments NAME
                   | 
         '''
         p[0] = [p[1]] if len(p) == 2 else p[1] + p[2]
@@ -150,8 +111,8 @@ class Parser():
 
     def p_function(self, p):
         '''
-        Function : COLON NAME LPAREN Arguments ARGDELIMITER ARGUMENT RPAREN FUNCONTENT SEMICOLON
-                 | DefineString
+        Function : COLON NAME LPAREN Arguments ARGDELIMITER NAME RPAREN FUNCONTENT SEMICOLON
+                 | VoidFunc
                  | 
         '''
         self.translator.init_func(p[2], p[8], p[4], p[6]) # nome, comandos, argummentos, return
@@ -163,7 +124,7 @@ class Parser():
                |
         '''
         return p
-    
+
     def p_line(self, p):
         '''Line : Line Cmd
                 | Line Function

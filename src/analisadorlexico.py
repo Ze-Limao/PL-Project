@@ -97,13 +97,13 @@ class Lexer():
         r"[Dd][Uu][Pp]"
         return t
 
-    def t_NAME(self, t):
-        r"ASa"
-        return t
-
     ## Variaveis
     def t_VARIABLE(self, t):
         r"[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]"
+        return t
+    
+    def t_NAME(self, t):
+        r"[a-zA-Z]+"
         return t
     
     def t_GET(self, t):
@@ -127,13 +127,9 @@ class Lexer():
     def t_THEN(self, t):
         r"[Tt][Hh][Ee][Nn]"
         return t
-
-    def t_ARGUMENT(self, t):
-        r"[a-z][A-Z0-9]+"
-        return t
     
     def t_FUNCONTENT(self, t):
-        r'[^:;]?;'
+        r'[^:;]+?'
 
 
     def t_COMMENT(self, t):

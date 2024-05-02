@@ -1,15 +1,9 @@
+pushi 0
 start
 
-pushi 87
-writei
-pushi 37
-dup 1
-writei
-writechr
-pushi 65
-dup 1
-writei
-pushi 32
-add
-writechr
+pushi 0
+storeg 0
+pushg 0
+pushi 10
+storeg 0
 stop
