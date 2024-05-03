@@ -3,39 +3,6 @@ from translator import Translator
 from analisadorlexico import Lexer
 from analisadorsintatico import Parser
 
-
-# Versão analisador lexico
-#def main(args):
-#    lexer = analisadorlexico.Lexer()
-#    translation = Translator()
-#
-#    with open(args[1], 'r') as file:
-#        lines = file.readlines()
-#    for line in lines:
-#        data = line.strip()
-#        lexer.input(data)
-#        for i in lexer.lexer:
-#            if i.type == 'STRING':
-#                value = translation.forth_push(i.value)
-#                print(value)
-#            if i.type == 'NUMBER':
-#                value = translation.forth_push(i.value)
-#                print(value)
-#            elif i.type == 'MATH_OPERATOR':
-#                value = translation.forth_math(i.value)
-#                print(value)
-#            elif i.type == 'POP':
-#                value = translation.forth_pop()
-#                print(value)
-#            elif i.type == 'DOT':
-#                value = translation.forth_print()
-#                print(value)
-#            elif i.type == 'COLON':
-#                in_func = True
-#                print("A iniciar função")
-#        
-#    print(translation.code)
-            
 def main(args):
     i = 0
     lexer = Lexer()
@@ -62,8 +29,23 @@ def main(args):
             if result:
                 print(result)
     
-    print(translator.code)
     translator.code_to_file()
+
+    # Parte das funções
+    if translator.functions:
+        print(translator.functions.keys())
+        for key in translator.functions.keys():
+                data = translator.functions[key]
+                translator.code = []
+                translator.code.append(f"\n{key}:")
+                for line in data:
+                    result2 = parser.parse(line)
+                    print(i)
+                    i+=1
+                    if result2:
+                        print(result2)
+        
+        translator.function_to_file()
 
 
 if __name__ == '__main__':

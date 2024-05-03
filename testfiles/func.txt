@@ -1,5 +1,3 @@
-: SPROUTS ." Miniature vegetables." ;
-: MENU
- CR TOFU CR SPROUTS CR
-;
-MENU
+1 1 1
+: SPROUTS 2 3 5;
+SPROUTS

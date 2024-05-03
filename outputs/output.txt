@@ -1,9 +1,15 @@
-pushi 0
 start
 
-pushi 0
-storeg 0
-pushg 0
-pushi 10
-storeg 0
+pushi 1
+pushi 1
+pushi 1
+pushi 2
+pushi 3
+pushi 5
+pusha SPROUTS
+call
 stop
+
+SPROUTS:
+pushi 5
+return

@@ -6,6 +6,7 @@ class Parser():
       self.tokens = self.lexer.tokens
       self.parser = yacc.yacc(module=self, start='Cmd')
       self.translator = translator
+      self.cmd_list = []
 
     def parse(self, data):
         return self.parser.parse(data, lexer = self.lexer.lexer)
@@ -94,41 +95,58 @@ class Parser():
     
     ## Function
 
-    def p_define_void_func(self, p):
-        '''
-        VoidFunc : COLON NAME FUNCONTENT SEMICOLON
-        '''
-        self.translator.init_func(p[2], p[3], [], None) # nome, comandos, argummentos, return
-
-    def p_arguments(self, p):
-        '''
-        Arguments : NAME
-                  | Arguments NAME
-                  | 
-        '''
-        p[0] = [p[1]] if len(p) == 2 else p[1] + p[2]
-        return p
-
     def p_function(self, p):
         '''
-        Function : COLON NAME LPAREN Arguments ARGDELIMITER NAME RPAREN FUNCONTENT SEMICOLON
-                 | VoidFunc
-                 | 
+        Function : COLON NAME Cmd SEMICOLON
         '''
-        self.translator.init_func(p[2], p[8], p[4], p[6]) # nome, comandos, argummentos, return
+        print("Function")
+        print(p[3])
+        self.translator.init_func(p[2], p[3]) # nome, comandos
         return p
 
-    # coisas que nao podem ter funcoes, usar em vez do funcontent
-    def p_exp(self, p):
-        '''Exp : Cmd Exp
-               |
-        '''
-        return p
+    def p_function_expression(self, p):
+        """
+        Exp : Function_operator
+            | NUMBER
+            | Exp Function_operator
+            | Exp NUMBER
+        """
+        p[0] = p[1]
 
-    def p_line(self, p):
-        '''Line : Line Cmd
-                | Line Function
-                | 
+    def p_function_operator(self, p):
+        """
+        Function_operator : MATH_OPERATOR
+                            | DUP
+                            | EMIT
+                            | CR
+                            | SPACE
+                            | LPAREN
+                            | RPAREN
+                            | IF
+                            | THEN
+                            | ELSE
+        """
+
+
+    #def p_function(self, p):
+    #    '''
+    #    Function : COLON NAME LPAREN Arguments ARGDELIMITER NAME RPAREN FUNCONTENT SEMICOLON
+    #             | VoidFunc
+    #             | 
+    #    '''
+    #    print("Function")
+    #    self.translator.init_func(p[2], p[8]) # nome, comandos
+    #    return p
+
+    #def p_line(self, p):
+    #    '''Line : Cmd
+    #            | Function
+    #            | 
+    #    '''
+    #    return p
+    
+    def p_func(self, p):
+        '''Cmd : Cmd Function
         '''
         return p
 

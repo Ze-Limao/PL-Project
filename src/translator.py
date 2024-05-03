@@ -1,10 +1,8 @@
-from function import Function
-
 class Translator:
     def __init__(self):
         self.stack = []
         self.variables = {}
-        self.functions = dict[str, Function]
+        self.functions = {}
         self.code = []
         self.code.append("start")
         self.code.append("")
@@ -103,6 +101,7 @@ class Translator:
         return None
     
     def print_string(self, value):
+        value = value[3:-1]
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
         return value
@@ -195,13 +194,9 @@ class Translator:
 
 # Functions
 
-    def init_func(self, name, body, arguments, _return):
+    def init_func(self, name, body):
         if name not in self.functions:
-            arguments = arguments + _return
-            self.functions[name] = [name, function(name, self.var_counter, arguments, body)]
-            self.code.append(f"pusha {name}")
-            self.code.append(f"call")
-            self.var_counter += 1
+            self.functions[name] = (f"{body}")
             return name
         else:
             print(f"Function {name} already exists")
@@ -224,7 +219,8 @@ class Translator:
         return label
     
     def call(self, name):
-        self.code.append(f"call {name}")
+        self.code.append(f"pusha {name}")
+        self.code.append(f"call")
         return name
 
     def _return(self):
@@ -237,5 +233,13 @@ class Translator:
         with open(filename, 'w') as file:
             for line in self.code:
                 file.write(f"{line}\n")
-            file.write(f"stop")
+            file.write(f"stop\n")
+            file.close()
+
+    def function_to_file(self):
+        filename = "../outputs/output.txt"
+        with open(filename, 'a') as file:
+            for line in self.code:
+                    file.write(f"{line}\n")
+            file.write(f"return\n")
             file.close()

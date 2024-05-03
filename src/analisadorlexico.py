@@ -43,12 +43,11 @@ class Lexer():
     t_RPAREN = r'\)'
     t_COLON = r':'
     t_SEMICOLON = r';'
-    t_DOT = r'\.'
+    t_DOT = r'\b\.\b'
 
 
     def t_PRINTSTRING(self, t):
-        r'\."\s[^"]*"'
-        t.value = t.value[3:-1]  # Remove as aspas duplas
+        r'\.\"\s[^"]+\"'
         return t
 
     def t_STRING(self, t):
@@ -129,7 +128,7 @@ class Lexer():
         return t
     
     def t_FUNCONTENT(self, t):
-        r'[^:;]+?'
+        r'name'
 
 
     def t_COMMENT(self, t):
@@ -137,9 +136,9 @@ class Lexer():
         r'\(.*\)|\b--.*|^--.*'
         t.lexer.lineno += t.value.count('\n')
 
-    def t_FUNCTION_DEFINITION(self, t):
-        r': [a-zA-Z]+ ( . )* ;'
-        return t
+    #def t_FUNCTION_DEFINITION(self, t):
+    #    r':\s[a-zA-Z]+ ( . )* ;'
+    #    return t
 
     def t_newline(self, t):
         r"\n+"
