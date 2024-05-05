@@ -194,9 +194,9 @@ class Translator:
 
 # Functions
 
-    def init_func(self, name, body):
+    def init_func(self, name):
         if name not in self.functions:
-            self.functions[name] = (f"{body}")
+            self.functions[name] = str()
             return name
         else:
             print(f"Function {name} already exists")

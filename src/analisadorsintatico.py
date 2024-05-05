@@ -97,11 +97,11 @@ class Parser():
 
     def p_function(self, p):
         '''
-        Function : COLON NAME Cmd SEMICOLON
+        Function : COLON NAME Exp SEMICOLON
         '''
         print("Function")
         print(p[3])
-        self.translator.init_func(p[2], p[3]) # nome, comandos
+        #self.translator.init_func(p[2]) # nome, comandos
         return p
 
     def p_function_expression(self, p):
@@ -111,7 +111,18 @@ class Parser():
             | Exp Function_operator
             | Exp NUMBER
         """
-        p[0] = p[1]
+        print("Exp")
+        self.translator.init_func("SPROUTS")
+        name = "SPROUTS"
+        #if name not in self.translator.functions:
+        #    self.translator.functions[name] = str
+        #self.translator.functions[name] += str(name)
+
+        print("ss" + str(len(name)))
+        for i in p:
+            if i != None:
+                self.translator.functions[name] += str(i)
+        print(self.translator.code)
 
     def p_function_operator(self, p):
         """
@@ -125,18 +136,8 @@ class Parser():
                             | IF
                             | THEN
                             | ELSE
+                            | PRINTSTRING
         """
-
-
-    #def p_function(self, p):
-    #    '''
-    #    Function : COLON NAME LPAREN Arguments ARGDELIMITER NAME RPAREN FUNCONTENT SEMICOLON
-    #             | VoidFunc
-    #             | 
-    #    '''
-    #    print("Function")
-    #    self.translator.init_func(p[2], p[8]) # nome, comandos
-    #    return p
 
     #def p_line(self, p):
     #    '''Line : Cmd

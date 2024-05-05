@@ -28,7 +28,7 @@ Rule 13    Cmd -> Cmd PRINTSTRING
 Rule 14    Cmd -> Cmd NUMBER
 Rule 15    Cmd -> Cmd MATH_OPERATOR
 Rule 16    Cmd -> <empty>
-Rule 17    Function -> COLON NAME Cmd SEMICOLON
+Rule 17    Function -> COLON NAME Exp SEMICOLON
 Rule 18    Exp -> Function_operator
 Rule 19    Exp -> NUMBER
 Rule 20    Exp -> Exp Function_operator
@@ -43,7 +43,8 @@ Rule 28    Function_operator -> RPAREN
 Rule 29    Function_operator -> IF
 Rule 30    Function_operator -> THEN
 Rule 31    Function_operator -> ELSE
-Rule 32    Cmd -> Cmd Function
+Rule 32    Function_operator -> PRINTSTRING
+Rule 33    Cmd -> Cmd Function
 
 Terminals, with rules where they appear
 
@@ -67,7 +68,7 @@ LPAREN               : 27
 MATH_OPERATOR        : 11 15 22
 NAME                 : 1 2 3 4 17
 NUMBER               : 14 19 21
-PRINTSTRING          : 13
+PRINTSTRING          : 13 32
 RPAREN               : 28
 SEMICOLON            : 17
 SET                  : 1
@@ -80,9 +81,9 @@ error                :
 
 Nonterminals, with rules where they appear
 
-Cmd                  : 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 32 0
-Exp                  : 20 21
-Function             : 32
+Cmd                  : 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 33 0
+Exp                  : 17 20 21
+Function             : 33
 Function_operator    : 18 20
 
 Parsing method: LALR
@@ -106,7 +107,7 @@ state 0
     (14) Cmd -> . Cmd NUMBER
     (15) Cmd -> . Cmd MATH_OPERATOR
     (16) Cmd -> .
-    (32) Cmd -> . Cmd Function
+    (33) Cmd -> . Cmd Function
 
     NAME            reduce using rule 16 (Cmd -> .)
     VARIABLE        reduce using rule 16 (Cmd -> .)
@@ -143,8 +144,8 @@ state 1
     (13) Cmd -> Cmd . PRINTSTRING
     (14) Cmd -> Cmd . NUMBER
     (15) Cmd -> Cmd . MATH_OPERATOR
-    (32) Cmd -> Cmd . Function
-    (17) Function -> . COLON NAME Cmd SEMICOLON
+    (33) Cmd -> Cmd . Function
+    (17) Function -> . COLON NAME Exp SEMICOLON
 
     NAME            shift and go to state 2
     VARIABLE        shift and go to state 3
@@ -184,7 +185,6 @@ state 2
     MATH_OPERATOR   reduce using rule 4 (Cmd -> Cmd NAME .)
     COLON           reduce using rule 4 (Cmd -> Cmd NAME .)
     $end            reduce using rule 4 (Cmd -> Cmd NAME .)
-    SEMICOLON       reduce using rule 4 (Cmd -> Cmd NAME .)
 
 
 state 3
@@ -212,7 +212,6 @@ state 4
     MATH_OPERATOR   reduce using rule 5 (Cmd -> Cmd KEY .)
     COLON           reduce using rule 5 (Cmd -> Cmd KEY .)
     $end            reduce using rule 5 (Cmd -> Cmd KEY .)
-    SEMICOLON       reduce using rule 5 (Cmd -> Cmd KEY .)
 
 
 state 5
@@ -233,7 +232,6 @@ state 5
     MATH_OPERATOR   reduce using rule 6 (Cmd -> Cmd CR .)
     COLON           reduce using rule 6 (Cmd -> Cmd CR .)
     $end            reduce using rule 6 (Cmd -> Cmd CR .)
-    SEMICOLON       reduce using rule 6 (Cmd -> Cmd CR .)
 
 
 state 6
@@ -254,7 +252,6 @@ state 6
     MATH_OPERATOR   reduce using rule 7 (Cmd -> Cmd STRING .)
     COLON           reduce using rule 7 (Cmd -> Cmd STRING .)
     $end            reduce using rule 7 (Cmd -> Cmd STRING .)
-    SEMICOLON       reduce using rule 7 (Cmd -> Cmd STRING .)
 
 
 state 7
@@ -275,7 +272,6 @@ state 7
     MATH_OPERATOR   reduce using rule 8 (Cmd -> Cmd EMIT .)
     COLON           reduce using rule 8 (Cmd -> Cmd EMIT .)
     $end            reduce using rule 8 (Cmd -> Cmd EMIT .)
-    SEMICOLON       reduce using rule 8 (Cmd -> Cmd EMIT .)
 
 
 state 8
@@ -296,7 +292,6 @@ state 8
     MATH_OPERATOR   reduce using rule 9 (Cmd -> Cmd DOT .)
     COLON           reduce using rule 9 (Cmd -> Cmd DOT .)
     $end            reduce using rule 9 (Cmd -> Cmd DOT .)
-    SEMICOLON       reduce using rule 9 (Cmd -> Cmd DOT .)
 
 
 state 9
@@ -326,7 +321,6 @@ state 10
     MATH_OPERATOR   reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
     COLON           reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
     $end            reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    SEMICOLON       reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
 
 
 state 11
@@ -347,7 +341,6 @@ state 11
     MATH_OPERATOR   reduce using rule 12 (Cmd -> Cmd DUP .)
     COLON           reduce using rule 12 (Cmd -> Cmd DUP .)
     $end            reduce using rule 12 (Cmd -> Cmd DUP .)
-    SEMICOLON       reduce using rule 12 (Cmd -> Cmd DUP .)
 
 
 state 12
@@ -368,7 +361,6 @@ state 12
     MATH_OPERATOR   reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
     COLON           reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
     $end            reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    SEMICOLON       reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
 
 
 state 13
@@ -389,33 +381,31 @@ state 13
     MATH_OPERATOR   reduce using rule 14 (Cmd -> Cmd NUMBER .)
     COLON           reduce using rule 14 (Cmd -> Cmd NUMBER .)
     $end            reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    SEMICOLON       reduce using rule 14 (Cmd -> Cmd NUMBER .)
 
 
 state 14
 
-    (32) Cmd -> Cmd Function .
+    (33) Cmd -> Cmd Function .
 
-    NAME            reduce using rule 32 (Cmd -> Cmd Function .)
-    VARIABLE        reduce using rule 32 (Cmd -> Cmd Function .)
-    KEY             reduce using rule 32 (Cmd -> Cmd Function .)
-    CR              reduce using rule 32 (Cmd -> Cmd Function .)
-    STRING          reduce using rule 32 (Cmd -> Cmd Function .)
-    EMIT            reduce using rule 32 (Cmd -> Cmd Function .)
-    DOT             reduce using rule 32 (Cmd -> Cmd Function .)
-    CHR             reduce using rule 32 (Cmd -> Cmd Function .)
-    DUP             reduce using rule 32 (Cmd -> Cmd Function .)
-    PRINTSTRING     reduce using rule 32 (Cmd -> Cmd Function .)
-    NUMBER          reduce using rule 32 (Cmd -> Cmd Function .)
-    MATH_OPERATOR   reduce using rule 32 (Cmd -> Cmd Function .)
-    COLON           reduce using rule 32 (Cmd -> Cmd Function .)
-    $end            reduce using rule 32 (Cmd -> Cmd Function .)
-    SEMICOLON       reduce using rule 32 (Cmd -> Cmd Function .)
+    NAME            reduce using rule 33 (Cmd -> Cmd Function .)
+    VARIABLE        reduce using rule 33 (Cmd -> Cmd Function .)
+    KEY             reduce using rule 33 (Cmd -> Cmd Function .)
+    CR              reduce using rule 33 (Cmd -> Cmd Function .)
+    STRING          reduce using rule 33 (Cmd -> Cmd Function .)
+    EMIT            reduce using rule 33 (Cmd -> Cmd Function .)
+    DOT             reduce using rule 33 (Cmd -> Cmd Function .)
+    CHR             reduce using rule 33 (Cmd -> Cmd Function .)
+    DUP             reduce using rule 33 (Cmd -> Cmd Function .)
+    PRINTSTRING     reduce using rule 33 (Cmd -> Cmd Function .)
+    NUMBER          reduce using rule 33 (Cmd -> Cmd Function .)
+    MATH_OPERATOR   reduce using rule 33 (Cmd -> Cmd Function .)
+    COLON           reduce using rule 33 (Cmd -> Cmd Function .)
+    $end            reduce using rule 33 (Cmd -> Cmd Function .)
 
 
 state 15
 
-    (17) Function -> COLON . NAME Cmd SEMICOLON
+    (17) Function -> COLON . NAME Exp SEMICOLON
 
     NAME            shift and go to state 21
 
@@ -438,7 +428,6 @@ state 16
     MATH_OPERATOR   reduce using rule 1 (Cmd -> Cmd NAME SET .)
     COLON           reduce using rule 1 (Cmd -> Cmd NAME SET .)
     $end            reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    SEMICOLON       reduce using rule 1 (Cmd -> Cmd NAME SET .)
 
 
 state 17
@@ -459,7 +448,6 @@ state 17
     MATH_OPERATOR   reduce using rule 2 (Cmd -> Cmd NAME GET .)
     COLON           reduce using rule 2 (Cmd -> Cmd NAME GET .)
     $end            reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    SEMICOLON       reduce using rule 2 (Cmd -> Cmd NAME GET .)
 
 
 state 18
@@ -480,7 +468,6 @@ state 18
     MATH_OPERATOR   reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
     COLON           reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
     $end            reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    SEMICOLON       reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
 
 
 state 19
@@ -501,7 +488,6 @@ state 19
     MATH_OPERATOR   reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
     COLON           reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
     $end            reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    SEMICOLON       reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
 
 
 state 20
@@ -522,102 +508,377 @@ state 20
     MATH_OPERATOR   reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
     COLON           reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
     $end            reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    SEMICOLON       reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
 
 
 state 21
 
-    (17) Function -> COLON NAME . Cmd SEMICOLON
-    (1) Cmd -> . Cmd NAME SET
-    (2) Cmd -> . Cmd NAME GET
-    (3) Cmd -> . Cmd VARIABLE NAME
-    (4) Cmd -> . Cmd NAME
-    (5) Cmd -> . Cmd KEY
-    (6) Cmd -> . Cmd CR
-    (7) Cmd -> . Cmd STRING
-    (8) Cmd -> . Cmd EMIT
-    (9) Cmd -> . Cmd DOT
-    (10) Cmd -> . Cmd CHR CHAR
-    (11) Cmd -> . Cmd CHR MATH_OPERATOR
-    (12) Cmd -> . Cmd DUP
-    (13) Cmd -> . Cmd PRINTSTRING
-    (14) Cmd -> . Cmd NUMBER
-    (15) Cmd -> . Cmd MATH_OPERATOR
-    (16) Cmd -> .
-    (32) Cmd -> . Cmd Function
+    (17) Function -> COLON NAME . Exp SEMICOLON
+    (18) Exp -> . Function_operator
+    (19) Exp -> . NUMBER
+    (20) Exp -> . Exp Function_operator
+    (21) Exp -> . Exp NUMBER
+    (22) Function_operator -> . MATH_OPERATOR
+    (23) Function_operator -> . DUP
+    (24) Function_operator -> . EMIT
+    (25) Function_operator -> . CR
+    (26) Function_operator -> . SPACE
+    (27) Function_operator -> . LPAREN
+    (28) Function_operator -> . RPAREN
+    (29) Function_operator -> . IF
+    (30) Function_operator -> . THEN
+    (31) Function_operator -> . ELSE
+    (32) Function_operator -> . PRINTSTRING
 
-    SEMICOLON       reduce using rule 16 (Cmd -> .)
-    NAME            reduce using rule 16 (Cmd -> .)
-    VARIABLE        reduce using rule 16 (Cmd -> .)
-    KEY             reduce using rule 16 (Cmd -> .)
-    CR              reduce using rule 16 (Cmd -> .)
-    STRING          reduce using rule 16 (Cmd -> .)
-    EMIT            reduce using rule 16 (Cmd -> .)
-    DOT             reduce using rule 16 (Cmd -> .)
-    CHR             reduce using rule 16 (Cmd -> .)
-    DUP             reduce using rule 16 (Cmd -> .)
-    PRINTSTRING     reduce using rule 16 (Cmd -> .)
-    NUMBER          reduce using rule 16 (Cmd -> .)
-    MATH_OPERATOR   reduce using rule 16 (Cmd -> .)
-    COLON           reduce using rule 16 (Cmd -> .)
+    NUMBER          shift and go to state 24
+    MATH_OPERATOR   shift and go to state 25
+    DUP             shift and go to state 26
+    EMIT            shift and go to state 27
+    CR              shift and go to state 28
+    SPACE           shift and go to state 29
+    LPAREN          shift and go to state 30
+    RPAREN          shift and go to state 31
+    IF              shift and go to state 32
+    THEN            shift and go to state 33
+    ELSE            shift and go to state 34
+    PRINTSTRING     shift and go to state 35
 
-    Cmd                            shift and go to state 22
+    Exp                            shift and go to state 22
+    Function_operator              shift and go to state 23
 
 state 22
 
-    (17) Function -> COLON NAME Cmd . SEMICOLON
-    (1) Cmd -> Cmd . NAME SET
-    (2) Cmd -> Cmd . NAME GET
-    (3) Cmd -> Cmd . VARIABLE NAME
-    (4) Cmd -> Cmd . NAME
-    (5) Cmd -> Cmd . KEY
-    (6) Cmd -> Cmd . CR
-    (7) Cmd -> Cmd . STRING
-    (8) Cmd -> Cmd . EMIT
-    (9) Cmd -> Cmd . DOT
-    (10) Cmd -> Cmd . CHR CHAR
-    (11) Cmd -> Cmd . CHR MATH_OPERATOR
-    (12) Cmd -> Cmd . DUP
-    (13) Cmd -> Cmd . PRINTSTRING
-    (14) Cmd -> Cmd . NUMBER
-    (15) Cmd -> Cmd . MATH_OPERATOR
-    (32) Cmd -> Cmd . Function
-    (17) Function -> . COLON NAME Cmd SEMICOLON
+    (17) Function -> COLON NAME Exp . SEMICOLON
+    (20) Exp -> Exp . Function_operator
+    (21) Exp -> Exp . NUMBER
+    (22) Function_operator -> . MATH_OPERATOR
+    (23) Function_operator -> . DUP
+    (24) Function_operator -> . EMIT
+    (25) Function_operator -> . CR
+    (26) Function_operator -> . SPACE
+    (27) Function_operator -> . LPAREN
+    (28) Function_operator -> . RPAREN
+    (29) Function_operator -> . IF
+    (30) Function_operator -> . THEN
+    (31) Function_operator -> . ELSE
+    (32) Function_operator -> . PRINTSTRING
 
-    SEMICOLON       shift and go to state 23
-    NAME            shift and go to state 2
-    VARIABLE        shift and go to state 3
-    KEY             shift and go to state 4
-    CR              shift and go to state 5
-    STRING          shift and go to state 6
-    EMIT            shift and go to state 7
-    DOT             shift and go to state 8
-    CHR             shift and go to state 9
-    DUP             shift and go to state 11
-    PRINTSTRING     shift and go to state 12
-    NUMBER          shift and go to state 13
-    MATH_OPERATOR   shift and go to state 10
-    COLON           shift and go to state 15
+    SEMICOLON       shift and go to state 36
+    NUMBER          shift and go to state 38
+    MATH_OPERATOR   shift and go to state 25
+    DUP             shift and go to state 26
+    EMIT            shift and go to state 27
+    CR              shift and go to state 28
+    SPACE           shift and go to state 29
+    LPAREN          shift and go to state 30
+    RPAREN          shift and go to state 31
+    IF              shift and go to state 32
+    THEN            shift and go to state 33
+    ELSE            shift and go to state 34
+    PRINTSTRING     shift and go to state 35
 
-    Function                       shift and go to state 14
+    Function_operator              shift and go to state 37
 
 state 23
 
-    (17) Function -> COLON NAME Cmd SEMICOLON .
+    (18) Exp -> Function_operator .
 
-    NAME            reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    VARIABLE        reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    KEY             reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    CR              reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    STRING          reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    EMIT            reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    DOT             reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    CHR             reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    DUP             reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    PRINTSTRING     reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    NUMBER          reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    MATH_OPERATOR   reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    COLON           reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    $end            reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
-    SEMICOLON       reduce using rule 17 (Function -> COLON NAME Cmd SEMICOLON .)
+    SEMICOLON       reduce using rule 18 (Exp -> Function_operator .)
+    NUMBER          reduce using rule 18 (Exp -> Function_operator .)
+    MATH_OPERATOR   reduce using rule 18 (Exp -> Function_operator .)
+    DUP             reduce using rule 18 (Exp -> Function_operator .)
+    EMIT            reduce using rule 18 (Exp -> Function_operator .)
+    CR              reduce using rule 18 (Exp -> Function_operator .)
+    SPACE           reduce using rule 18 (Exp -> Function_operator .)
+    LPAREN          reduce using rule 18 (Exp -> Function_operator .)
+    RPAREN          reduce using rule 18 (Exp -> Function_operator .)
+    IF              reduce using rule 18 (Exp -> Function_operator .)
+    THEN            reduce using rule 18 (Exp -> Function_operator .)
+    ELSE            reduce using rule 18 (Exp -> Function_operator .)
+    PRINTSTRING     reduce using rule 18 (Exp -> Function_operator .)
+
+
+state 24
+
+    (19) Exp -> NUMBER .
+
+    SEMICOLON       reduce using rule 19 (Exp -> NUMBER .)
+    NUMBER          reduce using rule 19 (Exp -> NUMBER .)
+    MATH_OPERATOR   reduce using rule 19 (Exp -> NUMBER .)
+    DUP             reduce using rule 19 (Exp -> NUMBER .)
+    EMIT            reduce using rule 19 (Exp -> NUMBER .)
+    CR              reduce using rule 19 (Exp -> NUMBER .)
+    SPACE           reduce using rule 19 (Exp -> NUMBER .)
+    LPAREN          reduce using rule 19 (Exp -> NUMBER .)
+    RPAREN          reduce using rule 19 (Exp -> NUMBER .)
+    IF              reduce using rule 19 (Exp -> NUMBER .)
+    THEN            reduce using rule 19 (Exp -> NUMBER .)
+    ELSE            reduce using rule 19 (Exp -> NUMBER .)
+    PRINTSTRING     reduce using rule 19 (Exp -> NUMBER .)
+
+
+state 25
+
+    (22) Function_operator -> MATH_OPERATOR .
+
+    SEMICOLON       reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    NUMBER          reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    DUP             reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    EMIT            reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    CR              reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    SPACE           reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    LPAREN          reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    RPAREN          reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    IF              reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    THEN            reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    ELSE            reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 22 (Function_operator -> MATH_OPERATOR .)
+
+
+state 26
+
+    (23) Function_operator -> DUP .
+
+    SEMICOLON       reduce using rule 23 (Function_operator -> DUP .)
+    NUMBER          reduce using rule 23 (Function_operator -> DUP .)
+    MATH_OPERATOR   reduce using rule 23 (Function_operator -> DUP .)
+    DUP             reduce using rule 23 (Function_operator -> DUP .)
+    EMIT            reduce using rule 23 (Function_operator -> DUP .)
+    CR              reduce using rule 23 (Function_operator -> DUP .)
+    SPACE           reduce using rule 23 (Function_operator -> DUP .)
+    LPAREN          reduce using rule 23 (Function_operator -> DUP .)
+    RPAREN          reduce using rule 23 (Function_operator -> DUP .)
+    IF              reduce using rule 23 (Function_operator -> DUP .)
+    THEN            reduce using rule 23 (Function_operator -> DUP .)
+    ELSE            reduce using rule 23 (Function_operator -> DUP .)
+    PRINTSTRING     reduce using rule 23 (Function_operator -> DUP .)
+
+
+state 27
+
+    (24) Function_operator -> EMIT .
+
+    SEMICOLON       reduce using rule 24 (Function_operator -> EMIT .)
+    NUMBER          reduce using rule 24 (Function_operator -> EMIT .)
+    MATH_OPERATOR   reduce using rule 24 (Function_operator -> EMIT .)
+    DUP             reduce using rule 24 (Function_operator -> EMIT .)
+    EMIT            reduce using rule 24 (Function_operator -> EMIT .)
+    CR              reduce using rule 24 (Function_operator -> EMIT .)
+    SPACE           reduce using rule 24 (Function_operator -> EMIT .)
+    LPAREN          reduce using rule 24 (Function_operator -> EMIT .)
+    RPAREN          reduce using rule 24 (Function_operator -> EMIT .)
+    IF              reduce using rule 24 (Function_operator -> EMIT .)
+    THEN            reduce using rule 24 (Function_operator -> EMIT .)
+    ELSE            reduce using rule 24 (Function_operator -> EMIT .)
+    PRINTSTRING     reduce using rule 24 (Function_operator -> EMIT .)
+
+
+state 28
+
+    (25) Function_operator -> CR .
+
+    SEMICOLON       reduce using rule 25 (Function_operator -> CR .)
+    NUMBER          reduce using rule 25 (Function_operator -> CR .)
+    MATH_OPERATOR   reduce using rule 25 (Function_operator -> CR .)
+    DUP             reduce using rule 25 (Function_operator -> CR .)
+    EMIT            reduce using rule 25 (Function_operator -> CR .)
+    CR              reduce using rule 25 (Function_operator -> CR .)
+    SPACE           reduce using rule 25 (Function_operator -> CR .)
+    LPAREN          reduce using rule 25 (Function_operator -> CR .)
+    RPAREN          reduce using rule 25 (Function_operator -> CR .)
+    IF              reduce using rule 25 (Function_operator -> CR .)
+    THEN            reduce using rule 25 (Function_operator -> CR .)
+    ELSE            reduce using rule 25 (Function_operator -> CR .)
+    PRINTSTRING     reduce using rule 25 (Function_operator -> CR .)
+
+
+state 29
+
+    (26) Function_operator -> SPACE .
+
+    SEMICOLON       reduce using rule 26 (Function_operator -> SPACE .)
+    NUMBER          reduce using rule 26 (Function_operator -> SPACE .)
+    MATH_OPERATOR   reduce using rule 26 (Function_operator -> SPACE .)
+    DUP             reduce using rule 26 (Function_operator -> SPACE .)
+    EMIT            reduce using rule 26 (Function_operator -> SPACE .)
+    CR              reduce using rule 26 (Function_operator -> SPACE .)
+    SPACE           reduce using rule 26 (Function_operator -> SPACE .)
+    LPAREN          reduce using rule 26 (Function_operator -> SPACE .)
+    RPAREN          reduce using rule 26 (Function_operator -> SPACE .)
+    IF              reduce using rule 26 (Function_operator -> SPACE .)
+    THEN            reduce using rule 26 (Function_operator -> SPACE .)
+    ELSE            reduce using rule 26 (Function_operator -> SPACE .)
+    PRINTSTRING     reduce using rule 26 (Function_operator -> SPACE .)
+
+
+state 30
+
+    (27) Function_operator -> LPAREN .
+
+    SEMICOLON       reduce using rule 27 (Function_operator -> LPAREN .)
+    NUMBER          reduce using rule 27 (Function_operator -> LPAREN .)
+    MATH_OPERATOR   reduce using rule 27 (Function_operator -> LPAREN .)
+    DUP             reduce using rule 27 (Function_operator -> LPAREN .)
+    EMIT            reduce using rule 27 (Function_operator -> LPAREN .)
+    CR              reduce using rule 27 (Function_operator -> LPAREN .)
+    SPACE           reduce using rule 27 (Function_operator -> LPAREN .)
+    LPAREN          reduce using rule 27 (Function_operator -> LPAREN .)
+    RPAREN          reduce using rule 27 (Function_operator -> LPAREN .)
+    IF              reduce using rule 27 (Function_operator -> LPAREN .)
+    THEN            reduce using rule 27 (Function_operator -> LPAREN .)
+    ELSE            reduce using rule 27 (Function_operator -> LPAREN .)
+    PRINTSTRING     reduce using rule 27 (Function_operator -> LPAREN .)
+
+
+state 31
+
+    (28) Function_operator -> RPAREN .
+
+    SEMICOLON       reduce using rule 28 (Function_operator -> RPAREN .)
+    NUMBER          reduce using rule 28 (Function_operator -> RPAREN .)
+    MATH_OPERATOR   reduce using rule 28 (Function_operator -> RPAREN .)
+    DUP             reduce using rule 28 (Function_operator -> RPAREN .)
+    EMIT            reduce using rule 28 (Function_operator -> RPAREN .)
+    CR              reduce using rule 28 (Function_operator -> RPAREN .)
+    SPACE           reduce using rule 28 (Function_operator -> RPAREN .)
+    LPAREN          reduce using rule 28 (Function_operator -> RPAREN .)
+    RPAREN          reduce using rule 28 (Function_operator -> RPAREN .)
+    IF              reduce using rule 28 (Function_operator -> RPAREN .)
+    THEN            reduce using rule 28 (Function_operator -> RPAREN .)
+    ELSE            reduce using rule 28 (Function_operator -> RPAREN .)
+    PRINTSTRING     reduce using rule 28 (Function_operator -> RPAREN .)
+
+
+state 32
+
+    (29) Function_operator -> IF .
+
+    SEMICOLON       reduce using rule 29 (Function_operator -> IF .)
+    NUMBER          reduce using rule 29 (Function_operator -> IF .)
+    MATH_OPERATOR   reduce using rule 29 (Function_operator -> IF .)
+    DUP             reduce using rule 29 (Function_operator -> IF .)
+    EMIT            reduce using rule 29 (Function_operator -> IF .)
+    CR              reduce using rule 29 (Function_operator -> IF .)
+    SPACE           reduce using rule 29 (Function_operator -> IF .)
+    LPAREN          reduce using rule 29 (Function_operator -> IF .)
+    RPAREN          reduce using rule 29 (Function_operator -> IF .)
+    IF              reduce using rule 29 (Function_operator -> IF .)
+    THEN            reduce using rule 29 (Function_operator -> IF .)
+    ELSE            reduce using rule 29 (Function_operator -> IF .)
+    PRINTSTRING     reduce using rule 29 (Function_operator -> IF .)
+
+
+state 33
+
+    (30) Function_operator -> THEN .
+
+    SEMICOLON       reduce using rule 30 (Function_operator -> THEN .)
+    NUMBER          reduce using rule 30 (Function_operator -> THEN .)
+    MATH_OPERATOR   reduce using rule 30 (Function_operator -> THEN .)
+    DUP             reduce using rule 30 (Function_operator -> THEN .)
+    EMIT            reduce using rule 30 (Function_operator -> THEN .)
+    CR              reduce using rule 30 (Function_operator -> THEN .)
+    SPACE           reduce using rule 30 (Function_operator -> THEN .)
+    LPAREN          reduce using rule 30 (Function_operator -> THEN .)
+    RPAREN          reduce using rule 30 (Function_operator -> THEN .)
+    IF              reduce using rule 30 (Function_operator -> THEN .)
+    THEN            reduce using rule 30 (Function_operator -> THEN .)
+    ELSE            reduce using rule 30 (Function_operator -> THEN .)
+    PRINTSTRING     reduce using rule 30 (Function_operator -> THEN .)
+
+
+state 34
+
+    (31) Function_operator -> ELSE .
+
+    SEMICOLON       reduce using rule 31 (Function_operator -> ELSE .)
+    NUMBER          reduce using rule 31 (Function_operator -> ELSE .)
+    MATH_OPERATOR   reduce using rule 31 (Function_operator -> ELSE .)
+    DUP             reduce using rule 31 (Function_operator -> ELSE .)
+    EMIT            reduce using rule 31 (Function_operator -> ELSE .)
+    CR              reduce using rule 31 (Function_operator -> ELSE .)
+    SPACE           reduce using rule 31 (Function_operator -> ELSE .)
+    LPAREN          reduce using rule 31 (Function_operator -> ELSE .)
+    RPAREN          reduce using rule 31 (Function_operator -> ELSE .)
+    IF              reduce using rule 31 (Function_operator -> ELSE .)
+    THEN            reduce using rule 31 (Function_operator -> ELSE .)
+    ELSE            reduce using rule 31 (Function_operator -> ELSE .)
+    PRINTSTRING     reduce using rule 31 (Function_operator -> ELSE .)
+
+
+state 35
+
+    (32) Function_operator -> PRINTSTRING .
+
+    SEMICOLON       reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    NUMBER          reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    MATH_OPERATOR   reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    DUP             reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    EMIT            reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    CR              reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    SPACE           reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    LPAREN          reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    RPAREN          reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    IF              reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    THEN            reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    ELSE            reduce using rule 32 (Function_operator -> PRINTSTRING .)
+    PRINTSTRING     reduce using rule 32 (Function_operator -> PRINTSTRING .)
+
+
+state 36
+
+    (17) Function -> COLON NAME Exp SEMICOLON .
+
+    NAME            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    VARIABLE        reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    KEY             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    CR              reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    STRING          reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    EMIT            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    DOT             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    CHR             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    DUP             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    PRINTSTRING     reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    NUMBER          reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    MATH_OPERATOR   reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    COLON           reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+    $end            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+
+
+state 37
+
+    (20) Exp -> Exp Function_operator .
+
+    SEMICOLON       reduce using rule 20 (Exp -> Exp Function_operator .)
+    NUMBER          reduce using rule 20 (Exp -> Exp Function_operator .)
+    MATH_OPERATOR   reduce using rule 20 (Exp -> Exp Function_operator .)
+    DUP             reduce using rule 20 (Exp -> Exp Function_operator .)
+    EMIT            reduce using rule 20 (Exp -> Exp Function_operator .)
+    CR              reduce using rule 20 (Exp -> Exp Function_operator .)
+    SPACE           reduce using rule 20 (Exp -> Exp Function_operator .)
+    LPAREN          reduce using rule 20 (Exp -> Exp Function_operator .)
+    RPAREN          reduce using rule 20 (Exp -> Exp Function_operator .)
+    IF              reduce using rule 20 (Exp -> Exp Function_operator .)
+    THEN            reduce using rule 20 (Exp -> Exp Function_operator .)
+    ELSE            reduce using rule 20 (Exp -> Exp Function_operator .)
+    PRINTSTRING     reduce using rule 20 (Exp -> Exp Function_operator .)
+
+
+state 38
+
+    (21) Exp -> Exp NUMBER .
+
+    SEMICOLON       reduce using rule 21 (Exp -> Exp NUMBER .)
+    NUMBER          reduce using rule 21 (Exp -> Exp NUMBER .)
+    MATH_OPERATOR   reduce using rule 21 (Exp -> Exp NUMBER .)
+    DUP             reduce using rule 21 (Exp -> Exp NUMBER .)
+    EMIT            reduce using rule 21 (Exp -> Exp NUMBER .)
+    CR              reduce using rule 21 (Exp -> Exp NUMBER .)
+    SPACE           reduce using rule 21 (Exp -> Exp NUMBER .)
+    LPAREN          reduce using rule 21 (Exp -> Exp NUMBER .)
+    RPAREN          reduce using rule 21 (Exp -> Exp NUMBER .)
+    IF              reduce using rule 21 (Exp -> Exp NUMBER .)
+    THEN            reduce using rule 21 (Exp -> Exp NUMBER .)
+    ELSE            reduce using rule 21 (Exp -> Exp NUMBER .)
+    PRINTSTRING     reduce using rule 21 (Exp -> Exp NUMBER .)
 
