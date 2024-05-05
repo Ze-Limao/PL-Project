@@ -16,7 +16,7 @@ def main(args):
             print(i)
             i+=1
             if result:
-                print(result)
+                print(str(result) + " LOL")
     else:
         while True:
             try:
@@ -34,20 +34,21 @@ def main(args):
     # Parte das funções
     if translator.functions:
         i = 0
+        translator_code_aux = translator.code
         while i < len(translator.functions):
             print("CARALHO " + str(i))
             function_name = translator.function_names[i]
             data = translator.functions[i]
-            translator.code = []
-            translator.code.append(f"\n{function_name}:")
-            for line in data:
-                result2 = parser.parse(line)
-                if result2:
-                    print(result2)
+            if ("pusha " + function_name) in translator_code_aux:
+                translator.code = []
+                translator.code.append(f"\n{function_name}:")
+                for line in data:
+                    result2 = parser.parse(line)
+                    if result2:
+                        print(result2)
+                translator.function_to_file()
+                print(translator.code)
             i += 1
-            translator.function_to_file()
-            print(translator.code)
-        
 
 
 if __name__ == '__main__':

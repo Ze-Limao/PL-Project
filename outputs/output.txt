@@ -5,8 +5,6 @@ pushi 1
 pushi 1
 pusha SPROUTS
 call
-pusha BLA
-call
 stop
 
 SPROUTS:
@@ -14,10 +12,4 @@ pushi 3
 pushi 6
 pushi 9
 pushi 0
-return
-
-BLA:
-pushi 4
-pushi 5
-pushi 6
 return

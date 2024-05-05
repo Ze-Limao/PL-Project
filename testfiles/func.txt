@@ -2,4 +2,3 @@
 : SPROUTS 3 6 9 0 ;
 : BLA 4 5 6;
 SPROUTS
-BLA
