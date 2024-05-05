@@ -2,11 +2,13 @@ class Translator:
     def __init__(self):
         self.stack = []
         self.variables = {}
-        self.functions = {}
+        self.functions = []
+        self.function_names = []
         self.code = []
         self.code.append("start")
         self.code.append("")
         self.var_counter = 0
+        self.match_count = -1
     
     def nop(self):
         self.code.append("nop") # Nope operation does nothing
@@ -194,13 +196,13 @@ class Translator:
 
 # Functions
 
-    def init_func(self, name):
-        if name not in self.functions:
-            self.functions[name] = str()
-            return name
+    def init_func(self, count : int):
+        if count != self.match_count:
+            func = str()
+            self.functions.append(func)
+            self.match_count += 1
         else:
-            print(f"Function {name} already exists")
-            return None 
+            return 
 
 
 # Control Operations

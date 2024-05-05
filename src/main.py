@@ -33,19 +33,21 @@ def main(args):
 
     # Parte das funções
     if translator.functions:
-        print(translator.functions.keys())
-        for key in translator.functions.keys():
-                data = translator.functions[key]
-                translator.code = []
-                translator.code.append(f"\n{key}:")
-                for line in data:
-                    result2 = parser.parse(line)
-                    print(i)
-                    i+=1
-                    if result2:
-                        print(result2)
+        i = 0
+        while i < len(translator.functions):
+            print("CARALHO " + str(i))
+            function_name = translator.function_names[i]
+            data = translator.functions[i]
+            translator.code = []
+            translator.code.append(f"\n{function_name}:")
+            for line in data:
+                result2 = parser.parse(line)
+                if result2:
+                    print(result2)
+            i += 1
+            translator.function_to_file()
+            print(translator.code)
         
-        translator.function_to_file()
 
 
 if __name__ == '__main__':
