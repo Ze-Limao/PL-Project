@@ -115,10 +115,24 @@ class Parser():
 
     def p_function_expression(self, p):
         """
-        Exp : Function_operator
-            | NUMBER
-            | Exp Function_operator
+        Exp : Exp Function_operator
             | Exp NUMBER
+            | Exp CHR CHAR
+            | Exp CHR MATH_OPERATOR
+            | Exp DUP
+            | Exp PRINTSTRING
+            | Exp MATH_OPERATOR
+            | Exp DOT
+            | Exp EMIT
+            | Exp STRING
+            | Exp CR
+            | Exp KEY
+            | Exp NAME
+            | Exp VARIABLE NAME
+            | Exp NAME GET
+            | Exp NAME SET
+            |
+            
         """
         print("Exp")
         self.translator.init_func(self.count)
