@@ -1,10 +1,5 @@
 start
 
-pusha TOFU
-call
+pushi 2
+writei
 stop
-
-TOFU:
-pushs "Yummy bean curd!"
-writes
-return

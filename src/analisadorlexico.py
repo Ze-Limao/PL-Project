@@ -26,18 +26,21 @@ class Lexer():
         'GET',
         'SET',
         'NAME',
-        'ARGUMENT',
         'IF',
         'ELSE',
         'THEN',
-        'ARGDELIMITER',
-        'COMMENT',
-        'FUNCTION_DEFINITION',
+        'COMMENT1',
+        'COMMENT2',
         'MATH_OPERATOR',
         'PRINTSTRING',
         'DUP',
-        'FUNCONTENT'
+        'DO',
+        'LOOP'
     ]
+
+    def t_PRINTSTRING(self, t):
+        r'\.\"\s[^"]+\"'
+        return t
 
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
@@ -45,8 +48,13 @@ class Lexer():
     t_SEMICOLON = r';'
     t_DOT = r'\.'
 
-    def t_PRINTSTRING(self, t):
-        r'\.\"\s[^"]+\"'
+
+    def t_LOOP(self, t):
+        r'[Ll][Oo][Oo][Pp]'
+        return t
+
+    def t_DO(self, t):
+        r'[Dd][Oo]'
         return t
 
     def t_STRING(self, t):
@@ -124,20 +132,15 @@ class Lexer():
 
     def t_THEN(self, t):
         r"[Tt][Hh][Ee][Nn]"
-        return t
-    
-    def t_FUNCONTENT(self, t):
-        r'name'
+        return t    
 
-
-    def t_COMMENT(self, t):
-        # Apanha tudo ate ao fim da linha a partir dos -- ou coisas entre parenteses
-        r'\(.*\)|\b--.*|^--.*'
+    def t_COMMENT1(self, t):
+        r'\\\s.+'
         t.lexer.lineno += t.value.count('\n')
-
-    #def t_FUNCTION_DEFINITION(self, t):
-    #    r':\s[a-zA-Z]+ ( . )* ;'
-    #    return t
+    
+    def t_COMMENT2(self, t):
+        r'\(\s.+\)'
+        t.lexer.lineno += t.value.count('\n')
 
     def t_newline(self, t):
         r"\n+"

@@ -14,6 +14,14 @@ class Parser():
 
     ## Grammar
 
+    def p_comment1(self, p):
+        '''Cmd : COMMENT1'''
+        pass
+
+    def p_comment2(self, p):
+        '''Cmd : COMMENT2'''
+        pass
+
     def p_set(self, p):
         '''Cmd : Cmd NAME SET '''
         p[0] = p[1]
@@ -147,21 +155,6 @@ class Parser():
                 self.translator.functions[self.count] += " " + str(i)
         print(self.translator.code)
 
-    def p_function_operator(self, p):
-        """
-        Function_operator : MATH_OPERATOR
-                            | DUP
-                            | EMIT
-                            | CR
-                            | SPACE
-                            | LPAREN
-                            | RPAREN
-                            | IF
-                            | THEN
-                            | ELSE
-                            | PRINTSTRING
-        """
-        print("ganda function operator")
 
     #def p_line(self, p):
     #    '''Line : Cmd
@@ -174,6 +167,23 @@ class Parser():
         '''Cmd : Cmd Function
         '''
         return p
+
+    def p_if(self, p):
+        '''Cmd : Cmd IF Exec THEN'''
+        p[0] = p[1]
+        self.translator.if_then(p[3]) #ainda nao implementado
+
+    def p_else(self, p):
+        '''Cmd : Cmd IF Exec ELSE Exec THEN'''
+        p[0] = p[1]
+        self.translator.else_then(p[3], p[5]) #ainda nao implementado
+        
+    def p_exec(self, p):
+        '''
+        Exec : Cmd
+             | Exec Cmd
+        '''
+        pass
 
 
     def p_error(self, p):

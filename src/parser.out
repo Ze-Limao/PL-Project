@@ -2,917 +2,1512 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ARGDELIMITER
-    ARGUMENT
-    COMMENT
-    FUNCONTENT
-    FUNCTION_DEFINITION
+    DO
+    LOOP
+    LPAREN
+    RPAREN
+    SPACE
     SPACES
 
 Grammar
 
 Rule 0     S' -> Cmd
-Rule 1     Cmd -> Cmd NAME SET
-Rule 2     Cmd -> Cmd NAME GET
-Rule 3     Cmd -> Cmd VARIABLE NAME
-Rule 4     Cmd -> Cmd NAME
-Rule 5     Cmd -> Cmd KEY
-Rule 6     Cmd -> Cmd CR
-Rule 7     Cmd -> Cmd STRING
-Rule 8     Cmd -> Cmd EMIT
-Rule 9     Cmd -> Cmd DOT
-Rule 10    Cmd -> Cmd CHR CHAR
-Rule 11    Cmd -> Cmd CHR MATH_OPERATOR
-Rule 12    Cmd -> Cmd DUP
-Rule 13    Cmd -> Cmd PRINTSTRING
-Rule 14    Cmd -> Cmd NUMBER
-Rule 15    Cmd -> Cmd MATH_OPERATOR
-Rule 16    Cmd -> <empty>
-Rule 17    Function -> COLON NAME Exp SEMICOLON
-Rule 18    Exp -> Exp NUMBER
-Rule 19    Exp -> Exp CHR CHAR
-Rule 20    Exp -> Exp CHR MATH_OPERATOR
-Rule 21    Exp -> Exp DUP
-Rule 22    Exp -> Exp MATH_OPERATOR
-Rule 23    Exp -> Exp EMIT
-Rule 24    Exp -> Exp STRING
-Rule 25    Exp -> Exp DOT
-Rule 26    Exp -> Exp PRINTSTRING
-Rule 27    Exp -> Exp CR
-Rule 28    Exp -> Exp KEY
-Rule 29    Exp -> Exp NAME
-Rule 30    Exp -> Exp VARIABLE NAME
-Rule 31    Exp -> Exp NAME GET
-Rule 32    Exp -> Exp NAME SET
-Rule 33    Exp -> <empty>
-Rule 34    Function_operator -> MATH_OPERATOR
-Rule 35    Function_operator -> DUP
-Rule 36    Function_operator -> EMIT
-Rule 37    Function_operator -> CR
-Rule 38    Function_operator -> SPACE
-Rule 39    Function_operator -> LPAREN
-Rule 40    Function_operator -> RPAREN
-Rule 41    Function_operator -> IF
-Rule 42    Function_operator -> THEN
-Rule 43    Function_operator -> ELSE
-Rule 44    Function_operator -> PRINTSTRING
-Rule 45    Cmd -> Cmd Function
+Rule 1     Cmd -> COMMENT1
+Rule 2     Cmd -> COMMENT2
+Rule 3     Cmd -> Cmd NAME SET
+Rule 4     Cmd -> Cmd NAME GET
+Rule 5     Cmd -> Cmd VARIABLE NAME
+Rule 6     Cmd -> Cmd NAME
+Rule 7     Cmd -> Cmd KEY
+Rule 8     Cmd -> Cmd CR
+Rule 9     Cmd -> Cmd STRING
+Rule 10    Cmd -> Cmd EMIT
+Rule 11    Cmd -> Cmd DOT
+Rule 12    Cmd -> Cmd CHR CHAR
+Rule 13    Cmd -> Cmd CHR MATH_OPERATOR
+Rule 14    Cmd -> Cmd DUP
+Rule 15    Cmd -> Cmd PRINTSTRING
+Rule 16    Cmd -> Cmd NUMBER
+Rule 17    Cmd -> Cmd MATH_OPERATOR
+Rule 18    Cmd -> <empty>
+Rule 19    Function -> COLON NAME Exp SEMICOLON
+Rule 20    Exp -> Exp NUMBER
+Rule 21    Exp -> Exp CHR CHAR
+Rule 22    Exp -> Exp CHR MATH_OPERATOR
+Rule 23    Exp -> Exp DUP
+Rule 24    Exp -> Exp MATH_OPERATOR
+Rule 25    Exp -> Exp EMIT
+Rule 26    Exp -> Exp STRING
+Rule 27    Exp -> Exp DOT
+Rule 28    Exp -> Exp PRINTSTRING
+Rule 29    Exp -> Exp CR
+Rule 30    Exp -> Exp KEY
+Rule 31    Exp -> Exp NAME
+Rule 32    Exp -> Exp VARIABLE NAME
+Rule 33    Exp -> Exp NAME GET
+Rule 34    Exp -> Exp NAME SET
+Rule 35    Exp -> <empty>
+Rule 36    Cmd -> Cmd Function
+Rule 37    Cmd -> Cmd IF Exec THEN
+Rule 38    Cmd -> Cmd IF Exec ELSE Exec THEN
+Rule 39    Exec -> Cmd
+Rule 40    Exec -> Exec Cmd
 
 Terminals, with rules where they appear
 
-ARGDELIMITER         : 
-ARGUMENT             : 
-CHAR                 : 10 19
-CHR                  : 10 11 19 20
-COLON                : 17
-COMMENT              : 
-CR                   : 6 27 37
-DOT                  : 9 25
-DUP                  : 12 21 35
-ELSE                 : 43
-EMIT                 : 8 23 36
-FUNCONTENT           : 
-FUNCTION_DEFINITION  : 
-GET                  : 2 31
-IF                   : 41
-KEY                  : 5 28
-LPAREN               : 39
-MATH_OPERATOR        : 11 15 20 22 34
-NAME                 : 1 2 3 4 17 29 30 31 32
-NUMBER               : 14 18
-PRINTSTRING          : 13 26 44
-RPAREN               : 40
-SEMICOLON            : 17
-SET                  : 1 32
-SPACE                : 38
+CHAR                 : 12 21
+CHR                  : 12 13 21 22
+COLON                : 19
+COMMENT1             : 1
+COMMENT2             : 2
+CR                   : 8 29
+DO                   : 
+DOT                  : 11 27
+DUP                  : 14 23
+ELSE                 : 38
+EMIT                 : 10 25
+GET                  : 4 33
+IF                   : 37 38
+KEY                  : 7 30
+LOOP                 : 
+LPAREN               : 
+MATH_OPERATOR        : 13 17 22 24
+NAME                 : 3 4 5 6 19 31 32 33 34
+NUMBER               : 16 20
+PRINTSTRING          : 15 28
+RPAREN               : 
+SEMICOLON            : 19
+SET                  : 3 34
+SPACE                : 
 SPACES               : 
-STRING               : 7 24
-THEN                 : 42
-VARIABLE             : 3 30
+STRING               : 9 26
+THEN                 : 37 38
+VARIABLE             : 5 32
 error                : 
 
 Nonterminals, with rules where they appear
 
-Cmd                  : 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 45 0
-Exp                  : 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-Function             : 45
-Function_operator    : 
+Cmd                  : 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 36 37 38 39 40 0
+Exec                 : 37 38 38 40
+Exp                  : 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34
+Function             : 36
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . Cmd
-    (1) Cmd -> . Cmd NAME SET
-    (2) Cmd -> . Cmd NAME GET
-    (3) Cmd -> . Cmd VARIABLE NAME
-    (4) Cmd -> . Cmd NAME
-    (5) Cmd -> . Cmd KEY
-    (6) Cmd -> . Cmd CR
-    (7) Cmd -> . Cmd STRING
-    (8) Cmd -> . Cmd EMIT
-    (9) Cmd -> . Cmd DOT
-    (10) Cmd -> . Cmd CHR CHAR
-    (11) Cmd -> . Cmd CHR MATH_OPERATOR
-    (12) Cmd -> . Cmd DUP
-    (13) Cmd -> . Cmd PRINTSTRING
-    (14) Cmd -> . Cmd NUMBER
-    (15) Cmd -> . Cmd MATH_OPERATOR
-    (16) Cmd -> .
-    (45) Cmd -> . Cmd Function
+    (1) Cmd -> . COMMENT1
+    (2) Cmd -> . COMMENT2
+    (3) Cmd -> . Cmd NAME SET
+    (4) Cmd -> . Cmd NAME GET
+    (5) Cmd -> . Cmd VARIABLE NAME
+    (6) Cmd -> . Cmd NAME
+    (7) Cmd -> . Cmd KEY
+    (8) Cmd -> . Cmd CR
+    (9) Cmd -> . Cmd STRING
+    (10) Cmd -> . Cmd EMIT
+    (11) Cmd -> . Cmd DOT
+    (12) Cmd -> . Cmd CHR CHAR
+    (13) Cmd -> . Cmd CHR MATH_OPERATOR
+    (14) Cmd -> . Cmd DUP
+    (15) Cmd -> . Cmd PRINTSTRING
+    (16) Cmd -> . Cmd NUMBER
+    (17) Cmd -> . Cmd MATH_OPERATOR
+    (18) Cmd -> .
+    (36) Cmd -> . Cmd Function
+    (37) Cmd -> . Cmd IF Exec THEN
+    (38) Cmd -> . Cmd IF Exec ELSE Exec THEN
 
-    NAME            reduce using rule 16 (Cmd -> .)
-    VARIABLE        reduce using rule 16 (Cmd -> .)
-    KEY             reduce using rule 16 (Cmd -> .)
-    CR              reduce using rule 16 (Cmd -> .)
-    STRING          reduce using rule 16 (Cmd -> .)
-    EMIT            reduce using rule 16 (Cmd -> .)
-    DOT             reduce using rule 16 (Cmd -> .)
-    CHR             reduce using rule 16 (Cmd -> .)
-    DUP             reduce using rule 16 (Cmd -> .)
-    PRINTSTRING     reduce using rule 16 (Cmd -> .)
-    NUMBER          reduce using rule 16 (Cmd -> .)
-    MATH_OPERATOR   reduce using rule 16 (Cmd -> .)
-    COLON           reduce using rule 16 (Cmd -> .)
-    $end            reduce using rule 16 (Cmd -> .)
+    COMMENT1        shift and go to state 2
+    COMMENT2        shift and go to state 3
+    NAME            reduce using rule 18 (Cmd -> .)
+    VARIABLE        reduce using rule 18 (Cmd -> .)
+    KEY             reduce using rule 18 (Cmd -> .)
+    CR              reduce using rule 18 (Cmd -> .)
+    STRING          reduce using rule 18 (Cmd -> .)
+    EMIT            reduce using rule 18 (Cmd -> .)
+    DOT             reduce using rule 18 (Cmd -> .)
+    CHR             reduce using rule 18 (Cmd -> .)
+    DUP             reduce using rule 18 (Cmd -> .)
+    PRINTSTRING     reduce using rule 18 (Cmd -> .)
+    NUMBER          reduce using rule 18 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 18 (Cmd -> .)
+    IF              reduce using rule 18 (Cmd -> .)
+    COLON           reduce using rule 18 (Cmd -> .)
+    $end            reduce using rule 18 (Cmd -> .)
 
     Cmd                            shift and go to state 1
 
 state 1
 
     (0) S' -> Cmd .
-    (1) Cmd -> Cmd . NAME SET
-    (2) Cmd -> Cmd . NAME GET
-    (3) Cmd -> Cmd . VARIABLE NAME
-    (4) Cmd -> Cmd . NAME
-    (5) Cmd -> Cmd . KEY
-    (6) Cmd -> Cmd . CR
-    (7) Cmd -> Cmd . STRING
-    (8) Cmd -> Cmd . EMIT
-    (9) Cmd -> Cmd . DOT
-    (10) Cmd -> Cmd . CHR CHAR
-    (11) Cmd -> Cmd . CHR MATH_OPERATOR
-    (12) Cmd -> Cmd . DUP
-    (13) Cmd -> Cmd . PRINTSTRING
-    (14) Cmd -> Cmd . NUMBER
-    (15) Cmd -> Cmd . MATH_OPERATOR
-    (45) Cmd -> Cmd . Function
-    (17) Function -> . COLON NAME Exp SEMICOLON
+    (3) Cmd -> Cmd . NAME SET
+    (4) Cmd -> Cmd . NAME GET
+    (5) Cmd -> Cmd . VARIABLE NAME
+    (6) Cmd -> Cmd . NAME
+    (7) Cmd -> Cmd . KEY
+    (8) Cmd -> Cmd . CR
+    (9) Cmd -> Cmd . STRING
+    (10) Cmd -> Cmd . EMIT
+    (11) Cmd -> Cmd . DOT
+    (12) Cmd -> Cmd . CHR CHAR
+    (13) Cmd -> Cmd . CHR MATH_OPERATOR
+    (14) Cmd -> Cmd . DUP
+    (15) Cmd -> Cmd . PRINTSTRING
+    (16) Cmd -> Cmd . NUMBER
+    (17) Cmd -> Cmd . MATH_OPERATOR
+    (36) Cmd -> Cmd . Function
+    (37) Cmd -> Cmd . IF Exec THEN
+    (38) Cmd -> Cmd . IF Exec ELSE Exec THEN
+    (19) Function -> . COLON NAME Exp SEMICOLON
 
-    NAME            shift and go to state 2
-    VARIABLE        shift and go to state 3
-    KEY             shift and go to state 4
-    CR              shift and go to state 5
-    STRING          shift and go to state 6
-    EMIT            shift and go to state 7
-    DOT             shift and go to state 8
-    CHR             shift and go to state 9
-    DUP             shift and go to state 11
-    PRINTSTRING     shift and go to state 12
-    NUMBER          shift and go to state 13
-    MATH_OPERATOR   shift and go to state 10
-    COLON           shift and go to state 15
+    NAME            shift and go to state 4
+    VARIABLE        shift and go to state 5
+    KEY             shift and go to state 6
+    CR              shift and go to state 7
+    STRING          shift and go to state 8
+    EMIT            shift and go to state 9
+    DOT             shift and go to state 10
+    CHR             shift and go to state 11
+    DUP             shift and go to state 13
+    PRINTSTRING     shift and go to state 14
+    NUMBER          shift and go to state 15
+    MATH_OPERATOR   shift and go to state 12
+    IF              shift and go to state 17
+    COLON           shift and go to state 18
 
-    Function                       shift and go to state 14
+    Function                       shift and go to state 16
 
 state 2
 
-    (1) Cmd -> Cmd NAME . SET
-    (2) Cmd -> Cmd NAME . GET
-    (4) Cmd -> Cmd NAME .
+    (1) Cmd -> COMMENT1 .
 
-    SET             shift and go to state 16
-    GET             shift and go to state 17
-    NAME            reduce using rule 4 (Cmd -> Cmd NAME .)
-    VARIABLE        reduce using rule 4 (Cmd -> Cmd NAME .)
-    KEY             reduce using rule 4 (Cmd -> Cmd NAME .)
-    CR              reduce using rule 4 (Cmd -> Cmd NAME .)
-    STRING          reduce using rule 4 (Cmd -> Cmd NAME .)
-    EMIT            reduce using rule 4 (Cmd -> Cmd NAME .)
-    DOT             reduce using rule 4 (Cmd -> Cmd NAME .)
-    CHR             reduce using rule 4 (Cmd -> Cmd NAME .)
-    DUP             reduce using rule 4 (Cmd -> Cmd NAME .)
-    PRINTSTRING     reduce using rule 4 (Cmd -> Cmd NAME .)
-    NUMBER          reduce using rule 4 (Cmd -> Cmd NAME .)
-    MATH_OPERATOR   reduce using rule 4 (Cmd -> Cmd NAME .)
-    COLON           reduce using rule 4 (Cmd -> Cmd NAME .)
-    $end            reduce using rule 4 (Cmd -> Cmd NAME .)
+    NAME            reduce using rule 1 (Cmd -> COMMENT1 .)
+    VARIABLE        reduce using rule 1 (Cmd -> COMMENT1 .)
+    KEY             reduce using rule 1 (Cmd -> COMMENT1 .)
+    CR              reduce using rule 1 (Cmd -> COMMENT1 .)
+    STRING          reduce using rule 1 (Cmd -> COMMENT1 .)
+    EMIT            reduce using rule 1 (Cmd -> COMMENT1 .)
+    DOT             reduce using rule 1 (Cmd -> COMMENT1 .)
+    CHR             reduce using rule 1 (Cmd -> COMMENT1 .)
+    DUP             reduce using rule 1 (Cmd -> COMMENT1 .)
+    PRINTSTRING     reduce using rule 1 (Cmd -> COMMENT1 .)
+    NUMBER          reduce using rule 1 (Cmd -> COMMENT1 .)
+    MATH_OPERATOR   reduce using rule 1 (Cmd -> COMMENT1 .)
+    IF              reduce using rule 1 (Cmd -> COMMENT1 .)
+    COLON           reduce using rule 1 (Cmd -> COMMENT1 .)
+    $end            reduce using rule 1 (Cmd -> COMMENT1 .)
+    THEN            reduce using rule 1 (Cmd -> COMMENT1 .)
+    ELSE            reduce using rule 1 (Cmd -> COMMENT1 .)
+    COMMENT1        reduce using rule 1 (Cmd -> COMMENT1 .)
+    COMMENT2        reduce using rule 1 (Cmd -> COMMENT1 .)
 
 
 state 3
 
-    (3) Cmd -> Cmd VARIABLE . NAME
+    (2) Cmd -> COMMENT2 .
 
-    NAME            shift and go to state 18
+    NAME            reduce using rule 2 (Cmd -> COMMENT2 .)
+    VARIABLE        reduce using rule 2 (Cmd -> COMMENT2 .)
+    KEY             reduce using rule 2 (Cmd -> COMMENT2 .)
+    CR              reduce using rule 2 (Cmd -> COMMENT2 .)
+    STRING          reduce using rule 2 (Cmd -> COMMENT2 .)
+    EMIT            reduce using rule 2 (Cmd -> COMMENT2 .)
+    DOT             reduce using rule 2 (Cmd -> COMMENT2 .)
+    CHR             reduce using rule 2 (Cmd -> COMMENT2 .)
+    DUP             reduce using rule 2 (Cmd -> COMMENT2 .)
+    PRINTSTRING     reduce using rule 2 (Cmd -> COMMENT2 .)
+    NUMBER          reduce using rule 2 (Cmd -> COMMENT2 .)
+    MATH_OPERATOR   reduce using rule 2 (Cmd -> COMMENT2 .)
+    IF              reduce using rule 2 (Cmd -> COMMENT2 .)
+    COLON           reduce using rule 2 (Cmd -> COMMENT2 .)
+    $end            reduce using rule 2 (Cmd -> COMMENT2 .)
+    THEN            reduce using rule 2 (Cmd -> COMMENT2 .)
+    ELSE            reduce using rule 2 (Cmd -> COMMENT2 .)
+    COMMENT1        reduce using rule 2 (Cmd -> COMMENT2 .)
+    COMMENT2        reduce using rule 2 (Cmd -> COMMENT2 .)
 
 
 state 4
 
-    (5) Cmd -> Cmd KEY .
+    (3) Cmd -> Cmd NAME . SET
+    (4) Cmd -> Cmd NAME . GET
+    (6) Cmd -> Cmd NAME .
 
-    NAME            reduce using rule 5 (Cmd -> Cmd KEY .)
-    VARIABLE        reduce using rule 5 (Cmd -> Cmd KEY .)
-    KEY             reduce using rule 5 (Cmd -> Cmd KEY .)
-    CR              reduce using rule 5 (Cmd -> Cmd KEY .)
-    STRING          reduce using rule 5 (Cmd -> Cmd KEY .)
-    EMIT            reduce using rule 5 (Cmd -> Cmd KEY .)
-    DOT             reduce using rule 5 (Cmd -> Cmd KEY .)
-    CHR             reduce using rule 5 (Cmd -> Cmd KEY .)
-    DUP             reduce using rule 5 (Cmd -> Cmd KEY .)
-    PRINTSTRING     reduce using rule 5 (Cmd -> Cmd KEY .)
-    NUMBER          reduce using rule 5 (Cmd -> Cmd KEY .)
-    MATH_OPERATOR   reduce using rule 5 (Cmd -> Cmd KEY .)
-    COLON           reduce using rule 5 (Cmd -> Cmd KEY .)
-    $end            reduce using rule 5 (Cmd -> Cmd KEY .)
+    SET             shift and go to state 19
+    GET             shift and go to state 20
+    NAME            reduce using rule 6 (Cmd -> Cmd NAME .)
+    VARIABLE        reduce using rule 6 (Cmd -> Cmd NAME .)
+    KEY             reduce using rule 6 (Cmd -> Cmd NAME .)
+    CR              reduce using rule 6 (Cmd -> Cmd NAME .)
+    STRING          reduce using rule 6 (Cmd -> Cmd NAME .)
+    EMIT            reduce using rule 6 (Cmd -> Cmd NAME .)
+    DOT             reduce using rule 6 (Cmd -> Cmd NAME .)
+    CHR             reduce using rule 6 (Cmd -> Cmd NAME .)
+    DUP             reduce using rule 6 (Cmd -> Cmd NAME .)
+    PRINTSTRING     reduce using rule 6 (Cmd -> Cmd NAME .)
+    NUMBER          reduce using rule 6 (Cmd -> Cmd NAME .)
+    MATH_OPERATOR   reduce using rule 6 (Cmd -> Cmd NAME .)
+    IF              reduce using rule 6 (Cmd -> Cmd NAME .)
+    COLON           reduce using rule 6 (Cmd -> Cmd NAME .)
+    $end            reduce using rule 6 (Cmd -> Cmd NAME .)
+    THEN            reduce using rule 6 (Cmd -> Cmd NAME .)
+    ELSE            reduce using rule 6 (Cmd -> Cmd NAME .)
+    COMMENT1        reduce using rule 6 (Cmd -> Cmd NAME .)
+    COMMENT2        reduce using rule 6 (Cmd -> Cmd NAME .)
 
 
 state 5
 
-    (6) Cmd -> Cmd CR .
-
-    NAME            reduce using rule 6 (Cmd -> Cmd CR .)
-    VARIABLE        reduce using rule 6 (Cmd -> Cmd CR .)
-    KEY             reduce using rule 6 (Cmd -> Cmd CR .)
-    CR              reduce using rule 6 (Cmd -> Cmd CR .)
-    STRING          reduce using rule 6 (Cmd -> Cmd CR .)
-    EMIT            reduce using rule 6 (Cmd -> Cmd CR .)
-    DOT             reduce using rule 6 (Cmd -> Cmd CR .)
-    CHR             reduce using rule 6 (Cmd -> Cmd CR .)
-    DUP             reduce using rule 6 (Cmd -> Cmd CR .)
-    PRINTSTRING     reduce using rule 6 (Cmd -> Cmd CR .)
-    NUMBER          reduce using rule 6 (Cmd -> Cmd CR .)
-    MATH_OPERATOR   reduce using rule 6 (Cmd -> Cmd CR .)
-    COLON           reduce using rule 6 (Cmd -> Cmd CR .)
-    $end            reduce using rule 6 (Cmd -> Cmd CR .)
-
-
-state 6
-
-    (7) Cmd -> Cmd STRING .
-
-    NAME            reduce using rule 7 (Cmd -> Cmd STRING .)
-    VARIABLE        reduce using rule 7 (Cmd -> Cmd STRING .)
-    KEY             reduce using rule 7 (Cmd -> Cmd STRING .)
-    CR              reduce using rule 7 (Cmd -> Cmd STRING .)
-    STRING          reduce using rule 7 (Cmd -> Cmd STRING .)
-    EMIT            reduce using rule 7 (Cmd -> Cmd STRING .)
-    DOT             reduce using rule 7 (Cmd -> Cmd STRING .)
-    CHR             reduce using rule 7 (Cmd -> Cmd STRING .)
-    DUP             reduce using rule 7 (Cmd -> Cmd STRING .)
-    PRINTSTRING     reduce using rule 7 (Cmd -> Cmd STRING .)
-    NUMBER          reduce using rule 7 (Cmd -> Cmd STRING .)
-    MATH_OPERATOR   reduce using rule 7 (Cmd -> Cmd STRING .)
-    COLON           reduce using rule 7 (Cmd -> Cmd STRING .)
-    $end            reduce using rule 7 (Cmd -> Cmd STRING .)
-
-
-state 7
-
-    (8) Cmd -> Cmd EMIT .
-
-    NAME            reduce using rule 8 (Cmd -> Cmd EMIT .)
-    VARIABLE        reduce using rule 8 (Cmd -> Cmd EMIT .)
-    KEY             reduce using rule 8 (Cmd -> Cmd EMIT .)
-    CR              reduce using rule 8 (Cmd -> Cmd EMIT .)
-    STRING          reduce using rule 8 (Cmd -> Cmd EMIT .)
-    EMIT            reduce using rule 8 (Cmd -> Cmd EMIT .)
-    DOT             reduce using rule 8 (Cmd -> Cmd EMIT .)
-    CHR             reduce using rule 8 (Cmd -> Cmd EMIT .)
-    DUP             reduce using rule 8 (Cmd -> Cmd EMIT .)
-    PRINTSTRING     reduce using rule 8 (Cmd -> Cmd EMIT .)
-    NUMBER          reduce using rule 8 (Cmd -> Cmd EMIT .)
-    MATH_OPERATOR   reduce using rule 8 (Cmd -> Cmd EMIT .)
-    COLON           reduce using rule 8 (Cmd -> Cmd EMIT .)
-    $end            reduce using rule 8 (Cmd -> Cmd EMIT .)
-
-
-state 8
-
-    (9) Cmd -> Cmd DOT .
-
-    NAME            reduce using rule 9 (Cmd -> Cmd DOT .)
-    VARIABLE        reduce using rule 9 (Cmd -> Cmd DOT .)
-    KEY             reduce using rule 9 (Cmd -> Cmd DOT .)
-    CR              reduce using rule 9 (Cmd -> Cmd DOT .)
-    STRING          reduce using rule 9 (Cmd -> Cmd DOT .)
-    EMIT            reduce using rule 9 (Cmd -> Cmd DOT .)
-    DOT             reduce using rule 9 (Cmd -> Cmd DOT .)
-    CHR             reduce using rule 9 (Cmd -> Cmd DOT .)
-    DUP             reduce using rule 9 (Cmd -> Cmd DOT .)
-    PRINTSTRING     reduce using rule 9 (Cmd -> Cmd DOT .)
-    NUMBER          reduce using rule 9 (Cmd -> Cmd DOT .)
-    MATH_OPERATOR   reduce using rule 9 (Cmd -> Cmd DOT .)
-    COLON           reduce using rule 9 (Cmd -> Cmd DOT .)
-    $end            reduce using rule 9 (Cmd -> Cmd DOT .)
-
-
-state 9
-
-    (10) Cmd -> Cmd CHR . CHAR
-    (11) Cmd -> Cmd CHR . MATH_OPERATOR
-
-    CHAR            shift and go to state 19
-    MATH_OPERATOR   shift and go to state 20
-
-
-state 10
-
-    (15) Cmd -> Cmd MATH_OPERATOR .
-
-    NAME            reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    VARIABLE        reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    KEY             reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    CR              reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    STRING          reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    EMIT            reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    DOT             reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    CHR             reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    DUP             reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    PRINTSTRING     reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    NUMBER          reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    COLON           reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-    $end            reduce using rule 15 (Cmd -> Cmd MATH_OPERATOR .)
-
-
-state 11
-
-    (12) Cmd -> Cmd DUP .
-
-    NAME            reduce using rule 12 (Cmd -> Cmd DUP .)
-    VARIABLE        reduce using rule 12 (Cmd -> Cmd DUP .)
-    KEY             reduce using rule 12 (Cmd -> Cmd DUP .)
-    CR              reduce using rule 12 (Cmd -> Cmd DUP .)
-    STRING          reduce using rule 12 (Cmd -> Cmd DUP .)
-    EMIT            reduce using rule 12 (Cmd -> Cmd DUP .)
-    DOT             reduce using rule 12 (Cmd -> Cmd DUP .)
-    CHR             reduce using rule 12 (Cmd -> Cmd DUP .)
-    DUP             reduce using rule 12 (Cmd -> Cmd DUP .)
-    PRINTSTRING     reduce using rule 12 (Cmd -> Cmd DUP .)
-    NUMBER          reduce using rule 12 (Cmd -> Cmd DUP .)
-    MATH_OPERATOR   reduce using rule 12 (Cmd -> Cmd DUP .)
-    COLON           reduce using rule 12 (Cmd -> Cmd DUP .)
-    $end            reduce using rule 12 (Cmd -> Cmd DUP .)
-
-
-state 12
-
-    (13) Cmd -> Cmd PRINTSTRING .
-
-    NAME            reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    VARIABLE        reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    KEY             reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    CR              reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    STRING          reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    EMIT            reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    DOT             reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    CHR             reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    DUP             reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    PRINTSTRING     reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    NUMBER          reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    MATH_OPERATOR   reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    COLON           reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-    $end            reduce using rule 13 (Cmd -> Cmd PRINTSTRING .)
-
-
-state 13
-
-    (14) Cmd -> Cmd NUMBER .
-
-    NAME            reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    VARIABLE        reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    KEY             reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    CR              reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    STRING          reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    EMIT            reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    DOT             reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    CHR             reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    DUP             reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    PRINTSTRING     reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    NUMBER          reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    MATH_OPERATOR   reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    COLON           reduce using rule 14 (Cmd -> Cmd NUMBER .)
-    $end            reduce using rule 14 (Cmd -> Cmd NUMBER .)
-
-
-state 14
-
-    (45) Cmd -> Cmd Function .
-
-    NAME            reduce using rule 45 (Cmd -> Cmd Function .)
-    VARIABLE        reduce using rule 45 (Cmd -> Cmd Function .)
-    KEY             reduce using rule 45 (Cmd -> Cmd Function .)
-    CR              reduce using rule 45 (Cmd -> Cmd Function .)
-    STRING          reduce using rule 45 (Cmd -> Cmd Function .)
-    EMIT            reduce using rule 45 (Cmd -> Cmd Function .)
-    DOT             reduce using rule 45 (Cmd -> Cmd Function .)
-    CHR             reduce using rule 45 (Cmd -> Cmd Function .)
-    DUP             reduce using rule 45 (Cmd -> Cmd Function .)
-    PRINTSTRING     reduce using rule 45 (Cmd -> Cmd Function .)
-    NUMBER          reduce using rule 45 (Cmd -> Cmd Function .)
-    MATH_OPERATOR   reduce using rule 45 (Cmd -> Cmd Function .)
-    COLON           reduce using rule 45 (Cmd -> Cmd Function .)
-    $end            reduce using rule 45 (Cmd -> Cmd Function .)
-
-
-state 15
-
-    (17) Function -> COLON . NAME Exp SEMICOLON
+    (5) Cmd -> Cmd VARIABLE . NAME
 
     NAME            shift and go to state 21
 
 
+state 6
+
+    (7) Cmd -> Cmd KEY .
+
+    NAME            reduce using rule 7 (Cmd -> Cmd KEY .)
+    VARIABLE        reduce using rule 7 (Cmd -> Cmd KEY .)
+    KEY             reduce using rule 7 (Cmd -> Cmd KEY .)
+    CR              reduce using rule 7 (Cmd -> Cmd KEY .)
+    STRING          reduce using rule 7 (Cmd -> Cmd KEY .)
+    EMIT            reduce using rule 7 (Cmd -> Cmd KEY .)
+    DOT             reduce using rule 7 (Cmd -> Cmd KEY .)
+    CHR             reduce using rule 7 (Cmd -> Cmd KEY .)
+    DUP             reduce using rule 7 (Cmd -> Cmd KEY .)
+    PRINTSTRING     reduce using rule 7 (Cmd -> Cmd KEY .)
+    NUMBER          reduce using rule 7 (Cmd -> Cmd KEY .)
+    MATH_OPERATOR   reduce using rule 7 (Cmd -> Cmd KEY .)
+    IF              reduce using rule 7 (Cmd -> Cmd KEY .)
+    COLON           reduce using rule 7 (Cmd -> Cmd KEY .)
+    $end            reduce using rule 7 (Cmd -> Cmd KEY .)
+    THEN            reduce using rule 7 (Cmd -> Cmd KEY .)
+    ELSE            reduce using rule 7 (Cmd -> Cmd KEY .)
+    COMMENT1        reduce using rule 7 (Cmd -> Cmd KEY .)
+    COMMENT2        reduce using rule 7 (Cmd -> Cmd KEY .)
+
+
+state 7
+
+    (8) Cmd -> Cmd CR .
+
+    NAME            reduce using rule 8 (Cmd -> Cmd CR .)
+    VARIABLE        reduce using rule 8 (Cmd -> Cmd CR .)
+    KEY             reduce using rule 8 (Cmd -> Cmd CR .)
+    CR              reduce using rule 8 (Cmd -> Cmd CR .)
+    STRING          reduce using rule 8 (Cmd -> Cmd CR .)
+    EMIT            reduce using rule 8 (Cmd -> Cmd CR .)
+    DOT             reduce using rule 8 (Cmd -> Cmd CR .)
+    CHR             reduce using rule 8 (Cmd -> Cmd CR .)
+    DUP             reduce using rule 8 (Cmd -> Cmd CR .)
+    PRINTSTRING     reduce using rule 8 (Cmd -> Cmd CR .)
+    NUMBER          reduce using rule 8 (Cmd -> Cmd CR .)
+    MATH_OPERATOR   reduce using rule 8 (Cmd -> Cmd CR .)
+    IF              reduce using rule 8 (Cmd -> Cmd CR .)
+    COLON           reduce using rule 8 (Cmd -> Cmd CR .)
+    $end            reduce using rule 8 (Cmd -> Cmd CR .)
+    THEN            reduce using rule 8 (Cmd -> Cmd CR .)
+    ELSE            reduce using rule 8 (Cmd -> Cmd CR .)
+    COMMENT1        reduce using rule 8 (Cmd -> Cmd CR .)
+    COMMENT2        reduce using rule 8 (Cmd -> Cmd CR .)
+
+
+state 8
+
+    (9) Cmd -> Cmd STRING .
+
+    NAME            reduce using rule 9 (Cmd -> Cmd STRING .)
+    VARIABLE        reduce using rule 9 (Cmd -> Cmd STRING .)
+    KEY             reduce using rule 9 (Cmd -> Cmd STRING .)
+    CR              reduce using rule 9 (Cmd -> Cmd STRING .)
+    STRING          reduce using rule 9 (Cmd -> Cmd STRING .)
+    EMIT            reduce using rule 9 (Cmd -> Cmd STRING .)
+    DOT             reduce using rule 9 (Cmd -> Cmd STRING .)
+    CHR             reduce using rule 9 (Cmd -> Cmd STRING .)
+    DUP             reduce using rule 9 (Cmd -> Cmd STRING .)
+    PRINTSTRING     reduce using rule 9 (Cmd -> Cmd STRING .)
+    NUMBER          reduce using rule 9 (Cmd -> Cmd STRING .)
+    MATH_OPERATOR   reduce using rule 9 (Cmd -> Cmd STRING .)
+    IF              reduce using rule 9 (Cmd -> Cmd STRING .)
+    COLON           reduce using rule 9 (Cmd -> Cmd STRING .)
+    $end            reduce using rule 9 (Cmd -> Cmd STRING .)
+    THEN            reduce using rule 9 (Cmd -> Cmd STRING .)
+    ELSE            reduce using rule 9 (Cmd -> Cmd STRING .)
+    COMMENT1        reduce using rule 9 (Cmd -> Cmd STRING .)
+    COMMENT2        reduce using rule 9 (Cmd -> Cmd STRING .)
+
+
+state 9
+
+    (10) Cmd -> Cmd EMIT .
+
+    NAME            reduce using rule 10 (Cmd -> Cmd EMIT .)
+    VARIABLE        reduce using rule 10 (Cmd -> Cmd EMIT .)
+    KEY             reduce using rule 10 (Cmd -> Cmd EMIT .)
+    CR              reduce using rule 10 (Cmd -> Cmd EMIT .)
+    STRING          reduce using rule 10 (Cmd -> Cmd EMIT .)
+    EMIT            reduce using rule 10 (Cmd -> Cmd EMIT .)
+    DOT             reduce using rule 10 (Cmd -> Cmd EMIT .)
+    CHR             reduce using rule 10 (Cmd -> Cmd EMIT .)
+    DUP             reduce using rule 10 (Cmd -> Cmd EMIT .)
+    PRINTSTRING     reduce using rule 10 (Cmd -> Cmd EMIT .)
+    NUMBER          reduce using rule 10 (Cmd -> Cmd EMIT .)
+    MATH_OPERATOR   reduce using rule 10 (Cmd -> Cmd EMIT .)
+    IF              reduce using rule 10 (Cmd -> Cmd EMIT .)
+    COLON           reduce using rule 10 (Cmd -> Cmd EMIT .)
+    $end            reduce using rule 10 (Cmd -> Cmd EMIT .)
+    THEN            reduce using rule 10 (Cmd -> Cmd EMIT .)
+    ELSE            reduce using rule 10 (Cmd -> Cmd EMIT .)
+    COMMENT1        reduce using rule 10 (Cmd -> Cmd EMIT .)
+    COMMENT2        reduce using rule 10 (Cmd -> Cmd EMIT .)
+
+
+state 10
+
+    (11) Cmd -> Cmd DOT .
+
+    NAME            reduce using rule 11 (Cmd -> Cmd DOT .)
+    VARIABLE        reduce using rule 11 (Cmd -> Cmd DOT .)
+    KEY             reduce using rule 11 (Cmd -> Cmd DOT .)
+    CR              reduce using rule 11 (Cmd -> Cmd DOT .)
+    STRING          reduce using rule 11 (Cmd -> Cmd DOT .)
+    EMIT            reduce using rule 11 (Cmd -> Cmd DOT .)
+    DOT             reduce using rule 11 (Cmd -> Cmd DOT .)
+    CHR             reduce using rule 11 (Cmd -> Cmd DOT .)
+    DUP             reduce using rule 11 (Cmd -> Cmd DOT .)
+    PRINTSTRING     reduce using rule 11 (Cmd -> Cmd DOT .)
+    NUMBER          reduce using rule 11 (Cmd -> Cmd DOT .)
+    MATH_OPERATOR   reduce using rule 11 (Cmd -> Cmd DOT .)
+    IF              reduce using rule 11 (Cmd -> Cmd DOT .)
+    COLON           reduce using rule 11 (Cmd -> Cmd DOT .)
+    $end            reduce using rule 11 (Cmd -> Cmd DOT .)
+    THEN            reduce using rule 11 (Cmd -> Cmd DOT .)
+    ELSE            reduce using rule 11 (Cmd -> Cmd DOT .)
+    COMMENT1        reduce using rule 11 (Cmd -> Cmd DOT .)
+    COMMENT2        reduce using rule 11 (Cmd -> Cmd DOT .)
+
+
+state 11
+
+    (12) Cmd -> Cmd CHR . CHAR
+    (13) Cmd -> Cmd CHR . MATH_OPERATOR
+
+    CHAR            shift and go to state 22
+    MATH_OPERATOR   shift and go to state 23
+
+
+state 12
+
+    (17) Cmd -> Cmd MATH_OPERATOR .
+
+    NAME            reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    VARIABLE        reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    KEY             reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    CR              reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    STRING          reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    EMIT            reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    DOT             reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    CHR             reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    DUP             reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    NUMBER          reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    IF              reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    COLON           reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    $end            reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    THEN            reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    ELSE            reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    COMMENT1        reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+    COMMENT2        reduce using rule 17 (Cmd -> Cmd MATH_OPERATOR .)
+
+
+state 13
+
+    (14) Cmd -> Cmd DUP .
+
+    NAME            reduce using rule 14 (Cmd -> Cmd DUP .)
+    VARIABLE        reduce using rule 14 (Cmd -> Cmd DUP .)
+    KEY             reduce using rule 14 (Cmd -> Cmd DUP .)
+    CR              reduce using rule 14 (Cmd -> Cmd DUP .)
+    STRING          reduce using rule 14 (Cmd -> Cmd DUP .)
+    EMIT            reduce using rule 14 (Cmd -> Cmd DUP .)
+    DOT             reduce using rule 14 (Cmd -> Cmd DUP .)
+    CHR             reduce using rule 14 (Cmd -> Cmd DUP .)
+    DUP             reduce using rule 14 (Cmd -> Cmd DUP .)
+    PRINTSTRING     reduce using rule 14 (Cmd -> Cmd DUP .)
+    NUMBER          reduce using rule 14 (Cmd -> Cmd DUP .)
+    MATH_OPERATOR   reduce using rule 14 (Cmd -> Cmd DUP .)
+    IF              reduce using rule 14 (Cmd -> Cmd DUP .)
+    COLON           reduce using rule 14 (Cmd -> Cmd DUP .)
+    $end            reduce using rule 14 (Cmd -> Cmd DUP .)
+    THEN            reduce using rule 14 (Cmd -> Cmd DUP .)
+    ELSE            reduce using rule 14 (Cmd -> Cmd DUP .)
+    COMMENT1        reduce using rule 14 (Cmd -> Cmd DUP .)
+    COMMENT2        reduce using rule 14 (Cmd -> Cmd DUP .)
+
+
+state 14
+
+    (15) Cmd -> Cmd PRINTSTRING .
+
+    NAME            reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    VARIABLE        reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    KEY             reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    CR              reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    STRING          reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    EMIT            reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    DOT             reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    CHR             reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    DUP             reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    PRINTSTRING     reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    NUMBER          reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    MATH_OPERATOR   reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    IF              reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    COLON           reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    $end            reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    THEN            reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    ELSE            reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    COMMENT1        reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+    COMMENT2        reduce using rule 15 (Cmd -> Cmd PRINTSTRING .)
+
+
+state 15
+
+    (16) Cmd -> Cmd NUMBER .
+
+    NAME            reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    VARIABLE        reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    KEY             reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    CR              reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    STRING          reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    EMIT            reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    DOT             reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    CHR             reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    DUP             reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    PRINTSTRING     reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    NUMBER          reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    MATH_OPERATOR   reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    IF              reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    COLON           reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    $end            reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    THEN            reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    ELSE            reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    COMMENT1        reduce using rule 16 (Cmd -> Cmd NUMBER .)
+    COMMENT2        reduce using rule 16 (Cmd -> Cmd NUMBER .)
+
+
 state 16
 
-    (1) Cmd -> Cmd NAME SET .
+    (36) Cmd -> Cmd Function .
 
-    NAME            reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    VARIABLE        reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    KEY             reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    CR              reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    STRING          reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    EMIT            reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    DOT             reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    CHR             reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    DUP             reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    PRINTSTRING     reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    NUMBER          reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    MATH_OPERATOR   reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    COLON           reduce using rule 1 (Cmd -> Cmd NAME SET .)
-    $end            reduce using rule 1 (Cmd -> Cmd NAME SET .)
+    NAME            reduce using rule 36 (Cmd -> Cmd Function .)
+    VARIABLE        reduce using rule 36 (Cmd -> Cmd Function .)
+    KEY             reduce using rule 36 (Cmd -> Cmd Function .)
+    CR              reduce using rule 36 (Cmd -> Cmd Function .)
+    STRING          reduce using rule 36 (Cmd -> Cmd Function .)
+    EMIT            reduce using rule 36 (Cmd -> Cmd Function .)
+    DOT             reduce using rule 36 (Cmd -> Cmd Function .)
+    CHR             reduce using rule 36 (Cmd -> Cmd Function .)
+    DUP             reduce using rule 36 (Cmd -> Cmd Function .)
+    PRINTSTRING     reduce using rule 36 (Cmd -> Cmd Function .)
+    NUMBER          reduce using rule 36 (Cmd -> Cmd Function .)
+    MATH_OPERATOR   reduce using rule 36 (Cmd -> Cmd Function .)
+    IF              reduce using rule 36 (Cmd -> Cmd Function .)
+    COLON           reduce using rule 36 (Cmd -> Cmd Function .)
+    $end            reduce using rule 36 (Cmd -> Cmd Function .)
+    THEN            reduce using rule 36 (Cmd -> Cmd Function .)
+    ELSE            reduce using rule 36 (Cmd -> Cmd Function .)
+    COMMENT1        reduce using rule 36 (Cmd -> Cmd Function .)
+    COMMENT2        reduce using rule 36 (Cmd -> Cmd Function .)
 
 
 state 17
 
-    (2) Cmd -> Cmd NAME GET .
+    (37) Cmd -> Cmd IF . Exec THEN
+    (38) Cmd -> Cmd IF . Exec ELSE Exec THEN
+    (39) Exec -> . Cmd
+    (40) Exec -> . Exec Cmd
+    (1) Cmd -> . COMMENT1
+    (2) Cmd -> . COMMENT2
+    (3) Cmd -> . Cmd NAME SET
+    (4) Cmd -> . Cmd NAME GET
+    (5) Cmd -> . Cmd VARIABLE NAME
+    (6) Cmd -> . Cmd NAME
+    (7) Cmd -> . Cmd KEY
+    (8) Cmd -> . Cmd CR
+    (9) Cmd -> . Cmd STRING
+    (10) Cmd -> . Cmd EMIT
+    (11) Cmd -> . Cmd DOT
+    (12) Cmd -> . Cmd CHR CHAR
+    (13) Cmd -> . Cmd CHR MATH_OPERATOR
+    (14) Cmd -> . Cmd DUP
+    (15) Cmd -> . Cmd PRINTSTRING
+    (16) Cmd -> . Cmd NUMBER
+    (17) Cmd -> . Cmd MATH_OPERATOR
+    (18) Cmd -> .
+    (36) Cmd -> . Cmd Function
+    (37) Cmd -> . Cmd IF Exec THEN
+    (38) Cmd -> . Cmd IF Exec ELSE Exec THEN
 
-    NAME            reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    VARIABLE        reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    KEY             reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    CR              reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    STRING          reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    EMIT            reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    DOT             reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    CHR             reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    DUP             reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    PRINTSTRING     reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    NUMBER          reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    MATH_OPERATOR   reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    COLON           reduce using rule 2 (Cmd -> Cmd NAME GET .)
-    $end            reduce using rule 2 (Cmd -> Cmd NAME GET .)
+  ! shift/reduce conflict for COMMENT1 resolved as shift
+  ! shift/reduce conflict for COMMENT2 resolved as shift
+    COMMENT1        shift and go to state 2
+    COMMENT2        shift and go to state 3
+    NAME            reduce using rule 18 (Cmd -> .)
+    VARIABLE        reduce using rule 18 (Cmd -> .)
+    KEY             reduce using rule 18 (Cmd -> .)
+    CR              reduce using rule 18 (Cmd -> .)
+    STRING          reduce using rule 18 (Cmd -> .)
+    EMIT            reduce using rule 18 (Cmd -> .)
+    DOT             reduce using rule 18 (Cmd -> .)
+    CHR             reduce using rule 18 (Cmd -> .)
+    DUP             reduce using rule 18 (Cmd -> .)
+    PRINTSTRING     reduce using rule 18 (Cmd -> .)
+    NUMBER          reduce using rule 18 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 18 (Cmd -> .)
+    IF              reduce using rule 18 (Cmd -> .)
+    COLON           reduce using rule 18 (Cmd -> .)
+    THEN            reduce using rule 18 (Cmd -> .)
+    ELSE            reduce using rule 18 (Cmd -> .)
 
+  ! COMMENT1        [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT2        [ reduce using rule 18 (Cmd -> .) ]
+
+    Cmd                            shift and go to state 24
+    Exec                           shift and go to state 25
 
 state 18
 
-    (3) Cmd -> Cmd VARIABLE NAME .
+    (19) Function -> COLON . NAME Exp SEMICOLON
 
-    NAME            reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    VARIABLE        reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    KEY             reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    CR              reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    STRING          reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    EMIT            reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    DOT             reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    CHR             reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    DUP             reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    PRINTSTRING     reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    NUMBER          reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    MATH_OPERATOR   reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    COLON           reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
-    $end            reduce using rule 3 (Cmd -> Cmd VARIABLE NAME .)
+    NAME            shift and go to state 26
 
 
 state 19
 
-    (10) Cmd -> Cmd CHR CHAR .
+    (3) Cmd -> Cmd NAME SET .
 
-    NAME            reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    VARIABLE        reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    KEY             reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    CR              reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    STRING          reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    EMIT            reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    DOT             reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    CHR             reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    DUP             reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    PRINTSTRING     reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    NUMBER          reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    MATH_OPERATOR   reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    COLON           reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
-    $end            reduce using rule 10 (Cmd -> Cmd CHR CHAR .)
+    NAME            reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    VARIABLE        reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    KEY             reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    CR              reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    STRING          reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    EMIT            reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    DOT             reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    CHR             reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    DUP             reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    PRINTSTRING     reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    NUMBER          reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    MATH_OPERATOR   reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    IF              reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    COLON           reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    $end            reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    THEN            reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    ELSE            reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    COMMENT1        reduce using rule 3 (Cmd -> Cmd NAME SET .)
+    COMMENT2        reduce using rule 3 (Cmd -> Cmd NAME SET .)
 
 
 state 20
 
-    (11) Cmd -> Cmd CHR MATH_OPERATOR .
+    (4) Cmd -> Cmd NAME GET .
 
-    NAME            reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    VARIABLE        reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    KEY             reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    CR              reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    STRING          reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    EMIT            reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    DOT             reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    CHR             reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    DUP             reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    PRINTSTRING     reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    NUMBER          reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    COLON           reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
-    $end            reduce using rule 11 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    NAME            reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    VARIABLE        reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    KEY             reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    CR              reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    STRING          reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    EMIT            reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    DOT             reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    CHR             reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    DUP             reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    PRINTSTRING     reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    NUMBER          reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    MATH_OPERATOR   reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    IF              reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    COLON           reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    $end            reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    THEN            reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    ELSE            reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    COMMENT1        reduce using rule 4 (Cmd -> Cmd NAME GET .)
+    COMMENT2        reduce using rule 4 (Cmd -> Cmd NAME GET .)
 
 
 state 21
 
-    (17) Function -> COLON NAME . Exp SEMICOLON
-    (18) Exp -> . Exp NUMBER
-    (19) Exp -> . Exp CHR CHAR
-    (20) Exp -> . Exp CHR MATH_OPERATOR
-    (21) Exp -> . Exp DUP
-    (22) Exp -> . Exp MATH_OPERATOR
-    (23) Exp -> . Exp EMIT
-    (24) Exp -> . Exp STRING
-    (25) Exp -> . Exp DOT
-    (26) Exp -> . Exp PRINTSTRING
-    (27) Exp -> . Exp CR
-    (28) Exp -> . Exp KEY
-    (29) Exp -> . Exp NAME
-    (30) Exp -> . Exp VARIABLE NAME
-    (31) Exp -> . Exp NAME GET
-    (32) Exp -> . Exp NAME SET
-    (33) Exp -> .
+    (5) Cmd -> Cmd VARIABLE NAME .
 
-    SEMICOLON       reduce using rule 33 (Exp -> .)
-    NUMBER          reduce using rule 33 (Exp -> .)
-    CHR             reduce using rule 33 (Exp -> .)
-    DUP             reduce using rule 33 (Exp -> .)
-    MATH_OPERATOR   reduce using rule 33 (Exp -> .)
-    EMIT            reduce using rule 33 (Exp -> .)
-    STRING          reduce using rule 33 (Exp -> .)
-    DOT             reduce using rule 33 (Exp -> .)
-    PRINTSTRING     reduce using rule 33 (Exp -> .)
-    CR              reduce using rule 33 (Exp -> .)
-    KEY             reduce using rule 33 (Exp -> .)
-    NAME            reduce using rule 33 (Exp -> .)
-    VARIABLE        reduce using rule 33 (Exp -> .)
+    NAME            reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    VARIABLE        reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    KEY             reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    CR              reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    STRING          reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    EMIT            reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    DOT             reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    CHR             reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    DUP             reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    PRINTSTRING     reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    NUMBER          reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    MATH_OPERATOR   reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    IF              reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    COLON           reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    $end            reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    THEN            reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    ELSE            reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    COMMENT1        reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
+    COMMENT2        reduce using rule 5 (Cmd -> Cmd VARIABLE NAME .)
 
-    Exp                            shift and go to state 22
 
 state 22
 
-    (17) Function -> COLON NAME Exp . SEMICOLON
-    (18) Exp -> Exp . NUMBER
-    (19) Exp -> Exp . CHR CHAR
-    (20) Exp -> Exp . CHR MATH_OPERATOR
-    (21) Exp -> Exp . DUP
-    (22) Exp -> Exp . MATH_OPERATOR
-    (23) Exp -> Exp . EMIT
-    (24) Exp -> Exp . STRING
-    (25) Exp -> Exp . DOT
-    (26) Exp -> Exp . PRINTSTRING
-    (27) Exp -> Exp . CR
-    (28) Exp -> Exp . KEY
-    (29) Exp -> Exp . NAME
-    (30) Exp -> Exp . VARIABLE NAME
-    (31) Exp -> Exp . NAME GET
-    (32) Exp -> Exp . NAME SET
+    (12) Cmd -> Cmd CHR CHAR .
 
-    SEMICOLON       shift and go to state 24
-    NUMBER          shift and go to state 25
-    CHR             shift and go to state 26
-    DUP             shift and go to state 28
-    MATH_OPERATOR   shift and go to state 27
-    EMIT            shift and go to state 29
-    STRING          shift and go to state 30
-    DOT             shift and go to state 31
-    PRINTSTRING     shift and go to state 32
-    CR              shift and go to state 33
-    KEY             shift and go to state 34
-    NAME            shift and go to state 23
-    VARIABLE        shift and go to state 35
+    NAME            reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    VARIABLE        reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    KEY             reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    CR              reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    STRING          reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    EMIT            reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    DOT             reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    CHR             reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    DUP             reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    PRINTSTRING     reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    NUMBER          reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    MATH_OPERATOR   reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    IF              reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    COLON           reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    $end            reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    THEN            reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    ELSE            reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    COMMENT1        reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
+    COMMENT2        reduce using rule 12 (Cmd -> Cmd CHR CHAR .)
 
 
 state 23
 
-    (29) Exp -> Exp NAME .
-    (31) Exp -> Exp NAME . GET
-    (32) Exp -> Exp NAME . SET
+    (13) Cmd -> Cmd CHR MATH_OPERATOR .
 
-    SEMICOLON       reduce using rule 29 (Exp -> Exp NAME .)
-    NUMBER          reduce using rule 29 (Exp -> Exp NAME .)
-    CHR             reduce using rule 29 (Exp -> Exp NAME .)
-    DUP             reduce using rule 29 (Exp -> Exp NAME .)
-    MATH_OPERATOR   reduce using rule 29 (Exp -> Exp NAME .)
-    EMIT            reduce using rule 29 (Exp -> Exp NAME .)
-    STRING          reduce using rule 29 (Exp -> Exp NAME .)
-    DOT             reduce using rule 29 (Exp -> Exp NAME .)
-    PRINTSTRING     reduce using rule 29 (Exp -> Exp NAME .)
-    CR              reduce using rule 29 (Exp -> Exp NAME .)
-    KEY             reduce using rule 29 (Exp -> Exp NAME .)
-    NAME            reduce using rule 29 (Exp -> Exp NAME .)
-    VARIABLE        reduce using rule 29 (Exp -> Exp NAME .)
-    GET             shift and go to state 36
-    SET             shift and go to state 37
+    NAME            reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    VARIABLE        reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    KEY             reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    CR              reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    STRING          reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    EMIT            reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    DOT             reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    CHR             reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    DUP             reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    NUMBER          reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    IF              reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    COLON           reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    $end            reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    THEN            reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    ELSE            reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    COMMENT1        reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
+    COMMENT2        reduce using rule 13 (Cmd -> Cmd CHR MATH_OPERATOR .)
 
 
 state 24
 
-    (17) Function -> COLON NAME Exp SEMICOLON .
+    (39) Exec -> Cmd .
+    (3) Cmd -> Cmd . NAME SET
+    (4) Cmd -> Cmd . NAME GET
+    (5) Cmd -> Cmd . VARIABLE NAME
+    (6) Cmd -> Cmd . NAME
+    (7) Cmd -> Cmd . KEY
+    (8) Cmd -> Cmd . CR
+    (9) Cmd -> Cmd . STRING
+    (10) Cmd -> Cmd . EMIT
+    (11) Cmd -> Cmd . DOT
+    (12) Cmd -> Cmd . CHR CHAR
+    (13) Cmd -> Cmd . CHR MATH_OPERATOR
+    (14) Cmd -> Cmd . DUP
+    (15) Cmd -> Cmd . PRINTSTRING
+    (16) Cmd -> Cmd . NUMBER
+    (17) Cmd -> Cmd . MATH_OPERATOR
+    (36) Cmd -> Cmd . Function
+    (37) Cmd -> Cmd . IF Exec THEN
+    (38) Cmd -> Cmd . IF Exec ELSE Exec THEN
+    (19) Function -> . COLON NAME Exp SEMICOLON
 
-    NAME            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    VARIABLE        reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    KEY             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    CR              reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    STRING          reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    EMIT            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    DOT             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    CHR             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    DUP             reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    PRINTSTRING     reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    NUMBER          reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    MATH_OPERATOR   reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    COLON           reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
-    $end            reduce using rule 17 (Function -> COLON NAME Exp SEMICOLON .)
+  ! shift/reduce conflict for NAME resolved as shift
+  ! shift/reduce conflict for VARIABLE resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for CR resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for EMIT resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for CHR resolved as shift
+  ! shift/reduce conflict for DUP resolved as shift
+  ! shift/reduce conflict for PRINTSTRING resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+  ! shift/reduce conflict for MATH_OPERATOR resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    THEN            reduce using rule 39 (Exec -> Cmd .)
+    ELSE            reduce using rule 39 (Exec -> Cmd .)
+    COMMENT1        reduce using rule 39 (Exec -> Cmd .)
+    COMMENT2        reduce using rule 39 (Exec -> Cmd .)
+    NAME            shift and go to state 4
+    VARIABLE        shift and go to state 5
+    KEY             shift and go to state 6
+    CR              shift and go to state 7
+    STRING          shift and go to state 8
+    EMIT            shift and go to state 9
+    DOT             shift and go to state 10
+    CHR             shift and go to state 11
+    DUP             shift and go to state 13
+    PRINTSTRING     shift and go to state 14
+    NUMBER          shift and go to state 15
+    MATH_OPERATOR   shift and go to state 12
+    IF              shift and go to state 17
+    COLON           shift and go to state 18
 
+  ! NAME            [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! VARIABLE        [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! KEY             [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! CR              [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! STRING          [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! EMIT            [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! DOT             [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! CHR             [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! DUP             [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! PRINTSTRING     [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! NUMBER          [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! MATH_OPERATOR   [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! IF              [ reduce using rule 39 (Exec -> Cmd .) ]
+  ! COLON           [ reduce using rule 39 (Exec -> Cmd .) ]
+
+    Function                       shift and go to state 16
 
 state 25
 
-    (18) Exp -> Exp NUMBER .
+    (37) Cmd -> Cmd IF Exec . THEN
+    (38) Cmd -> Cmd IF Exec . ELSE Exec THEN
+    (40) Exec -> Exec . Cmd
+    (1) Cmd -> . COMMENT1
+    (2) Cmd -> . COMMENT2
+    (3) Cmd -> . Cmd NAME SET
+    (4) Cmd -> . Cmd NAME GET
+    (5) Cmd -> . Cmd VARIABLE NAME
+    (6) Cmd -> . Cmd NAME
+    (7) Cmd -> . Cmd KEY
+    (8) Cmd -> . Cmd CR
+    (9) Cmd -> . Cmd STRING
+    (10) Cmd -> . Cmd EMIT
+    (11) Cmd -> . Cmd DOT
+    (12) Cmd -> . Cmd CHR CHAR
+    (13) Cmd -> . Cmd CHR MATH_OPERATOR
+    (14) Cmd -> . Cmd DUP
+    (15) Cmd -> . Cmd PRINTSTRING
+    (16) Cmd -> . Cmd NUMBER
+    (17) Cmd -> . Cmd MATH_OPERATOR
+    (18) Cmd -> .
+    (36) Cmd -> . Cmd Function
+    (37) Cmd -> . Cmd IF Exec THEN
+    (38) Cmd -> . Cmd IF Exec ELSE Exec THEN
 
-    SEMICOLON       reduce using rule 18 (Exp -> Exp NUMBER .)
-    NUMBER          reduce using rule 18 (Exp -> Exp NUMBER .)
-    CHR             reduce using rule 18 (Exp -> Exp NUMBER .)
-    DUP             reduce using rule 18 (Exp -> Exp NUMBER .)
-    MATH_OPERATOR   reduce using rule 18 (Exp -> Exp NUMBER .)
-    EMIT            reduce using rule 18 (Exp -> Exp NUMBER .)
-    STRING          reduce using rule 18 (Exp -> Exp NUMBER .)
-    DOT             reduce using rule 18 (Exp -> Exp NUMBER .)
-    PRINTSTRING     reduce using rule 18 (Exp -> Exp NUMBER .)
-    CR              reduce using rule 18 (Exp -> Exp NUMBER .)
-    KEY             reduce using rule 18 (Exp -> Exp NUMBER .)
-    NAME            reduce using rule 18 (Exp -> Exp NUMBER .)
-    VARIABLE        reduce using rule 18 (Exp -> Exp NUMBER .)
+  ! shift/reduce conflict for THEN resolved as shift
+  ! shift/reduce conflict for ELSE resolved as shift
+  ! shift/reduce conflict for COMMENT1 resolved as shift
+  ! shift/reduce conflict for COMMENT2 resolved as shift
+    THEN            shift and go to state 28
+    ELSE            shift and go to state 29
+    COMMENT1        shift and go to state 2
+    COMMENT2        shift and go to state 3
+    NAME            reduce using rule 18 (Cmd -> .)
+    VARIABLE        reduce using rule 18 (Cmd -> .)
+    KEY             reduce using rule 18 (Cmd -> .)
+    CR              reduce using rule 18 (Cmd -> .)
+    STRING          reduce using rule 18 (Cmd -> .)
+    EMIT            reduce using rule 18 (Cmd -> .)
+    DOT             reduce using rule 18 (Cmd -> .)
+    CHR             reduce using rule 18 (Cmd -> .)
+    DUP             reduce using rule 18 (Cmd -> .)
+    PRINTSTRING     reduce using rule 18 (Cmd -> .)
+    NUMBER          reduce using rule 18 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 18 (Cmd -> .)
+    IF              reduce using rule 18 (Cmd -> .)
+    COLON           reduce using rule 18 (Cmd -> .)
 
+  ! THEN            [ reduce using rule 18 (Cmd -> .) ]
+  ! ELSE            [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT1        [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT2        [ reduce using rule 18 (Cmd -> .) ]
+
+    Cmd                            shift and go to state 27
 
 state 26
 
-    (19) Exp -> Exp CHR . CHAR
-    (20) Exp -> Exp CHR . MATH_OPERATOR
+    (19) Function -> COLON NAME . Exp SEMICOLON
+    (20) Exp -> . Exp NUMBER
+    (21) Exp -> . Exp CHR CHAR
+    (22) Exp -> . Exp CHR MATH_OPERATOR
+    (23) Exp -> . Exp DUP
+    (24) Exp -> . Exp MATH_OPERATOR
+    (25) Exp -> . Exp EMIT
+    (26) Exp -> . Exp STRING
+    (27) Exp -> . Exp DOT
+    (28) Exp -> . Exp PRINTSTRING
+    (29) Exp -> . Exp CR
+    (30) Exp -> . Exp KEY
+    (31) Exp -> . Exp NAME
+    (32) Exp -> . Exp VARIABLE NAME
+    (33) Exp -> . Exp NAME GET
+    (34) Exp -> . Exp NAME SET
+    (35) Exp -> .
 
-    CHAR            shift and go to state 38
-    MATH_OPERATOR   shift and go to state 39
+    SEMICOLON       reduce using rule 35 (Exp -> .)
+    NUMBER          reduce using rule 35 (Exp -> .)
+    CHR             reduce using rule 35 (Exp -> .)
+    DUP             reduce using rule 35 (Exp -> .)
+    MATH_OPERATOR   reduce using rule 35 (Exp -> .)
+    EMIT            reduce using rule 35 (Exp -> .)
+    STRING          reduce using rule 35 (Exp -> .)
+    DOT             reduce using rule 35 (Exp -> .)
+    PRINTSTRING     reduce using rule 35 (Exp -> .)
+    CR              reduce using rule 35 (Exp -> .)
+    KEY             reduce using rule 35 (Exp -> .)
+    NAME            reduce using rule 35 (Exp -> .)
+    VARIABLE        reduce using rule 35 (Exp -> .)
 
+    Exp                            shift and go to state 30
 
 state 27
 
-    (22) Exp -> Exp MATH_OPERATOR .
+    (40) Exec -> Exec Cmd .
+    (3) Cmd -> Cmd . NAME SET
+    (4) Cmd -> Cmd . NAME GET
+    (5) Cmd -> Cmd . VARIABLE NAME
+    (6) Cmd -> Cmd . NAME
+    (7) Cmd -> Cmd . KEY
+    (8) Cmd -> Cmd . CR
+    (9) Cmd -> Cmd . STRING
+    (10) Cmd -> Cmd . EMIT
+    (11) Cmd -> Cmd . DOT
+    (12) Cmd -> Cmd . CHR CHAR
+    (13) Cmd -> Cmd . CHR MATH_OPERATOR
+    (14) Cmd -> Cmd . DUP
+    (15) Cmd -> Cmd . PRINTSTRING
+    (16) Cmd -> Cmd . NUMBER
+    (17) Cmd -> Cmd . MATH_OPERATOR
+    (36) Cmd -> Cmd . Function
+    (37) Cmd -> Cmd . IF Exec THEN
+    (38) Cmd -> Cmd . IF Exec ELSE Exec THEN
+    (19) Function -> . COLON NAME Exp SEMICOLON
 
-    SEMICOLON       reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    NUMBER          reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    CHR             reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    DUP             reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    EMIT            reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    STRING          reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    DOT             reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    PRINTSTRING     reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    CR              reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    KEY             reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    NAME            reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
-    VARIABLE        reduce using rule 22 (Exp -> Exp MATH_OPERATOR .)
+  ! shift/reduce conflict for NAME resolved as shift
+  ! shift/reduce conflict for VARIABLE resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for CR resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for EMIT resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for CHR resolved as shift
+  ! shift/reduce conflict for DUP resolved as shift
+  ! shift/reduce conflict for PRINTSTRING resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+  ! shift/reduce conflict for MATH_OPERATOR resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    THEN            reduce using rule 40 (Exec -> Exec Cmd .)
+    ELSE            reduce using rule 40 (Exec -> Exec Cmd .)
+    COMMENT1        reduce using rule 40 (Exec -> Exec Cmd .)
+    COMMENT2        reduce using rule 40 (Exec -> Exec Cmd .)
+    NAME            shift and go to state 4
+    VARIABLE        shift and go to state 5
+    KEY             shift and go to state 6
+    CR              shift and go to state 7
+    STRING          shift and go to state 8
+    EMIT            shift and go to state 9
+    DOT             shift and go to state 10
+    CHR             shift and go to state 11
+    DUP             shift and go to state 13
+    PRINTSTRING     shift and go to state 14
+    NUMBER          shift and go to state 15
+    MATH_OPERATOR   shift and go to state 12
+    IF              shift and go to state 17
+    COLON           shift and go to state 18
 
+  ! NAME            [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! VARIABLE        [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! KEY             [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! CR              [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! STRING          [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! EMIT            [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! DOT             [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! CHR             [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! DUP             [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! PRINTSTRING     [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! NUMBER          [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! MATH_OPERATOR   [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! IF              [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+  ! COLON           [ reduce using rule 40 (Exec -> Exec Cmd .) ]
+
+    Function                       shift and go to state 16
 
 state 28
 
-    (21) Exp -> Exp DUP .
+    (37) Cmd -> Cmd IF Exec THEN .
 
-    SEMICOLON       reduce using rule 21 (Exp -> Exp DUP .)
-    NUMBER          reduce using rule 21 (Exp -> Exp DUP .)
-    CHR             reduce using rule 21 (Exp -> Exp DUP .)
-    DUP             reduce using rule 21 (Exp -> Exp DUP .)
-    MATH_OPERATOR   reduce using rule 21 (Exp -> Exp DUP .)
-    EMIT            reduce using rule 21 (Exp -> Exp DUP .)
-    STRING          reduce using rule 21 (Exp -> Exp DUP .)
-    DOT             reduce using rule 21 (Exp -> Exp DUP .)
-    PRINTSTRING     reduce using rule 21 (Exp -> Exp DUP .)
-    CR              reduce using rule 21 (Exp -> Exp DUP .)
-    KEY             reduce using rule 21 (Exp -> Exp DUP .)
-    NAME            reduce using rule 21 (Exp -> Exp DUP .)
-    VARIABLE        reduce using rule 21 (Exp -> Exp DUP .)
+    NAME            reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    VARIABLE        reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    KEY             reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    CR              reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    STRING          reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    EMIT            reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    DOT             reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    CHR             reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    DUP             reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    PRINTSTRING     reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    NUMBER          reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    MATH_OPERATOR   reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    IF              reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    COLON           reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    $end            reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    THEN            reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    ELSE            reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    COMMENT1        reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
+    COMMENT2        reduce using rule 37 (Cmd -> Cmd IF Exec THEN .)
 
 
 state 29
 
-    (23) Exp -> Exp EMIT .
+    (38) Cmd -> Cmd IF Exec ELSE . Exec THEN
+    (39) Exec -> . Cmd
+    (40) Exec -> . Exec Cmd
+    (1) Cmd -> . COMMENT1
+    (2) Cmd -> . COMMENT2
+    (3) Cmd -> . Cmd NAME SET
+    (4) Cmd -> . Cmd NAME GET
+    (5) Cmd -> . Cmd VARIABLE NAME
+    (6) Cmd -> . Cmd NAME
+    (7) Cmd -> . Cmd KEY
+    (8) Cmd -> . Cmd CR
+    (9) Cmd -> . Cmd STRING
+    (10) Cmd -> . Cmd EMIT
+    (11) Cmd -> . Cmd DOT
+    (12) Cmd -> . Cmd CHR CHAR
+    (13) Cmd -> . Cmd CHR MATH_OPERATOR
+    (14) Cmd -> . Cmd DUP
+    (15) Cmd -> . Cmd PRINTSTRING
+    (16) Cmd -> . Cmd NUMBER
+    (17) Cmd -> . Cmd MATH_OPERATOR
+    (18) Cmd -> .
+    (36) Cmd -> . Cmd Function
+    (37) Cmd -> . Cmd IF Exec THEN
+    (38) Cmd -> . Cmd IF Exec ELSE Exec THEN
 
-    SEMICOLON       reduce using rule 23 (Exp -> Exp EMIT .)
-    NUMBER          reduce using rule 23 (Exp -> Exp EMIT .)
-    CHR             reduce using rule 23 (Exp -> Exp EMIT .)
-    DUP             reduce using rule 23 (Exp -> Exp EMIT .)
-    MATH_OPERATOR   reduce using rule 23 (Exp -> Exp EMIT .)
-    EMIT            reduce using rule 23 (Exp -> Exp EMIT .)
-    STRING          reduce using rule 23 (Exp -> Exp EMIT .)
-    DOT             reduce using rule 23 (Exp -> Exp EMIT .)
-    PRINTSTRING     reduce using rule 23 (Exp -> Exp EMIT .)
-    CR              reduce using rule 23 (Exp -> Exp EMIT .)
-    KEY             reduce using rule 23 (Exp -> Exp EMIT .)
-    NAME            reduce using rule 23 (Exp -> Exp EMIT .)
-    VARIABLE        reduce using rule 23 (Exp -> Exp EMIT .)
+  ! shift/reduce conflict for COMMENT1 resolved as shift
+  ! shift/reduce conflict for COMMENT2 resolved as shift
+    COMMENT1        shift and go to state 2
+    COMMENT2        shift and go to state 3
+    NAME            reduce using rule 18 (Cmd -> .)
+    VARIABLE        reduce using rule 18 (Cmd -> .)
+    KEY             reduce using rule 18 (Cmd -> .)
+    CR              reduce using rule 18 (Cmd -> .)
+    STRING          reduce using rule 18 (Cmd -> .)
+    EMIT            reduce using rule 18 (Cmd -> .)
+    DOT             reduce using rule 18 (Cmd -> .)
+    CHR             reduce using rule 18 (Cmd -> .)
+    DUP             reduce using rule 18 (Cmd -> .)
+    PRINTSTRING     reduce using rule 18 (Cmd -> .)
+    NUMBER          reduce using rule 18 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 18 (Cmd -> .)
+    IF              reduce using rule 18 (Cmd -> .)
+    COLON           reduce using rule 18 (Cmd -> .)
+    THEN            reduce using rule 18 (Cmd -> .)
 
+  ! COMMENT1        [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT2        [ reduce using rule 18 (Cmd -> .) ]
+
+    Cmd                            shift and go to state 24
+    Exec                           shift and go to state 31
 
 state 30
 
-    (24) Exp -> Exp STRING .
+    (19) Function -> COLON NAME Exp . SEMICOLON
+    (20) Exp -> Exp . NUMBER
+    (21) Exp -> Exp . CHR CHAR
+    (22) Exp -> Exp . CHR MATH_OPERATOR
+    (23) Exp -> Exp . DUP
+    (24) Exp -> Exp . MATH_OPERATOR
+    (25) Exp -> Exp . EMIT
+    (26) Exp -> Exp . STRING
+    (27) Exp -> Exp . DOT
+    (28) Exp -> Exp . PRINTSTRING
+    (29) Exp -> Exp . CR
+    (30) Exp -> Exp . KEY
+    (31) Exp -> Exp . NAME
+    (32) Exp -> Exp . VARIABLE NAME
+    (33) Exp -> Exp . NAME GET
+    (34) Exp -> Exp . NAME SET
 
-    SEMICOLON       reduce using rule 24 (Exp -> Exp STRING .)
-    NUMBER          reduce using rule 24 (Exp -> Exp STRING .)
-    CHR             reduce using rule 24 (Exp -> Exp STRING .)
-    DUP             reduce using rule 24 (Exp -> Exp STRING .)
-    MATH_OPERATOR   reduce using rule 24 (Exp -> Exp STRING .)
-    EMIT            reduce using rule 24 (Exp -> Exp STRING .)
-    STRING          reduce using rule 24 (Exp -> Exp STRING .)
-    DOT             reduce using rule 24 (Exp -> Exp STRING .)
-    PRINTSTRING     reduce using rule 24 (Exp -> Exp STRING .)
-    CR              reduce using rule 24 (Exp -> Exp STRING .)
-    KEY             reduce using rule 24 (Exp -> Exp STRING .)
-    NAME            reduce using rule 24 (Exp -> Exp STRING .)
-    VARIABLE        reduce using rule 24 (Exp -> Exp STRING .)
+    SEMICOLON       shift and go to state 33
+    NUMBER          shift and go to state 34
+    CHR             shift and go to state 35
+    DUP             shift and go to state 37
+    MATH_OPERATOR   shift and go to state 36
+    EMIT            shift and go to state 38
+    STRING          shift and go to state 39
+    DOT             shift and go to state 40
+    PRINTSTRING     shift and go to state 41
+    CR              shift and go to state 42
+    KEY             shift and go to state 43
+    NAME            shift and go to state 32
+    VARIABLE        shift and go to state 44
 
 
 state 31
 
-    (25) Exp -> Exp DOT .
+    (38) Cmd -> Cmd IF Exec ELSE Exec . THEN
+    (40) Exec -> Exec . Cmd
+    (1) Cmd -> . COMMENT1
+    (2) Cmd -> . COMMENT2
+    (3) Cmd -> . Cmd NAME SET
+    (4) Cmd -> . Cmd NAME GET
+    (5) Cmd -> . Cmd VARIABLE NAME
+    (6) Cmd -> . Cmd NAME
+    (7) Cmd -> . Cmd KEY
+    (8) Cmd -> . Cmd CR
+    (9) Cmd -> . Cmd STRING
+    (10) Cmd -> . Cmd EMIT
+    (11) Cmd -> . Cmd DOT
+    (12) Cmd -> . Cmd CHR CHAR
+    (13) Cmd -> . Cmd CHR MATH_OPERATOR
+    (14) Cmd -> . Cmd DUP
+    (15) Cmd -> . Cmd PRINTSTRING
+    (16) Cmd -> . Cmd NUMBER
+    (17) Cmd -> . Cmd MATH_OPERATOR
+    (18) Cmd -> .
+    (36) Cmd -> . Cmd Function
+    (37) Cmd -> . Cmd IF Exec THEN
+    (38) Cmd -> . Cmd IF Exec ELSE Exec THEN
 
-    SEMICOLON       reduce using rule 25 (Exp -> Exp DOT .)
-    NUMBER          reduce using rule 25 (Exp -> Exp DOT .)
-    CHR             reduce using rule 25 (Exp -> Exp DOT .)
-    DUP             reduce using rule 25 (Exp -> Exp DOT .)
-    MATH_OPERATOR   reduce using rule 25 (Exp -> Exp DOT .)
-    EMIT            reduce using rule 25 (Exp -> Exp DOT .)
-    STRING          reduce using rule 25 (Exp -> Exp DOT .)
-    DOT             reduce using rule 25 (Exp -> Exp DOT .)
-    PRINTSTRING     reduce using rule 25 (Exp -> Exp DOT .)
-    CR              reduce using rule 25 (Exp -> Exp DOT .)
-    KEY             reduce using rule 25 (Exp -> Exp DOT .)
-    NAME            reduce using rule 25 (Exp -> Exp DOT .)
-    VARIABLE        reduce using rule 25 (Exp -> Exp DOT .)
+  ! shift/reduce conflict for THEN resolved as shift
+  ! shift/reduce conflict for COMMENT1 resolved as shift
+  ! shift/reduce conflict for COMMENT2 resolved as shift
+    THEN            shift and go to state 45
+    COMMENT1        shift and go to state 2
+    COMMENT2        shift and go to state 3
+    NAME            reduce using rule 18 (Cmd -> .)
+    VARIABLE        reduce using rule 18 (Cmd -> .)
+    KEY             reduce using rule 18 (Cmd -> .)
+    CR              reduce using rule 18 (Cmd -> .)
+    STRING          reduce using rule 18 (Cmd -> .)
+    EMIT            reduce using rule 18 (Cmd -> .)
+    DOT             reduce using rule 18 (Cmd -> .)
+    CHR             reduce using rule 18 (Cmd -> .)
+    DUP             reduce using rule 18 (Cmd -> .)
+    PRINTSTRING     reduce using rule 18 (Cmd -> .)
+    NUMBER          reduce using rule 18 (Cmd -> .)
+    MATH_OPERATOR   reduce using rule 18 (Cmd -> .)
+    IF              reduce using rule 18 (Cmd -> .)
+    COLON           reduce using rule 18 (Cmd -> .)
 
+  ! THEN            [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT1        [ reduce using rule 18 (Cmd -> .) ]
+  ! COMMENT2        [ reduce using rule 18 (Cmd -> .) ]
+
+    Cmd                            shift and go to state 27
 
 state 32
 
-    (26) Exp -> Exp PRINTSTRING .
+    (31) Exp -> Exp NAME .
+    (33) Exp -> Exp NAME . GET
+    (34) Exp -> Exp NAME . SET
 
-    SEMICOLON       reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    NUMBER          reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    CHR             reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    DUP             reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    MATH_OPERATOR   reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    EMIT            reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    STRING          reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    DOT             reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    PRINTSTRING     reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    CR              reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    KEY             reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    NAME            reduce using rule 26 (Exp -> Exp PRINTSTRING .)
-    VARIABLE        reduce using rule 26 (Exp -> Exp PRINTSTRING .)
+    SEMICOLON       reduce using rule 31 (Exp -> Exp NAME .)
+    NUMBER          reduce using rule 31 (Exp -> Exp NAME .)
+    CHR             reduce using rule 31 (Exp -> Exp NAME .)
+    DUP             reduce using rule 31 (Exp -> Exp NAME .)
+    MATH_OPERATOR   reduce using rule 31 (Exp -> Exp NAME .)
+    EMIT            reduce using rule 31 (Exp -> Exp NAME .)
+    STRING          reduce using rule 31 (Exp -> Exp NAME .)
+    DOT             reduce using rule 31 (Exp -> Exp NAME .)
+    PRINTSTRING     reduce using rule 31 (Exp -> Exp NAME .)
+    CR              reduce using rule 31 (Exp -> Exp NAME .)
+    KEY             reduce using rule 31 (Exp -> Exp NAME .)
+    NAME            reduce using rule 31 (Exp -> Exp NAME .)
+    VARIABLE        reduce using rule 31 (Exp -> Exp NAME .)
+    GET             shift and go to state 46
+    SET             shift and go to state 47
 
 
 state 33
 
-    (27) Exp -> Exp CR .
+    (19) Function -> COLON NAME Exp SEMICOLON .
 
-    SEMICOLON       reduce using rule 27 (Exp -> Exp CR .)
-    NUMBER          reduce using rule 27 (Exp -> Exp CR .)
-    CHR             reduce using rule 27 (Exp -> Exp CR .)
-    DUP             reduce using rule 27 (Exp -> Exp CR .)
-    MATH_OPERATOR   reduce using rule 27 (Exp -> Exp CR .)
-    EMIT            reduce using rule 27 (Exp -> Exp CR .)
-    STRING          reduce using rule 27 (Exp -> Exp CR .)
-    DOT             reduce using rule 27 (Exp -> Exp CR .)
-    PRINTSTRING     reduce using rule 27 (Exp -> Exp CR .)
-    CR              reduce using rule 27 (Exp -> Exp CR .)
-    KEY             reduce using rule 27 (Exp -> Exp CR .)
-    NAME            reduce using rule 27 (Exp -> Exp CR .)
-    VARIABLE        reduce using rule 27 (Exp -> Exp CR .)
+    NAME            reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    VARIABLE        reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    KEY             reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    CR              reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    STRING          reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    EMIT            reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    DOT             reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    CHR             reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    DUP             reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    PRINTSTRING     reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    NUMBER          reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    MATH_OPERATOR   reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    IF              reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    COLON           reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    $end            reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    THEN            reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    ELSE            reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    COMMENT1        reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
+    COMMENT2        reduce using rule 19 (Function -> COLON NAME Exp SEMICOLON .)
 
 
 state 34
 
-    (28) Exp -> Exp KEY .
+    (20) Exp -> Exp NUMBER .
 
-    SEMICOLON       reduce using rule 28 (Exp -> Exp KEY .)
-    NUMBER          reduce using rule 28 (Exp -> Exp KEY .)
-    CHR             reduce using rule 28 (Exp -> Exp KEY .)
-    DUP             reduce using rule 28 (Exp -> Exp KEY .)
-    MATH_OPERATOR   reduce using rule 28 (Exp -> Exp KEY .)
-    EMIT            reduce using rule 28 (Exp -> Exp KEY .)
-    STRING          reduce using rule 28 (Exp -> Exp KEY .)
-    DOT             reduce using rule 28 (Exp -> Exp KEY .)
-    PRINTSTRING     reduce using rule 28 (Exp -> Exp KEY .)
-    CR              reduce using rule 28 (Exp -> Exp KEY .)
-    KEY             reduce using rule 28 (Exp -> Exp KEY .)
-    NAME            reduce using rule 28 (Exp -> Exp KEY .)
-    VARIABLE        reduce using rule 28 (Exp -> Exp KEY .)
+    SEMICOLON       reduce using rule 20 (Exp -> Exp NUMBER .)
+    NUMBER          reduce using rule 20 (Exp -> Exp NUMBER .)
+    CHR             reduce using rule 20 (Exp -> Exp NUMBER .)
+    DUP             reduce using rule 20 (Exp -> Exp NUMBER .)
+    MATH_OPERATOR   reduce using rule 20 (Exp -> Exp NUMBER .)
+    EMIT            reduce using rule 20 (Exp -> Exp NUMBER .)
+    STRING          reduce using rule 20 (Exp -> Exp NUMBER .)
+    DOT             reduce using rule 20 (Exp -> Exp NUMBER .)
+    PRINTSTRING     reduce using rule 20 (Exp -> Exp NUMBER .)
+    CR              reduce using rule 20 (Exp -> Exp NUMBER .)
+    KEY             reduce using rule 20 (Exp -> Exp NUMBER .)
+    NAME            reduce using rule 20 (Exp -> Exp NUMBER .)
+    VARIABLE        reduce using rule 20 (Exp -> Exp NUMBER .)
 
 
 state 35
 
-    (30) Exp -> Exp VARIABLE . NAME
+    (21) Exp -> Exp CHR . CHAR
+    (22) Exp -> Exp CHR . MATH_OPERATOR
 
-    NAME            shift and go to state 40
+    CHAR            shift and go to state 48
+    MATH_OPERATOR   shift and go to state 49
 
 
 state 36
 
-    (31) Exp -> Exp NAME GET .
+    (24) Exp -> Exp MATH_OPERATOR .
 
-    SEMICOLON       reduce using rule 31 (Exp -> Exp NAME GET .)
-    NUMBER          reduce using rule 31 (Exp -> Exp NAME GET .)
-    CHR             reduce using rule 31 (Exp -> Exp NAME GET .)
-    DUP             reduce using rule 31 (Exp -> Exp NAME GET .)
-    MATH_OPERATOR   reduce using rule 31 (Exp -> Exp NAME GET .)
-    EMIT            reduce using rule 31 (Exp -> Exp NAME GET .)
-    STRING          reduce using rule 31 (Exp -> Exp NAME GET .)
-    DOT             reduce using rule 31 (Exp -> Exp NAME GET .)
-    PRINTSTRING     reduce using rule 31 (Exp -> Exp NAME GET .)
-    CR              reduce using rule 31 (Exp -> Exp NAME GET .)
-    KEY             reduce using rule 31 (Exp -> Exp NAME GET .)
-    NAME            reduce using rule 31 (Exp -> Exp NAME GET .)
-    VARIABLE        reduce using rule 31 (Exp -> Exp NAME GET .)
+    SEMICOLON       reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    NUMBER          reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    CHR             reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    DUP             reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    EMIT            reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    STRING          reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    DOT             reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    CR              reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    KEY             reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    NAME            reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
+    VARIABLE        reduce using rule 24 (Exp -> Exp MATH_OPERATOR .)
 
 
 state 37
 
-    (32) Exp -> Exp NAME SET .
+    (23) Exp -> Exp DUP .
 
-    SEMICOLON       reduce using rule 32 (Exp -> Exp NAME SET .)
-    NUMBER          reduce using rule 32 (Exp -> Exp NAME SET .)
-    CHR             reduce using rule 32 (Exp -> Exp NAME SET .)
-    DUP             reduce using rule 32 (Exp -> Exp NAME SET .)
-    MATH_OPERATOR   reduce using rule 32 (Exp -> Exp NAME SET .)
-    EMIT            reduce using rule 32 (Exp -> Exp NAME SET .)
-    STRING          reduce using rule 32 (Exp -> Exp NAME SET .)
-    DOT             reduce using rule 32 (Exp -> Exp NAME SET .)
-    PRINTSTRING     reduce using rule 32 (Exp -> Exp NAME SET .)
-    CR              reduce using rule 32 (Exp -> Exp NAME SET .)
-    KEY             reduce using rule 32 (Exp -> Exp NAME SET .)
-    NAME            reduce using rule 32 (Exp -> Exp NAME SET .)
-    VARIABLE        reduce using rule 32 (Exp -> Exp NAME SET .)
+    SEMICOLON       reduce using rule 23 (Exp -> Exp DUP .)
+    NUMBER          reduce using rule 23 (Exp -> Exp DUP .)
+    CHR             reduce using rule 23 (Exp -> Exp DUP .)
+    DUP             reduce using rule 23 (Exp -> Exp DUP .)
+    MATH_OPERATOR   reduce using rule 23 (Exp -> Exp DUP .)
+    EMIT            reduce using rule 23 (Exp -> Exp DUP .)
+    STRING          reduce using rule 23 (Exp -> Exp DUP .)
+    DOT             reduce using rule 23 (Exp -> Exp DUP .)
+    PRINTSTRING     reduce using rule 23 (Exp -> Exp DUP .)
+    CR              reduce using rule 23 (Exp -> Exp DUP .)
+    KEY             reduce using rule 23 (Exp -> Exp DUP .)
+    NAME            reduce using rule 23 (Exp -> Exp DUP .)
+    VARIABLE        reduce using rule 23 (Exp -> Exp DUP .)
 
 
 state 38
 
-    (19) Exp -> Exp CHR CHAR .
+    (25) Exp -> Exp EMIT .
 
-    SEMICOLON       reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    NUMBER          reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    CHR             reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    DUP             reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    MATH_OPERATOR   reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    EMIT            reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    STRING          reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    DOT             reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    PRINTSTRING     reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    CR              reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    KEY             reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    NAME            reduce using rule 19 (Exp -> Exp CHR CHAR .)
-    VARIABLE        reduce using rule 19 (Exp -> Exp CHR CHAR .)
+    SEMICOLON       reduce using rule 25 (Exp -> Exp EMIT .)
+    NUMBER          reduce using rule 25 (Exp -> Exp EMIT .)
+    CHR             reduce using rule 25 (Exp -> Exp EMIT .)
+    DUP             reduce using rule 25 (Exp -> Exp EMIT .)
+    MATH_OPERATOR   reduce using rule 25 (Exp -> Exp EMIT .)
+    EMIT            reduce using rule 25 (Exp -> Exp EMIT .)
+    STRING          reduce using rule 25 (Exp -> Exp EMIT .)
+    DOT             reduce using rule 25 (Exp -> Exp EMIT .)
+    PRINTSTRING     reduce using rule 25 (Exp -> Exp EMIT .)
+    CR              reduce using rule 25 (Exp -> Exp EMIT .)
+    KEY             reduce using rule 25 (Exp -> Exp EMIT .)
+    NAME            reduce using rule 25 (Exp -> Exp EMIT .)
+    VARIABLE        reduce using rule 25 (Exp -> Exp EMIT .)
 
 
 state 39
 
-    (20) Exp -> Exp CHR MATH_OPERATOR .
+    (26) Exp -> Exp STRING .
 
-    SEMICOLON       reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    NUMBER          reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    CHR             reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    DUP             reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    MATH_OPERATOR   reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    EMIT            reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    STRING          reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    DOT             reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    PRINTSTRING     reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    CR              reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    KEY             reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    NAME            reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
-    VARIABLE        reduce using rule 20 (Exp -> Exp CHR MATH_OPERATOR .)
+    SEMICOLON       reduce using rule 26 (Exp -> Exp STRING .)
+    NUMBER          reduce using rule 26 (Exp -> Exp STRING .)
+    CHR             reduce using rule 26 (Exp -> Exp STRING .)
+    DUP             reduce using rule 26 (Exp -> Exp STRING .)
+    MATH_OPERATOR   reduce using rule 26 (Exp -> Exp STRING .)
+    EMIT            reduce using rule 26 (Exp -> Exp STRING .)
+    STRING          reduce using rule 26 (Exp -> Exp STRING .)
+    DOT             reduce using rule 26 (Exp -> Exp STRING .)
+    PRINTSTRING     reduce using rule 26 (Exp -> Exp STRING .)
+    CR              reduce using rule 26 (Exp -> Exp STRING .)
+    KEY             reduce using rule 26 (Exp -> Exp STRING .)
+    NAME            reduce using rule 26 (Exp -> Exp STRING .)
+    VARIABLE        reduce using rule 26 (Exp -> Exp STRING .)
 
 
 state 40
 
-    (30) Exp -> Exp VARIABLE NAME .
+    (27) Exp -> Exp DOT .
 
-    SEMICOLON       reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    NUMBER          reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    CHR             reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    DUP             reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    MATH_OPERATOR   reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    EMIT            reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    STRING          reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    DOT             reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    PRINTSTRING     reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    CR              reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    KEY             reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    NAME            reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
-    VARIABLE        reduce using rule 30 (Exp -> Exp VARIABLE NAME .)
+    SEMICOLON       reduce using rule 27 (Exp -> Exp DOT .)
+    NUMBER          reduce using rule 27 (Exp -> Exp DOT .)
+    CHR             reduce using rule 27 (Exp -> Exp DOT .)
+    DUP             reduce using rule 27 (Exp -> Exp DOT .)
+    MATH_OPERATOR   reduce using rule 27 (Exp -> Exp DOT .)
+    EMIT            reduce using rule 27 (Exp -> Exp DOT .)
+    STRING          reduce using rule 27 (Exp -> Exp DOT .)
+    DOT             reduce using rule 27 (Exp -> Exp DOT .)
+    PRINTSTRING     reduce using rule 27 (Exp -> Exp DOT .)
+    CR              reduce using rule 27 (Exp -> Exp DOT .)
+    KEY             reduce using rule 27 (Exp -> Exp DOT .)
+    NAME            reduce using rule 27 (Exp -> Exp DOT .)
+    VARIABLE        reduce using rule 27 (Exp -> Exp DOT .)
 
+
+state 41
+
+    (28) Exp -> Exp PRINTSTRING .
+
+    SEMICOLON       reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    NUMBER          reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    CHR             reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    DUP             reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    MATH_OPERATOR   reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    EMIT            reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    STRING          reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    DOT             reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    PRINTSTRING     reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    CR              reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    KEY             reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    NAME            reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+    VARIABLE        reduce using rule 28 (Exp -> Exp PRINTSTRING .)
+
+
+state 42
+
+    (29) Exp -> Exp CR .
+
+    SEMICOLON       reduce using rule 29 (Exp -> Exp CR .)
+    NUMBER          reduce using rule 29 (Exp -> Exp CR .)
+    CHR             reduce using rule 29 (Exp -> Exp CR .)
+    DUP             reduce using rule 29 (Exp -> Exp CR .)
+    MATH_OPERATOR   reduce using rule 29 (Exp -> Exp CR .)
+    EMIT            reduce using rule 29 (Exp -> Exp CR .)
+    STRING          reduce using rule 29 (Exp -> Exp CR .)
+    DOT             reduce using rule 29 (Exp -> Exp CR .)
+    PRINTSTRING     reduce using rule 29 (Exp -> Exp CR .)
+    CR              reduce using rule 29 (Exp -> Exp CR .)
+    KEY             reduce using rule 29 (Exp -> Exp CR .)
+    NAME            reduce using rule 29 (Exp -> Exp CR .)
+    VARIABLE        reduce using rule 29 (Exp -> Exp CR .)
+
+
+state 43
+
+    (30) Exp -> Exp KEY .
+
+    SEMICOLON       reduce using rule 30 (Exp -> Exp KEY .)
+    NUMBER          reduce using rule 30 (Exp -> Exp KEY .)
+    CHR             reduce using rule 30 (Exp -> Exp KEY .)
+    DUP             reduce using rule 30 (Exp -> Exp KEY .)
+    MATH_OPERATOR   reduce using rule 30 (Exp -> Exp KEY .)
+    EMIT            reduce using rule 30 (Exp -> Exp KEY .)
+    STRING          reduce using rule 30 (Exp -> Exp KEY .)
+    DOT             reduce using rule 30 (Exp -> Exp KEY .)
+    PRINTSTRING     reduce using rule 30 (Exp -> Exp KEY .)
+    CR              reduce using rule 30 (Exp -> Exp KEY .)
+    KEY             reduce using rule 30 (Exp -> Exp KEY .)
+    NAME            reduce using rule 30 (Exp -> Exp KEY .)
+    VARIABLE        reduce using rule 30 (Exp -> Exp KEY .)
+
+
+state 44
+
+    (32) Exp -> Exp VARIABLE . NAME
+
+    NAME            shift and go to state 50
+
+
+state 45
+
+    (38) Cmd -> Cmd IF Exec ELSE Exec THEN .
+
+    NAME            reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    VARIABLE        reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    KEY             reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    CR              reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    STRING          reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    EMIT            reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    DOT             reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    CHR             reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    DUP             reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    PRINTSTRING     reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    NUMBER          reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    MATH_OPERATOR   reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    IF              reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    COLON           reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    $end            reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    THEN            reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    ELSE            reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    COMMENT1        reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+    COMMENT2        reduce using rule 38 (Cmd -> Cmd IF Exec ELSE Exec THEN .)
+
+
+state 46
+
+    (33) Exp -> Exp NAME GET .
+
+    SEMICOLON       reduce using rule 33 (Exp -> Exp NAME GET .)
+    NUMBER          reduce using rule 33 (Exp -> Exp NAME GET .)
+    CHR             reduce using rule 33 (Exp -> Exp NAME GET .)
+    DUP             reduce using rule 33 (Exp -> Exp NAME GET .)
+    MATH_OPERATOR   reduce using rule 33 (Exp -> Exp NAME GET .)
+    EMIT            reduce using rule 33 (Exp -> Exp NAME GET .)
+    STRING          reduce using rule 33 (Exp -> Exp NAME GET .)
+    DOT             reduce using rule 33 (Exp -> Exp NAME GET .)
+    PRINTSTRING     reduce using rule 33 (Exp -> Exp NAME GET .)
+    CR              reduce using rule 33 (Exp -> Exp NAME GET .)
+    KEY             reduce using rule 33 (Exp -> Exp NAME GET .)
+    NAME            reduce using rule 33 (Exp -> Exp NAME GET .)
+    VARIABLE        reduce using rule 33 (Exp -> Exp NAME GET .)
+
+
+state 47
+
+    (34) Exp -> Exp NAME SET .
+
+    SEMICOLON       reduce using rule 34 (Exp -> Exp NAME SET .)
+    NUMBER          reduce using rule 34 (Exp -> Exp NAME SET .)
+    CHR             reduce using rule 34 (Exp -> Exp NAME SET .)
+    DUP             reduce using rule 34 (Exp -> Exp NAME SET .)
+    MATH_OPERATOR   reduce using rule 34 (Exp -> Exp NAME SET .)
+    EMIT            reduce using rule 34 (Exp -> Exp NAME SET .)
+    STRING          reduce using rule 34 (Exp -> Exp NAME SET .)
+    DOT             reduce using rule 34 (Exp -> Exp NAME SET .)
+    PRINTSTRING     reduce using rule 34 (Exp -> Exp NAME SET .)
+    CR              reduce using rule 34 (Exp -> Exp NAME SET .)
+    KEY             reduce using rule 34 (Exp -> Exp NAME SET .)
+    NAME            reduce using rule 34 (Exp -> Exp NAME SET .)
+    VARIABLE        reduce using rule 34 (Exp -> Exp NAME SET .)
+
+
+state 48
+
+    (21) Exp -> Exp CHR CHAR .
+
+    SEMICOLON       reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    NUMBER          reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    CHR             reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    DUP             reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    MATH_OPERATOR   reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    EMIT            reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    STRING          reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    DOT             reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    PRINTSTRING     reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    CR              reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    KEY             reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    NAME            reduce using rule 21 (Exp -> Exp CHR CHAR .)
+    VARIABLE        reduce using rule 21 (Exp -> Exp CHR CHAR .)
+
+
+state 49
+
+    (22) Exp -> Exp CHR MATH_OPERATOR .
+
+    SEMICOLON       reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    NUMBER          reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    CHR             reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    DUP             reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    MATH_OPERATOR   reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    EMIT            reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    STRING          reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    DOT             reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    PRINTSTRING     reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    CR              reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    KEY             reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    NAME            reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+    VARIABLE        reduce using rule 22 (Exp -> Exp CHR MATH_OPERATOR .)
+
+
+state 50
+
+    (32) Exp -> Exp VARIABLE NAME .
+
+    SEMICOLON       reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    NUMBER          reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    CHR             reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    DUP             reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    MATH_OPERATOR   reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    EMIT            reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    STRING          reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    DOT             reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    PRINTSTRING     reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    CR              reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    KEY             reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    NAME            reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+    VARIABLE        reduce using rule 32 (Exp -> Exp VARIABLE NAME .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMMENT1 in state 17 resolved as shift
+WARNING: shift/reduce conflict for COMMENT2 in state 17 resolved as shift
+WARNING: shift/reduce conflict for NAME in state 24 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 24 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 24 resolved as shift
+WARNING: shift/reduce conflict for CR in state 24 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 24 resolved as shift
+WARNING: shift/reduce conflict for EMIT in state 24 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 24 resolved as shift
+WARNING: shift/reduce conflict for CHR in state 24 resolved as shift
+WARNING: shift/reduce conflict for DUP in state 24 resolved as shift
+WARNING: shift/reduce conflict for PRINTSTRING in state 24 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 24 resolved as shift
+WARNING: shift/reduce conflict for MATH_OPERATOR in state 24 resolved as shift
+WARNING: shift/reduce conflict for IF in state 24 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 24 resolved as shift
+WARNING: shift/reduce conflict for THEN in state 25 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 25 resolved as shift
+WARNING: shift/reduce conflict for COMMENT1 in state 25 resolved as shift
+WARNING: shift/reduce conflict for COMMENT2 in state 25 resolved as shift
+WARNING: shift/reduce conflict for NAME in state 27 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 27 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 27 resolved as shift
+WARNING: shift/reduce conflict for CR in state 27 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 27 resolved as shift
+WARNING: shift/reduce conflict for EMIT in state 27 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 27 resolved as shift
+WARNING: shift/reduce conflict for CHR in state 27 resolved as shift
+WARNING: shift/reduce conflict for DUP in state 27 resolved as shift
+WARNING: shift/reduce conflict for PRINTSTRING in state 27 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 27 resolved as shift
+WARNING: shift/reduce conflict for MATH_OPERATOR in state 27 resolved as shift
+WARNING: shift/reduce conflict for IF in state 27 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 27 resolved as shift
+WARNING: shift/reduce conflict for COMMENT1 in state 29 resolved as shift
+WARNING: shift/reduce conflict for COMMENT2 in state 29 resolved as shift
+WARNING: shift/reduce conflict for THEN in state 31 resolved as shift
+WARNING: shift/reduce conflict for COMMENT1 in state 31 resolved as shift
+WARNING: shift/reduce conflict for COMMENT2 in state 31 resolved as shift
