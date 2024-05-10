@@ -1,15 +1,10 @@
 start
 
-pushi 1
-pushi 1
-pushi 1
-pusha SPROUTS
+pusha TOFU
 call
 stop
 
-SPROUTS:
-pushi 3
-pushi 6
-pushi 9
-pushi 0
+TOFU:
+pushs "Yummy bean curd!"
+writes
 return

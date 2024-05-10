@@ -81,11 +81,13 @@ class Parser():
 
     def p_number(self, p):
         '''Cmd : Cmd NUMBER'''
+        print("Number")
         p[0] = p[2]
         self.translator.push(p[2])
         
     def p_math_operator(self, p):
         '''Cmd : Cmd MATH_OPERATOR'''
+        print("Math Operator")
         p[0] = p[2]
         self.translator.math(p[2])
 
@@ -115,16 +117,15 @@ class Parser():
 
     def p_function_expression(self, p):
         """
-        Exp : Exp Function_operator
-            | Exp NUMBER
+        Exp : Exp NUMBER
             | Exp CHR CHAR
             | Exp CHR MATH_OPERATOR
             | Exp DUP
-            | Exp PRINTSTRING
             | Exp MATH_OPERATOR
-            | Exp DOT
             | Exp EMIT
             | Exp STRING
+            | Exp DOT
+            | Exp PRINTSTRING
             | Exp CR
             | Exp KEY
             | Exp NAME
@@ -143,7 +144,7 @@ class Parser():
         #print("ss" + str(len(self.name_aux)))
         for i in p:
             if i != None:
-                self.translator.functions[self.count] += str(i)
+                self.translator.functions[self.count] += " " + str(i)
         print(self.translator.code)
 
     def p_function_operator(self, p):
@@ -160,6 +161,7 @@ class Parser():
                             | ELSE
                             | PRINTSTRING
         """
+        print("ganda function operator")
 
     #def p_line(self, p):
     #    '''Line : Cmd

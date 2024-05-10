@@ -19,6 +19,7 @@ class Translator:
         return message
 
     def push(self, value):
+        print("push")
         self.stack.append(value)
         if type(value) == str:
             self.code.append(f"pushs \"{value}\"")
@@ -34,6 +35,7 @@ class Translator:
 
     def dup(self):
         value = self.stack[-1]
+        print("dup")
         self.stack.append(value)
         self.code.append("dup 1")
         return value
@@ -41,6 +43,7 @@ class Translator:
     def swap(self):
         a = self.stack.pop()
         b = self.stack.pop()
+        print("swap")
         self.stack.append(a)
         self.stack.append(b)
         self.code.append("swap")
@@ -81,11 +84,13 @@ class Translator:
             self.code.append("supeq")
         else:
             raise ValueError("Invalid operator")
+        print("math")
         self.stack.append(result)
         return result
 
 
-    def print(self): 
+    def print(self):
+        print("print") 
         result = self.stack.pop()
         if isinstance(result, int):
             self.code.append(f"writei") # EMIT
@@ -103,6 +108,7 @@ class Translator:
         return None
     
     def print_string(self, value):
+        print("print_string")
         value = value[3:-1]
         self.code.append(f"pushs \"{value}\"")
         self.code.append("writes")
@@ -127,6 +133,7 @@ class Translator:
         return self.stack.pop()
     
     def load(self, name, arg):
+        print("load")
         self.stack.append(self.variables[name]) # Coloca as variaveis na stack
         self.code.append(f"load {arg}")
         return self.variables[name][arg]
@@ -134,31 +141,37 @@ class Translator:
 # Conversions
 
     def atoi(self, value):
+        print("atoi")
         self.stack.append(int(value))
         self.code.append("atoi")
         return int(value)
     
     def atof(self, value):
+        print("atof")
         self.stack.append(float(value))
         self.code.append("atof")
         return float(value)
     
     def itof(self, value):
+        print("itof")
         self.stack.append(float(value))
         self.code.append("itof")
         return float(value)
     
     def ftoi(self, value):
+        print("ftoi")
         self.stack.append(int(value))
         self.code.append("ftoi")
         return int(value)
     
     def stri(self, value):
+        print("stri")
         self.stack.append(int(value))
         self.code.append("stri")
         return int(value)
     
     def strf(self, value):
+        print("strf")
         self.stack.append(float(value))
         self.code.append("strf")
         return float(value)
@@ -208,6 +221,7 @@ class Translator:
 # Control Operations
 
     def pusha(self, value):
+        print("pusha")
         self.stack.append(value)
         self.code.append(f"pusha {value}")
         return value
@@ -242,6 +256,6 @@ class Translator:
         filename = "../outputs/output.txt"
         with open(filename, 'a') as file:
             for line in self.code:
-                    file.write(f"{line}\n")
+                file.write(f"{line}\n")
             file.write(f"return\n")
             file.close()

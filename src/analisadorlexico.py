@@ -43,8 +43,7 @@ class Lexer():
     t_RPAREN = r'\)'
     t_COLON = r':'
     t_SEMICOLON = r';'
-    t_DOT = r'\b\.\b'
-
+    t_DOT = r'\.'
 
     def t_PRINTSTRING(self, t):
         r'\.\"\s[^"]+\"'
