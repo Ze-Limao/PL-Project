@@ -1,0 +1,119 @@
+Exec : Cmd
+     | Exec Cmd
+
+Cmd : COMMENT1
+    | COMMENT2
+    | Cmd NAME SET
+    | Cmd NAME GET
+    | Cmd SWAP 
+    | Cmd NUMBER DO 
+    | Cmd VARIABLE NAME 
+    | Cmd NAME 
+    | Cmd KEY
+    | Cmd CR 
+    | Cmd STRING 
+    | Cmd EMIT 
+    | Cmd DOT 
+    | Cmd CHR CHAR 
+    | Cmd CHR MATH_OPERATOR 
+    | Cmd DUP
+    | Cmd PRINTSTRING 
+    | Cmd NUMBER 
+    | Cmd CHAR 
+    | Cmd MATH_OPERATOR
+    | Cmd Loop 
+    | Cmd WHILE 
+    | Cmd IF Exec THEN
+    | Cmd IF Exec ELSE Exec THEN
+    | 
+
+Loop : NUMBER BEGIN Exloop UNTIL 
+     | NUMBER BEGIN Exloop REPEAT 
+     | NUMBER DO Exloop LOOP 
+
+Exloop : Exloop NUMBER
+       | Exloop CHR CHAR
+       | Exloop CHR MATH_OPERATOR
+       | Exloop DUP
+       | Exloop CHAR
+       | Exloop MATH_OPERATOR
+       | Exloop EMIT
+       | Exloop STRING
+       | Exloop DOT
+       | Exloop PRINTSTRING
+       | Exloop CR
+       | Exloop KEY
+       | Exloop NAME
+       | Exloop VARIABLE NAME
+       | Exloop NAME GET
+       | Exloop NAME SET
+       | Exloop SWAP
+       | Exloop WHILE
+       | Loop
+       |
+
+Function : COLON NAME Exp SEMICOLON 
+
+Exp : Exp NUMBER
+    | Exp CHR CHAR
+    | Exp CHR MATH_OPERATOR
+    | Exp DUP
+    | Exp CHAR
+    | Exp MATH_OPERATOR
+    | Exp EMIT
+    | Exp STRING
+    | Exp DOT
+    | Exp PRINTSTRING
+    | Exp CR
+    | Exp KEY
+    | Exp NAME
+    | Exp VARIABLE NAME
+    | Exp NAME GET
+    | Exp NAME SET
+    | Exp SWAP
+    | Exp WHILE
+    | Exp Loop
+    | 
+
+--------------------------------------------------------------------------------
+
+Line : Line Cmd
+     | Line Function
+     | 
+
+Expressao : Cmd 
+          | Expressao Cmd 
+
+Cmd : COMMENT1
+    | COMMENT2
+    | NAME SET
+    | NAME GET
+    | SWAP 
+    | NUMBER DO 
+    | VARIABLE NAME 
+    | NAME 
+    | KEY
+    | CR 
+    | STRING 
+    | EMIT 
+    | DOT 
+    | CHR CHAR 
+    | CHR MATH_OPERATOR 
+    | DUP
+    | PRINTSTRING 
+    | NUMBER 
+    | CHAR 
+    | MATH_OPERATOR
+    | Loop 
+    | WHILE 
+    | IF 
+    | ELSE 
+    | THEN 
+
+Loop : BEGIN Exloop UNTIL 
+     | BEGIN Exloop REPEAT 
+     | DO Exloop LOOP 
+
+Exloop : Expressao
+
+Exp : Expressao

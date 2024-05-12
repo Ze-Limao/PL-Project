@@ -4,7 +4,7 @@ class Parser():
     def __init__(self, lexer, translator):
       self.lexer = lexer
       self.tokens = self.lexer.tokens
-      self.parser = yacc.yacc(module=self, start='Line')
+      self.parser = yacc.yacc(module=self, start='Cmd', debug=True)
       self.translator = translator
       self.cmd_list = []
       self.func_count = 0
@@ -16,44 +16,44 @@ class Parser():
     ## Grammar
 
     def p_line(self, p):
-        '''Line : Line Cmd
+        '''Line : Line Expressao
                 | Line Function
                 | 
         '''
         return p
     
     def p_Expressao(self, p):
-        '''Expressao : Expressao Cmd
-                     |  
+        '''Expressao : Cmd
+                     | Expressao Cmd 
         '''
         return p
 
     def p_comment1(self, p):
-        '''Cmd : COMMENT1'''
+        '''Cmd : Cmd COMMENT1'''
         pass
 
     def p_comment2(self, p):
-        '''Cmd : COMMENT2'''
+        '''Cmd : Cmd COMMENT2'''
         pass
 
     def p_set(self, p):
-        '''Cmd : NAME SET '''
+        '''Cmd : Cmd NAME SET '''
         p[0] = p[1]
         self.translator.getset(p[2], p[3])
 
     def p_get(self, p):
-        '''Cmd : NAME GET '''
+        '''Cmd : Cmd NAME GET '''
         p[0] = p[1]
         self.translator.getset(p[2], p[3])
 
     def p_swap(self, p):
-        '''Cmd : SWAP'''
+        '''Cmd : Cmd SWAP'''
         print("Swap")
         p[0] = p[1]
         self.translator.swap()
 
     def p_do(self, p):
-        '''Cmd : NUMBER DO'''
+        '''Cmd : Cmd NUMBER DO'''
         p[0] = p[1]
         self.translator.do(p[2])
 
@@ -64,144 +64,147 @@ class Parser():
     #    return p
 
     def p_init_var(self, p):
-        '''Cmd : VARIABLE NAME'''
+        '''Cmd : Cmd VARIABLE NAME'''
         p[0] = p[1]
         self.translator.init_var(p[3])
 
     def p_call(self, p):
-        '''Cmd : NAME '''
+        '''Cmd : Cmd NAME '''
         p[0] = p[1]
         self.translator.call(p[2])
 
     def p_input_key(self, p):
-        '''Cmd : KEY'''
+        '''Cmd : Cmd KEY'''
         p[0] = p[1]
         self.translator.input_key(p[2])
 
     def p_cr(self, p):
-        '''Cmd : CR'''
+        '''Cmd : Cmd CR'''
         p[0] = p[1]
         self.translator.cr()
 
     def p_string(self, p):
-        '''Cmd : STRING'''
+        '''Cmd : Cmd STRING'''
         p[0] = p[1]
         self.translator.push(p[2])
 
     def p_print2(self, p):
-        '''Cmd : EMIT
+        '''Cmd : Cmd EMIT
         '''
         p[0] = p[1]    
         self.translator.emit()
 
     def p_print(self, p):
-        '''Cmd : DOT
+        '''Cmd : Cmd DOT
         '''
         p[0] = p[1]
         self.translator.print()
     
     def p_char(self, p):
-        '''Cmd : CHR CHAR
-               | CHR MATH_OPERATOR
+        '''Cmd : Cmd CHR CHAR
+               | Cmd CHR MATH_OPERATOR
         '''
         p[0] = p[1]
         self.translator.char(p[3])
     
     def p_dup(self,p):
-        '''Cmd : DUP        
+        '''Cmd : Cmd DUP        
         '''
         p[0] = p[1]
-        print("YEEE")
         self.translator.dup()
 
     def p_printstring(self, p):
-        '''Cmd : PRINTSTRING'''
+        '''Cmd : Cmd PRINTSTRING'''
         p[0] = p[1]
         self.translator.print_string(p[2])
-    
-    def p_char2(self, p):
-        '''Cmd : CHAR'''
-        print("Char")
-        p[0] = p[1]
-    
-    def p_math_operator(self, p):
-        '''Cmd : MATH_OPERATOR'''
-        print("Math Operator")
-        p[0] = p[1]
-        self.translator.math(p[1])
-
-    def p_loop(self, p):
-        '''Cmd : Loop'''
-        p[0] = p[1]
 
     def p_number(self, p):
-        '''Cmd : NUMBER'''
+        '''Cmd : Cmd NUMBER'''
         print("Number")
+        p[0] = p[2]
+        self.translator.push(p[2])
+    
+    def p_char2(self, p):
+        '''Cmd : Cmd CHAR'''
+        print("Char")
+        p[0] = p[2]
+    
+    def p_math_operator(self, p):
+        '''Cmd : Cmd MATH_OPERATOR'''
+        print("Math Operator")
+        p[0] = p[2]
+        self.translator.math(p[2])
+
+    def p_loop(self, p):
+        '''Cmd : Cmd Loop'''
         p[0] = p[1]
-        self.translator.push(p[1])
 
     def p_while(self, p):
-        '''Cmd : WHILE'''
+        '''Cmd : Cmd WHILE'''
         p[0] = p[1]
 
-    ## Condicionais 
-    
-    def p_if(self, p):
-        '''Cmd : IF'''
-        p[0] = p[1]
-        self.translator.if_then() #ainda nao implementado
-
-    def p_else(self, p):
-        '''Cmd : ELSE'''
-        p[0] = p[1]
-        self.translator.else_then() #ainda nao implementado
-
-    def p_only_else(self, p):
-        '''Cmd : THEN'''
-        p[0] = p[1]
-        self.translator.only_else_then() #ainda nao implementado
+    def p_cmdEmpty(self, p):
+        '''Cmd : '''
+        pass
 
     ## Loops
 
     def p_loop1(self, p):
         '''
-        Loop : BEGIN Exloop UNTIL
+        Loop : NUMBER BEGIN Exloop UNTIL
         '''
-        print("LOOPINHO1")
+        print("LOOPINHO")
         print(p[3])
-        #print(p[2] + " yee")
+        print(p[2] + " yee")
         self.translator.push(p[1])
-        
         return p
 
     def p_loop2(self, p):
         '''
-        Loop : BEGIN Exloop REPEAT
+        Loop : NUMBER BEGIN Exloop REPEAT
         '''
-        print("LOOPINHO2")
-        #print(p[0])
-        #print(p[2] + " yee")
+        print("LOOPINHO")
+        print(p[2] + " yee")
+        self.translator.push(p[1])
         
         return p
 
     def p_loop3(self, p):
         '''
-        Loop : DO Exloop LOOP
+        Loop : NUMBER DO Exloop LOOP
         '''
-        print("LOOPINHO3")
+        print("LOOPINHO")
         print(p[3])
-        #print(p[2] + " yee")
+        print(p[2] + " yee")
         self.translator.push(p[1])
 
         return p
 
     def p_loop_expression(self, p):
         """
-        Exloop : Expressao
+        Exloop : Exloop NUMBER
+               | Exloop CHR CHAR
+               | Exloop CHR MATH_OPERATOR
+               | Exloop DUP
+               | Exloop CHAR
+               | Exloop MATH_OPERATOR
+               | Exloop EMIT
+               | Exloop STRING
+               | Exloop DOT
+               | Exloop PRINTSTRING
+               | Exloop CR
+               | Exloop KEY
+               | Exloop NAME
+               | Exloop VARIABLE NAME
+               | Exloop NAME GET
+               | Exloop NAME SET
+               | Exloop SWAP
+               | Exloop WHILE
+               | Loop 
+               | 
+            
         """
         print("Exloop")
-        #if len(p) == 2:
-        #    print(p[1] + " MONKE")
         self.translator.init_loop(self.loop_count)
         #if name not in self.translator.functions:
         #    self.translator.functions[name] = str
@@ -234,7 +237,27 @@ class Parser():
 
     def p_function_expression(self, p):
         """
-        Exp : Expressao
+        Exp : Exp NUMBER
+            | Exp CHR CHAR
+            | Exp CHR MATH_OPERATOR
+            | Exp DUP
+            | Exp CHAR
+            | Exp MATH_OPERATOR
+            | Exp EMIT
+            | Exp STRING
+            | Exp DOT
+            | Exp PRINTSTRING
+            | Exp CR
+            | Exp KEY
+            | Exp NAME
+            | Exp VARIABLE NAME
+            | Exp NAME GET
+            | Exp NAME SET
+            | Exp SWAP
+            | Exp WHILE
+            | Exp Loop
+            | 
+            
         """
         print("Exp")
         self.translator.init_func(self.func_count)
@@ -249,10 +272,10 @@ class Parser():
         print(self.translator.code)
 
     
-    #def p_func(self, p):
-    #    '''Cmd : Cmd Function
-    #    '''
-    #    return p
+    def p_func(self, p):
+        '''Cmd : Cmd Function
+        '''
+        return p
 
         
     def p_error(self, p):

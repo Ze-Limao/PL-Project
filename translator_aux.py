@@ -9,7 +9,6 @@ class Translator:
         self.code.append("start")
         self.code.append("")
         self.var_counter = 0
-        self.ifcounter = 0
         self.match_func_count = -1
         self.match_loop_count = -1
     
@@ -288,16 +287,3 @@ class Translator:
                 file.write(f"{line}\n")
             file.write(f"return\n")
             file.close()
-            
-# Conditionals
-
-    def if_then(self):
-        self.code.append(f"jz ELSE{self.ifcounter}")
-
-    def else_then(self):
-        self.code.append(f"jump THEN{self.ifcounter}")
-        self.code.append(f"ELSE{self.ifcounter}:")
-
-    def only_else_then(self):
-        self.code.append(f"THEN{self.ifcounter}:")
-        self.ifcounter += 1

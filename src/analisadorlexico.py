@@ -10,15 +10,11 @@ class Lexer():
     tokens = [
         'NUMBER',
         'STRING',
-        'LPAREN',
-        'RPAREN',
         'COLON', # : Define inicio da função ou string  
         'SEMICOLON', # Finaliza função ou string 
         'DOT', # Print
         'EMIT',
         'KEY',
-        'SPACE', #output a space
-        'SPACES', #output n spaces
         'CHAR', #convert to ASCII
         'CHR', #CHAR
         'CR', #start new line , carriage return
@@ -35,19 +31,41 @@ class Lexer():
         'PRINTSTRING',
         'DUP',
         'DO',
-        'LOOP'
+        'LOOP',
+        'SWAP',
+        'BEGIN',
+        'UNTIL',
+        'WHILE',
+        'REPEAT'
     ]
 
     def t_PRINTSTRING(self, t):
         r'\.\"\s[^"]+\"'
         return t
 
-    t_LPAREN = r'\('
-    t_RPAREN = r'\)'
     t_COLON = r':'
     t_SEMICOLON = r';'
     t_DOT = r'\.'
 
+    def t_BEGIN(self, t):
+        r"[Bb][Ee][Gg][Ii][Nn]"
+        return t
+    
+    def t_UNTIL(self, t):
+        r"[Uu][Nn][Tt][Ii][Ll]"
+        return t
+    
+    def t_WHILE(self, t):
+        r"[Ww][Hh][Ii][Ll][Ee]"
+        return t
+
+    def t_REPEAT(self, t):
+        r"[Rr][Ee][Pp][Ee][Aa][Tt]"
+        return t
+
+    def t_SWAP(self, t):
+        r'[Ss][Ww][Aa][Pp]'
+        return t
 
     def t_LOOP(self, t):
         r'[Ll][Oo][Oo][Pp]'

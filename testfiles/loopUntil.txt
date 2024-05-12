@@ -1,0 +1,6 @@
+1
+BEGIN
+    DUP .
+    1 +
+    DUP 10 =
+UNTIL

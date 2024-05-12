@@ -1,5 +1,16 @@
 start
 
-pushi 2
+pushi 1
+dup 1
+writei
+pushi 1
+add
+dup 1
+pushi 10
+equal
+pushi 1
 writei
 stop
+
+loop1:
+return
