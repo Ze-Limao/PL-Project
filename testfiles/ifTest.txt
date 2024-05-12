@@ -1,0 +1,7 @@
+69                \ Empilha 69 na Stack
+420 <             \ Compara o topo da pilha com 420
+IF                \ Se for verdadeiro (topo da pilha menor que 420)
+    ." Está Certo"  \ Imprime "Está Certo"
+ELSE              \ Senão
+    ." Está Errado" \ Imprime "Está Errado"
+THEN              \ Fim da estrutura condicional

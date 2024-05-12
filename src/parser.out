@@ -28,59 +28,67 @@ Rule 22    Cmd -> CHAR
 Rule 23    Cmd -> MATH_OPERATOR
 Rule 24    Cmd -> Loop
 Rule 25    Cmd -> NUMBER
-Rule 26    Cmd -> WHILE
-Rule 27    Cmd -> IF
-Rule 28    Cmd -> ELSE
-Rule 29    Cmd -> THEN
-Rule 30    Loop -> BEGIN Exloop UNTIL
-Rule 31    Loop -> BEGIN Exloop REPEAT
-Rule 32    Loop -> DO Exloop LOOP
-Rule 33    Exloop -> Expressao
-Rule 34    Function -> COLON NAME Exp SEMICOLON
-Rule 35    Exp -> Expressao
+Rule 26    Cmd -> IF
+Rule 27    Cmd -> ELSE
+Rule 28    Cmd -> THEN
+Rule 29    Begin -> BEGIN
+Rule 30    Until -> UNTIL
+Rule 31    Do -> DO
+Rule 32    Cmd -> WHILE
+Rule 33    Repeat -> REPEAT
+Rule 34    Loop2 -> LOOP
+Rule 35    Loop -> Begin Expressao Until
+Rule 36    Loop -> Begin Expressao Repeat
+Rule 37    Loop -> Do Expressao Loop2
+Rule 38    Colon -> COLON
+Rule 39    Function -> Colon NAME Expressao SEMICOLON
 
 Terminals, with rules where they appear
 
-BEGIN                : 30 31
+BEGIN                : 29
 CHAR                 : 18 22
 CHR                  : 18 19
-COLON                : 34
+COLON                : 38
 COMMENT1             : 6
 COMMENT2             : 7
 CR                   : 14
-DO                   : 32
+DO                   : 31
 DOT                  : 17
 DUP                  : 20
-ELSE                 : 28
+ELSE                 : 27
 EMIT                 : 16
 GET                  : 9
-IF                   : 27
+IF                   : 26
 KEY                  : 13
-LOOP                 : 32
+LOOP                 : 34
 MATH_OPERATOR        : 19 23
-NAME                 : 8 9 11 12 34
+NAME                 : 8 9 11 12 39
 NUMBER               : 25
 PRINTSTRING          : 21
-REPEAT               : 31
-SEMICOLON            : 34
+REPEAT               : 33
+SEMICOLON            : 39
 SET                  : 8
 STRING               : 15
 SWAP                 : 10
-THEN                 : 29
+THEN                 : 28
 UNTIL                : 30
 VARIABLE             : 11
-WHILE                : 26
+WHILE                : 32
 error                : 
 
 Nonterminals, with rules where they appear
 
+Begin                : 35 36
 Cmd                  : 1 4
-Exloop               : 30 31 32
-Exp                  : 34
-Expressao            : 4 33 35
+Colon                : 39
+Do                   : 37
+Expressao            : 4 35 36 37 39
 Function             : 2
 Line                 : 1 2 0
 Loop                 : 24
+Loop2                : 37
+Repeat               : 36
+Until                : 35
 
 Parsing method: LALR
 
@@ -107,10 +115,10 @@ state 0
     CHAR            reduce using rule 3 (Line -> .)
     MATH_OPERATOR   reduce using rule 3 (Line -> .)
     NUMBER          reduce using rule 3 (Line -> .)
-    WHILE           reduce using rule 3 (Line -> .)
     IF              reduce using rule 3 (Line -> .)
     ELSE            reduce using rule 3 (Line -> .)
     THEN            reduce using rule 3 (Line -> .)
+    WHILE           reduce using rule 3 (Line -> .)
     COLON           reduce using rule 3 (Line -> .)
     BEGIN           reduce using rule 3 (Line -> .)
     DO              reduce using rule 3 (Line -> .)
@@ -143,14 +151,17 @@ state 1
     (23) Cmd -> . MATH_OPERATOR
     (24) Cmd -> . Loop
     (25) Cmd -> . NUMBER
-    (26) Cmd -> . WHILE
-    (27) Cmd -> . IF
-    (28) Cmd -> . ELSE
-    (29) Cmd -> . THEN
-    (34) Function -> . COLON NAME Exp SEMICOLON
-    (30) Loop -> . BEGIN Exloop UNTIL
-    (31) Loop -> . BEGIN Exloop REPEAT
-    (32) Loop -> . DO Exloop LOOP
+    (26) Cmd -> . IF
+    (27) Cmd -> . ELSE
+    (28) Cmd -> . THEN
+    (32) Cmd -> . WHILE
+    (39) Function -> . Colon NAME Expressao SEMICOLON
+    (35) Loop -> . Begin Expressao Until
+    (36) Loop -> . Begin Expressao Repeat
+    (37) Loop -> . Do Expressao Loop2
+    (38) Colon -> . COLON
+    (29) Begin -> . BEGIN
+    (31) Do -> . DO
 
     COMMENT1        shift and go to state 4
     COMMENT2        shift and go to state 5
@@ -168,17 +179,20 @@ state 1
     CHAR            shift and go to state 15
     MATH_OPERATOR   shift and go to state 16
     NUMBER          shift and go to state 20
-    WHILE           shift and go to state 21
-    IF              shift and go to state 22
-    ELSE            shift and go to state 23
-    THEN            shift and go to state 24
-    COLON           shift and go to state 25
-    BEGIN           shift and go to state 26
-    DO              shift and go to state 27
+    IF              shift and go to state 21
+    ELSE            shift and go to state 22
+    THEN            shift and go to state 23
+    WHILE           shift and go to state 24
+    COLON           shift and go to state 28
+    BEGIN           shift and go to state 29
+    DO              shift and go to state 30
 
     Cmd                            shift and go to state 2
     Function                       shift and go to state 3
     Loop                           shift and go to state 19
+    Colon                          shift and go to state 25
+    Begin                          shift and go to state 26
+    Do                             shift and go to state 27
 
 state 2
 
@@ -200,10 +214,10 @@ state 2
     CHAR            reduce using rule 1 (Line -> Line Cmd .)
     MATH_OPERATOR   reduce using rule 1 (Line -> Line Cmd .)
     NUMBER          reduce using rule 1 (Line -> Line Cmd .)
-    WHILE           reduce using rule 1 (Line -> Line Cmd .)
     IF              reduce using rule 1 (Line -> Line Cmd .)
     ELSE            reduce using rule 1 (Line -> Line Cmd .)
     THEN            reduce using rule 1 (Line -> Line Cmd .)
+    WHILE           reduce using rule 1 (Line -> Line Cmd .)
     COLON           reduce using rule 1 (Line -> Line Cmd .)
     BEGIN           reduce using rule 1 (Line -> Line Cmd .)
     DO              reduce using rule 1 (Line -> Line Cmd .)
@@ -230,10 +244,10 @@ state 3
     CHAR            reduce using rule 2 (Line -> Line Function .)
     MATH_OPERATOR   reduce using rule 2 (Line -> Line Function .)
     NUMBER          reduce using rule 2 (Line -> Line Function .)
-    WHILE           reduce using rule 2 (Line -> Line Function .)
     IF              reduce using rule 2 (Line -> Line Function .)
     ELSE            reduce using rule 2 (Line -> Line Function .)
     THEN            reduce using rule 2 (Line -> Line Function .)
+    WHILE           reduce using rule 2 (Line -> Line Function .)
     COLON           reduce using rule 2 (Line -> Line Function .)
     BEGIN           reduce using rule 2 (Line -> Line Function .)
     DO              reduce using rule 2 (Line -> Line Function .)
@@ -260,10 +274,10 @@ state 4
     CHAR            reduce using rule 6 (Cmd -> COMMENT1 .)
     MATH_OPERATOR   reduce using rule 6 (Cmd -> COMMENT1 .)
     NUMBER          reduce using rule 6 (Cmd -> COMMENT1 .)
-    WHILE           reduce using rule 6 (Cmd -> COMMENT1 .)
     IF              reduce using rule 6 (Cmd -> COMMENT1 .)
     ELSE            reduce using rule 6 (Cmd -> COMMENT1 .)
     THEN            reduce using rule 6 (Cmd -> COMMENT1 .)
+    WHILE           reduce using rule 6 (Cmd -> COMMENT1 .)
     COLON           reduce using rule 6 (Cmd -> COMMENT1 .)
     BEGIN           reduce using rule 6 (Cmd -> COMMENT1 .)
     DO              reduce using rule 6 (Cmd -> COMMENT1 .)
@@ -294,10 +308,10 @@ state 5
     CHAR            reduce using rule 7 (Cmd -> COMMENT2 .)
     MATH_OPERATOR   reduce using rule 7 (Cmd -> COMMENT2 .)
     NUMBER          reduce using rule 7 (Cmd -> COMMENT2 .)
-    WHILE           reduce using rule 7 (Cmd -> COMMENT2 .)
     IF              reduce using rule 7 (Cmd -> COMMENT2 .)
     ELSE            reduce using rule 7 (Cmd -> COMMENT2 .)
     THEN            reduce using rule 7 (Cmd -> COMMENT2 .)
+    WHILE           reduce using rule 7 (Cmd -> COMMENT2 .)
     COLON           reduce using rule 7 (Cmd -> COMMENT2 .)
     BEGIN           reduce using rule 7 (Cmd -> COMMENT2 .)
     DO              reduce using rule 7 (Cmd -> COMMENT2 .)
@@ -314,8 +328,8 @@ state 6
     (9) Cmd -> NAME . GET
     (12) Cmd -> NAME .
 
-    SET             shift and go to state 28
-    GET             shift and go to state 29
+    SET             shift and go to state 31
+    GET             shift and go to state 32
     COMMENT1        reduce using rule 12 (Cmd -> NAME .)
     COMMENT2        reduce using rule 12 (Cmd -> NAME .)
     NAME            reduce using rule 12 (Cmd -> NAME .)
@@ -332,10 +346,10 @@ state 6
     CHAR            reduce using rule 12 (Cmd -> NAME .)
     MATH_OPERATOR   reduce using rule 12 (Cmd -> NAME .)
     NUMBER          reduce using rule 12 (Cmd -> NAME .)
-    WHILE           reduce using rule 12 (Cmd -> NAME .)
     IF              reduce using rule 12 (Cmd -> NAME .)
     ELSE            reduce using rule 12 (Cmd -> NAME .)
     THEN            reduce using rule 12 (Cmd -> NAME .)
+    WHILE           reduce using rule 12 (Cmd -> NAME .)
     COLON           reduce using rule 12 (Cmd -> NAME .)
     BEGIN           reduce using rule 12 (Cmd -> NAME .)
     DO              reduce using rule 12 (Cmd -> NAME .)
@@ -366,10 +380,10 @@ state 7
     CHAR            reduce using rule 10 (Cmd -> SWAP .)
     MATH_OPERATOR   reduce using rule 10 (Cmd -> SWAP .)
     NUMBER          reduce using rule 10 (Cmd -> SWAP .)
-    WHILE           reduce using rule 10 (Cmd -> SWAP .)
     IF              reduce using rule 10 (Cmd -> SWAP .)
     ELSE            reduce using rule 10 (Cmd -> SWAP .)
     THEN            reduce using rule 10 (Cmd -> SWAP .)
+    WHILE           reduce using rule 10 (Cmd -> SWAP .)
     COLON           reduce using rule 10 (Cmd -> SWAP .)
     BEGIN           reduce using rule 10 (Cmd -> SWAP .)
     DO              reduce using rule 10 (Cmd -> SWAP .)
@@ -384,7 +398,7 @@ state 8
 
     (11) Cmd -> VARIABLE . NAME
 
-    NAME            shift and go to state 30
+    NAME            shift and go to state 33
 
 
 state 9
@@ -407,10 +421,10 @@ state 9
     CHAR            reduce using rule 13 (Cmd -> KEY .)
     MATH_OPERATOR   reduce using rule 13 (Cmd -> KEY .)
     NUMBER          reduce using rule 13 (Cmd -> KEY .)
-    WHILE           reduce using rule 13 (Cmd -> KEY .)
     IF              reduce using rule 13 (Cmd -> KEY .)
     ELSE            reduce using rule 13 (Cmd -> KEY .)
     THEN            reduce using rule 13 (Cmd -> KEY .)
+    WHILE           reduce using rule 13 (Cmd -> KEY .)
     COLON           reduce using rule 13 (Cmd -> KEY .)
     BEGIN           reduce using rule 13 (Cmd -> KEY .)
     DO              reduce using rule 13 (Cmd -> KEY .)
@@ -441,10 +455,10 @@ state 10
     CHAR            reduce using rule 14 (Cmd -> CR .)
     MATH_OPERATOR   reduce using rule 14 (Cmd -> CR .)
     NUMBER          reduce using rule 14 (Cmd -> CR .)
-    WHILE           reduce using rule 14 (Cmd -> CR .)
     IF              reduce using rule 14 (Cmd -> CR .)
     ELSE            reduce using rule 14 (Cmd -> CR .)
     THEN            reduce using rule 14 (Cmd -> CR .)
+    WHILE           reduce using rule 14 (Cmd -> CR .)
     COLON           reduce using rule 14 (Cmd -> CR .)
     BEGIN           reduce using rule 14 (Cmd -> CR .)
     DO              reduce using rule 14 (Cmd -> CR .)
@@ -475,10 +489,10 @@ state 11
     CHAR            reduce using rule 15 (Cmd -> STRING .)
     MATH_OPERATOR   reduce using rule 15 (Cmd -> STRING .)
     NUMBER          reduce using rule 15 (Cmd -> STRING .)
-    WHILE           reduce using rule 15 (Cmd -> STRING .)
     IF              reduce using rule 15 (Cmd -> STRING .)
     ELSE            reduce using rule 15 (Cmd -> STRING .)
     THEN            reduce using rule 15 (Cmd -> STRING .)
+    WHILE           reduce using rule 15 (Cmd -> STRING .)
     COLON           reduce using rule 15 (Cmd -> STRING .)
     BEGIN           reduce using rule 15 (Cmd -> STRING .)
     DO              reduce using rule 15 (Cmd -> STRING .)
@@ -509,10 +523,10 @@ state 12
     CHAR            reduce using rule 16 (Cmd -> EMIT .)
     MATH_OPERATOR   reduce using rule 16 (Cmd -> EMIT .)
     NUMBER          reduce using rule 16 (Cmd -> EMIT .)
-    WHILE           reduce using rule 16 (Cmd -> EMIT .)
     IF              reduce using rule 16 (Cmd -> EMIT .)
     ELSE            reduce using rule 16 (Cmd -> EMIT .)
     THEN            reduce using rule 16 (Cmd -> EMIT .)
+    WHILE           reduce using rule 16 (Cmd -> EMIT .)
     COLON           reduce using rule 16 (Cmd -> EMIT .)
     BEGIN           reduce using rule 16 (Cmd -> EMIT .)
     DO              reduce using rule 16 (Cmd -> EMIT .)
@@ -543,10 +557,10 @@ state 13
     CHAR            reduce using rule 17 (Cmd -> DOT .)
     MATH_OPERATOR   reduce using rule 17 (Cmd -> DOT .)
     NUMBER          reduce using rule 17 (Cmd -> DOT .)
-    WHILE           reduce using rule 17 (Cmd -> DOT .)
     IF              reduce using rule 17 (Cmd -> DOT .)
     ELSE            reduce using rule 17 (Cmd -> DOT .)
     THEN            reduce using rule 17 (Cmd -> DOT .)
+    WHILE           reduce using rule 17 (Cmd -> DOT .)
     COLON           reduce using rule 17 (Cmd -> DOT .)
     BEGIN           reduce using rule 17 (Cmd -> DOT .)
     DO              reduce using rule 17 (Cmd -> DOT .)
@@ -562,8 +576,8 @@ state 14
     (18) Cmd -> CHR . CHAR
     (19) Cmd -> CHR . MATH_OPERATOR
 
-    CHAR            shift and go to state 31
-    MATH_OPERATOR   shift and go to state 32
+    CHAR            shift and go to state 34
+    MATH_OPERATOR   shift and go to state 35
 
 
 state 15
@@ -586,10 +600,10 @@ state 15
     CHAR            reduce using rule 22 (Cmd -> CHAR .)
     MATH_OPERATOR   reduce using rule 22 (Cmd -> CHAR .)
     NUMBER          reduce using rule 22 (Cmd -> CHAR .)
-    WHILE           reduce using rule 22 (Cmd -> CHAR .)
     IF              reduce using rule 22 (Cmd -> CHAR .)
     ELSE            reduce using rule 22 (Cmd -> CHAR .)
     THEN            reduce using rule 22 (Cmd -> CHAR .)
+    WHILE           reduce using rule 22 (Cmd -> CHAR .)
     COLON           reduce using rule 22 (Cmd -> CHAR .)
     BEGIN           reduce using rule 22 (Cmd -> CHAR .)
     DO              reduce using rule 22 (Cmd -> CHAR .)
@@ -620,10 +634,10 @@ state 16
     CHAR            reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     MATH_OPERATOR   reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     NUMBER          reduce using rule 23 (Cmd -> MATH_OPERATOR .)
-    WHILE           reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     IF              reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     ELSE            reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     THEN            reduce using rule 23 (Cmd -> MATH_OPERATOR .)
+    WHILE           reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     COLON           reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     BEGIN           reduce using rule 23 (Cmd -> MATH_OPERATOR .)
     DO              reduce using rule 23 (Cmd -> MATH_OPERATOR .)
@@ -654,10 +668,10 @@ state 17
     CHAR            reduce using rule 20 (Cmd -> DUP .)
     MATH_OPERATOR   reduce using rule 20 (Cmd -> DUP .)
     NUMBER          reduce using rule 20 (Cmd -> DUP .)
-    WHILE           reduce using rule 20 (Cmd -> DUP .)
     IF              reduce using rule 20 (Cmd -> DUP .)
     ELSE            reduce using rule 20 (Cmd -> DUP .)
     THEN            reduce using rule 20 (Cmd -> DUP .)
+    WHILE           reduce using rule 20 (Cmd -> DUP .)
     COLON           reduce using rule 20 (Cmd -> DUP .)
     BEGIN           reduce using rule 20 (Cmd -> DUP .)
     DO              reduce using rule 20 (Cmd -> DUP .)
@@ -688,10 +702,10 @@ state 18
     CHAR            reduce using rule 21 (Cmd -> PRINTSTRING .)
     MATH_OPERATOR   reduce using rule 21 (Cmd -> PRINTSTRING .)
     NUMBER          reduce using rule 21 (Cmd -> PRINTSTRING .)
-    WHILE           reduce using rule 21 (Cmd -> PRINTSTRING .)
     IF              reduce using rule 21 (Cmd -> PRINTSTRING .)
     ELSE            reduce using rule 21 (Cmd -> PRINTSTRING .)
     THEN            reduce using rule 21 (Cmd -> PRINTSTRING .)
+    WHILE           reduce using rule 21 (Cmd -> PRINTSTRING .)
     COLON           reduce using rule 21 (Cmd -> PRINTSTRING .)
     BEGIN           reduce using rule 21 (Cmd -> PRINTSTRING .)
     DO              reduce using rule 21 (Cmd -> PRINTSTRING .)
@@ -722,10 +736,10 @@ state 19
     CHAR            reduce using rule 24 (Cmd -> Loop .)
     MATH_OPERATOR   reduce using rule 24 (Cmd -> Loop .)
     NUMBER          reduce using rule 24 (Cmd -> Loop .)
-    WHILE           reduce using rule 24 (Cmd -> Loop .)
     IF              reduce using rule 24 (Cmd -> Loop .)
     ELSE            reduce using rule 24 (Cmd -> Loop .)
     THEN            reduce using rule 24 (Cmd -> Loop .)
+    WHILE           reduce using rule 24 (Cmd -> Loop .)
     COLON           reduce using rule 24 (Cmd -> Loop .)
     BEGIN           reduce using rule 24 (Cmd -> Loop .)
     DO              reduce using rule 24 (Cmd -> Loop .)
@@ -756,10 +770,10 @@ state 20
     CHAR            reduce using rule 25 (Cmd -> NUMBER .)
     MATH_OPERATOR   reduce using rule 25 (Cmd -> NUMBER .)
     NUMBER          reduce using rule 25 (Cmd -> NUMBER .)
-    WHILE           reduce using rule 25 (Cmd -> NUMBER .)
     IF              reduce using rule 25 (Cmd -> NUMBER .)
     ELSE            reduce using rule 25 (Cmd -> NUMBER .)
     THEN            reduce using rule 25 (Cmd -> NUMBER .)
+    WHILE           reduce using rule 25 (Cmd -> NUMBER .)
     COLON           reduce using rule 25 (Cmd -> NUMBER .)
     BEGIN           reduce using rule 25 (Cmd -> NUMBER .)
     DO              reduce using rule 25 (Cmd -> NUMBER .)
@@ -772,155 +786,156 @@ state 20
 
 state 21
 
-    (26) Cmd -> WHILE .
+    (26) Cmd -> IF .
 
-    COMMENT1        reduce using rule 26 (Cmd -> WHILE .)
-    COMMENT2        reduce using rule 26 (Cmd -> WHILE .)
-    NAME            reduce using rule 26 (Cmd -> WHILE .)
-    SWAP            reduce using rule 26 (Cmd -> WHILE .)
-    VARIABLE        reduce using rule 26 (Cmd -> WHILE .)
-    KEY             reduce using rule 26 (Cmd -> WHILE .)
-    CR              reduce using rule 26 (Cmd -> WHILE .)
-    STRING          reduce using rule 26 (Cmd -> WHILE .)
-    EMIT            reduce using rule 26 (Cmd -> WHILE .)
-    DOT             reduce using rule 26 (Cmd -> WHILE .)
-    CHR             reduce using rule 26 (Cmd -> WHILE .)
-    DUP             reduce using rule 26 (Cmd -> WHILE .)
-    PRINTSTRING     reduce using rule 26 (Cmd -> WHILE .)
-    CHAR            reduce using rule 26 (Cmd -> WHILE .)
-    MATH_OPERATOR   reduce using rule 26 (Cmd -> WHILE .)
-    NUMBER          reduce using rule 26 (Cmd -> WHILE .)
-    WHILE           reduce using rule 26 (Cmd -> WHILE .)
-    IF              reduce using rule 26 (Cmd -> WHILE .)
-    ELSE            reduce using rule 26 (Cmd -> WHILE .)
-    THEN            reduce using rule 26 (Cmd -> WHILE .)
-    COLON           reduce using rule 26 (Cmd -> WHILE .)
-    BEGIN           reduce using rule 26 (Cmd -> WHILE .)
-    DO              reduce using rule 26 (Cmd -> WHILE .)
-    $end            reduce using rule 26 (Cmd -> WHILE .)
-    UNTIL           reduce using rule 26 (Cmd -> WHILE .)
-    REPEAT          reduce using rule 26 (Cmd -> WHILE .)
-    LOOP            reduce using rule 26 (Cmd -> WHILE .)
-    SEMICOLON       reduce using rule 26 (Cmd -> WHILE .)
+    COMMENT1        reduce using rule 26 (Cmd -> IF .)
+    COMMENT2        reduce using rule 26 (Cmd -> IF .)
+    NAME            reduce using rule 26 (Cmd -> IF .)
+    SWAP            reduce using rule 26 (Cmd -> IF .)
+    VARIABLE        reduce using rule 26 (Cmd -> IF .)
+    KEY             reduce using rule 26 (Cmd -> IF .)
+    CR              reduce using rule 26 (Cmd -> IF .)
+    STRING          reduce using rule 26 (Cmd -> IF .)
+    EMIT            reduce using rule 26 (Cmd -> IF .)
+    DOT             reduce using rule 26 (Cmd -> IF .)
+    CHR             reduce using rule 26 (Cmd -> IF .)
+    DUP             reduce using rule 26 (Cmd -> IF .)
+    PRINTSTRING     reduce using rule 26 (Cmd -> IF .)
+    CHAR            reduce using rule 26 (Cmd -> IF .)
+    MATH_OPERATOR   reduce using rule 26 (Cmd -> IF .)
+    NUMBER          reduce using rule 26 (Cmd -> IF .)
+    IF              reduce using rule 26 (Cmd -> IF .)
+    ELSE            reduce using rule 26 (Cmd -> IF .)
+    THEN            reduce using rule 26 (Cmd -> IF .)
+    WHILE           reduce using rule 26 (Cmd -> IF .)
+    COLON           reduce using rule 26 (Cmd -> IF .)
+    BEGIN           reduce using rule 26 (Cmd -> IF .)
+    DO              reduce using rule 26 (Cmd -> IF .)
+    $end            reduce using rule 26 (Cmd -> IF .)
+    UNTIL           reduce using rule 26 (Cmd -> IF .)
+    REPEAT          reduce using rule 26 (Cmd -> IF .)
+    LOOP            reduce using rule 26 (Cmd -> IF .)
+    SEMICOLON       reduce using rule 26 (Cmd -> IF .)
 
 
 state 22
 
-    (27) Cmd -> IF .
+    (27) Cmd -> ELSE .
 
-    COMMENT1        reduce using rule 27 (Cmd -> IF .)
-    COMMENT2        reduce using rule 27 (Cmd -> IF .)
-    NAME            reduce using rule 27 (Cmd -> IF .)
-    SWAP            reduce using rule 27 (Cmd -> IF .)
-    VARIABLE        reduce using rule 27 (Cmd -> IF .)
-    KEY             reduce using rule 27 (Cmd -> IF .)
-    CR              reduce using rule 27 (Cmd -> IF .)
-    STRING          reduce using rule 27 (Cmd -> IF .)
-    EMIT            reduce using rule 27 (Cmd -> IF .)
-    DOT             reduce using rule 27 (Cmd -> IF .)
-    CHR             reduce using rule 27 (Cmd -> IF .)
-    DUP             reduce using rule 27 (Cmd -> IF .)
-    PRINTSTRING     reduce using rule 27 (Cmd -> IF .)
-    CHAR            reduce using rule 27 (Cmd -> IF .)
-    MATH_OPERATOR   reduce using rule 27 (Cmd -> IF .)
-    NUMBER          reduce using rule 27 (Cmd -> IF .)
-    WHILE           reduce using rule 27 (Cmd -> IF .)
-    IF              reduce using rule 27 (Cmd -> IF .)
-    ELSE            reduce using rule 27 (Cmd -> IF .)
-    THEN            reduce using rule 27 (Cmd -> IF .)
-    COLON           reduce using rule 27 (Cmd -> IF .)
-    BEGIN           reduce using rule 27 (Cmd -> IF .)
-    DO              reduce using rule 27 (Cmd -> IF .)
-    $end            reduce using rule 27 (Cmd -> IF .)
-    UNTIL           reduce using rule 27 (Cmd -> IF .)
-    REPEAT          reduce using rule 27 (Cmd -> IF .)
-    LOOP            reduce using rule 27 (Cmd -> IF .)
-    SEMICOLON       reduce using rule 27 (Cmd -> IF .)
+    COMMENT1        reduce using rule 27 (Cmd -> ELSE .)
+    COMMENT2        reduce using rule 27 (Cmd -> ELSE .)
+    NAME            reduce using rule 27 (Cmd -> ELSE .)
+    SWAP            reduce using rule 27 (Cmd -> ELSE .)
+    VARIABLE        reduce using rule 27 (Cmd -> ELSE .)
+    KEY             reduce using rule 27 (Cmd -> ELSE .)
+    CR              reduce using rule 27 (Cmd -> ELSE .)
+    STRING          reduce using rule 27 (Cmd -> ELSE .)
+    EMIT            reduce using rule 27 (Cmd -> ELSE .)
+    DOT             reduce using rule 27 (Cmd -> ELSE .)
+    CHR             reduce using rule 27 (Cmd -> ELSE .)
+    DUP             reduce using rule 27 (Cmd -> ELSE .)
+    PRINTSTRING     reduce using rule 27 (Cmd -> ELSE .)
+    CHAR            reduce using rule 27 (Cmd -> ELSE .)
+    MATH_OPERATOR   reduce using rule 27 (Cmd -> ELSE .)
+    NUMBER          reduce using rule 27 (Cmd -> ELSE .)
+    IF              reduce using rule 27 (Cmd -> ELSE .)
+    ELSE            reduce using rule 27 (Cmd -> ELSE .)
+    THEN            reduce using rule 27 (Cmd -> ELSE .)
+    WHILE           reduce using rule 27 (Cmd -> ELSE .)
+    COLON           reduce using rule 27 (Cmd -> ELSE .)
+    BEGIN           reduce using rule 27 (Cmd -> ELSE .)
+    DO              reduce using rule 27 (Cmd -> ELSE .)
+    $end            reduce using rule 27 (Cmd -> ELSE .)
+    UNTIL           reduce using rule 27 (Cmd -> ELSE .)
+    REPEAT          reduce using rule 27 (Cmd -> ELSE .)
+    LOOP            reduce using rule 27 (Cmd -> ELSE .)
+    SEMICOLON       reduce using rule 27 (Cmd -> ELSE .)
 
 
 state 23
 
-    (28) Cmd -> ELSE .
+    (28) Cmd -> THEN .
 
-    COMMENT1        reduce using rule 28 (Cmd -> ELSE .)
-    COMMENT2        reduce using rule 28 (Cmd -> ELSE .)
-    NAME            reduce using rule 28 (Cmd -> ELSE .)
-    SWAP            reduce using rule 28 (Cmd -> ELSE .)
-    VARIABLE        reduce using rule 28 (Cmd -> ELSE .)
-    KEY             reduce using rule 28 (Cmd -> ELSE .)
-    CR              reduce using rule 28 (Cmd -> ELSE .)
-    STRING          reduce using rule 28 (Cmd -> ELSE .)
-    EMIT            reduce using rule 28 (Cmd -> ELSE .)
-    DOT             reduce using rule 28 (Cmd -> ELSE .)
-    CHR             reduce using rule 28 (Cmd -> ELSE .)
-    DUP             reduce using rule 28 (Cmd -> ELSE .)
-    PRINTSTRING     reduce using rule 28 (Cmd -> ELSE .)
-    CHAR            reduce using rule 28 (Cmd -> ELSE .)
-    MATH_OPERATOR   reduce using rule 28 (Cmd -> ELSE .)
-    NUMBER          reduce using rule 28 (Cmd -> ELSE .)
-    WHILE           reduce using rule 28 (Cmd -> ELSE .)
-    IF              reduce using rule 28 (Cmd -> ELSE .)
-    ELSE            reduce using rule 28 (Cmd -> ELSE .)
-    THEN            reduce using rule 28 (Cmd -> ELSE .)
-    COLON           reduce using rule 28 (Cmd -> ELSE .)
-    BEGIN           reduce using rule 28 (Cmd -> ELSE .)
-    DO              reduce using rule 28 (Cmd -> ELSE .)
-    $end            reduce using rule 28 (Cmd -> ELSE .)
-    UNTIL           reduce using rule 28 (Cmd -> ELSE .)
-    REPEAT          reduce using rule 28 (Cmd -> ELSE .)
-    LOOP            reduce using rule 28 (Cmd -> ELSE .)
-    SEMICOLON       reduce using rule 28 (Cmd -> ELSE .)
+    COMMENT1        reduce using rule 28 (Cmd -> THEN .)
+    COMMENT2        reduce using rule 28 (Cmd -> THEN .)
+    NAME            reduce using rule 28 (Cmd -> THEN .)
+    SWAP            reduce using rule 28 (Cmd -> THEN .)
+    VARIABLE        reduce using rule 28 (Cmd -> THEN .)
+    KEY             reduce using rule 28 (Cmd -> THEN .)
+    CR              reduce using rule 28 (Cmd -> THEN .)
+    STRING          reduce using rule 28 (Cmd -> THEN .)
+    EMIT            reduce using rule 28 (Cmd -> THEN .)
+    DOT             reduce using rule 28 (Cmd -> THEN .)
+    CHR             reduce using rule 28 (Cmd -> THEN .)
+    DUP             reduce using rule 28 (Cmd -> THEN .)
+    PRINTSTRING     reduce using rule 28 (Cmd -> THEN .)
+    CHAR            reduce using rule 28 (Cmd -> THEN .)
+    MATH_OPERATOR   reduce using rule 28 (Cmd -> THEN .)
+    NUMBER          reduce using rule 28 (Cmd -> THEN .)
+    IF              reduce using rule 28 (Cmd -> THEN .)
+    ELSE            reduce using rule 28 (Cmd -> THEN .)
+    THEN            reduce using rule 28 (Cmd -> THEN .)
+    WHILE           reduce using rule 28 (Cmd -> THEN .)
+    COLON           reduce using rule 28 (Cmd -> THEN .)
+    BEGIN           reduce using rule 28 (Cmd -> THEN .)
+    DO              reduce using rule 28 (Cmd -> THEN .)
+    $end            reduce using rule 28 (Cmd -> THEN .)
+    UNTIL           reduce using rule 28 (Cmd -> THEN .)
+    REPEAT          reduce using rule 28 (Cmd -> THEN .)
+    LOOP            reduce using rule 28 (Cmd -> THEN .)
+    SEMICOLON       reduce using rule 28 (Cmd -> THEN .)
 
 
 state 24
 
-    (29) Cmd -> THEN .
+    (32) Cmd -> WHILE .
 
-    COMMENT1        reduce using rule 29 (Cmd -> THEN .)
-    COMMENT2        reduce using rule 29 (Cmd -> THEN .)
-    NAME            reduce using rule 29 (Cmd -> THEN .)
-    SWAP            reduce using rule 29 (Cmd -> THEN .)
-    VARIABLE        reduce using rule 29 (Cmd -> THEN .)
-    KEY             reduce using rule 29 (Cmd -> THEN .)
-    CR              reduce using rule 29 (Cmd -> THEN .)
-    STRING          reduce using rule 29 (Cmd -> THEN .)
-    EMIT            reduce using rule 29 (Cmd -> THEN .)
-    DOT             reduce using rule 29 (Cmd -> THEN .)
-    CHR             reduce using rule 29 (Cmd -> THEN .)
-    DUP             reduce using rule 29 (Cmd -> THEN .)
-    PRINTSTRING     reduce using rule 29 (Cmd -> THEN .)
-    CHAR            reduce using rule 29 (Cmd -> THEN .)
-    MATH_OPERATOR   reduce using rule 29 (Cmd -> THEN .)
-    NUMBER          reduce using rule 29 (Cmd -> THEN .)
-    WHILE           reduce using rule 29 (Cmd -> THEN .)
-    IF              reduce using rule 29 (Cmd -> THEN .)
-    ELSE            reduce using rule 29 (Cmd -> THEN .)
-    THEN            reduce using rule 29 (Cmd -> THEN .)
-    COLON           reduce using rule 29 (Cmd -> THEN .)
-    BEGIN           reduce using rule 29 (Cmd -> THEN .)
-    DO              reduce using rule 29 (Cmd -> THEN .)
-    $end            reduce using rule 29 (Cmd -> THEN .)
-    UNTIL           reduce using rule 29 (Cmd -> THEN .)
-    REPEAT          reduce using rule 29 (Cmd -> THEN .)
-    LOOP            reduce using rule 29 (Cmd -> THEN .)
-    SEMICOLON       reduce using rule 29 (Cmd -> THEN .)
+    COMMENT1        reduce using rule 32 (Cmd -> WHILE .)
+    COMMENT2        reduce using rule 32 (Cmd -> WHILE .)
+    NAME            reduce using rule 32 (Cmd -> WHILE .)
+    SWAP            reduce using rule 32 (Cmd -> WHILE .)
+    VARIABLE        reduce using rule 32 (Cmd -> WHILE .)
+    KEY             reduce using rule 32 (Cmd -> WHILE .)
+    CR              reduce using rule 32 (Cmd -> WHILE .)
+    STRING          reduce using rule 32 (Cmd -> WHILE .)
+    EMIT            reduce using rule 32 (Cmd -> WHILE .)
+    DOT             reduce using rule 32 (Cmd -> WHILE .)
+    CHR             reduce using rule 32 (Cmd -> WHILE .)
+    DUP             reduce using rule 32 (Cmd -> WHILE .)
+    PRINTSTRING     reduce using rule 32 (Cmd -> WHILE .)
+    CHAR            reduce using rule 32 (Cmd -> WHILE .)
+    MATH_OPERATOR   reduce using rule 32 (Cmd -> WHILE .)
+    NUMBER          reduce using rule 32 (Cmd -> WHILE .)
+    IF              reduce using rule 32 (Cmd -> WHILE .)
+    ELSE            reduce using rule 32 (Cmd -> WHILE .)
+    THEN            reduce using rule 32 (Cmd -> WHILE .)
+    WHILE           reduce using rule 32 (Cmd -> WHILE .)
+    COLON           reduce using rule 32 (Cmd -> WHILE .)
+    BEGIN           reduce using rule 32 (Cmd -> WHILE .)
+    DO              reduce using rule 32 (Cmd -> WHILE .)
+    $end            reduce using rule 32 (Cmd -> WHILE .)
+    UNTIL           reduce using rule 32 (Cmd -> WHILE .)
+    REPEAT          reduce using rule 32 (Cmd -> WHILE .)
+    LOOP            reduce using rule 32 (Cmd -> WHILE .)
+    SEMICOLON       reduce using rule 32 (Cmd -> WHILE .)
 
 
 state 25
 
-    (34) Function -> COLON . NAME Exp SEMICOLON
+    (39) Function -> Colon . NAME Expressao SEMICOLON
 
-    NAME            shift and go to state 33
+    NAME            shift and go to state 36
 
 
 state 26
 
-    (30) Loop -> BEGIN . Exloop UNTIL
-    (31) Loop -> BEGIN . Exloop REPEAT
-    (33) Exloop -> . Expressao
+    (35) Loop -> Begin . Expressao Until
+    (36) Loop -> Begin . Expressao Repeat
     (4) Expressao -> . Expressao Cmd
     (5) Expressao -> .
 
+    UNTIL           reduce using rule 5 (Expressao -> .)
+    REPEAT          reduce using rule 5 (Expressao -> .)
     COMMENT1        reduce using rule 5 (Expressao -> .)
     COMMENT2        reduce using rule 5 (Expressao -> .)
     NAME            reduce using rule 5 (Expressao -> .)
@@ -937,25 +952,22 @@ state 26
     CHAR            reduce using rule 5 (Expressao -> .)
     MATH_OPERATOR   reduce using rule 5 (Expressao -> .)
     NUMBER          reduce using rule 5 (Expressao -> .)
-    WHILE           reduce using rule 5 (Expressao -> .)
     IF              reduce using rule 5 (Expressao -> .)
     ELSE            reduce using rule 5 (Expressao -> .)
     THEN            reduce using rule 5 (Expressao -> .)
+    WHILE           reduce using rule 5 (Expressao -> .)
     BEGIN           reduce using rule 5 (Expressao -> .)
     DO              reduce using rule 5 (Expressao -> .)
-    UNTIL           reduce using rule 5 (Expressao -> .)
-    REPEAT          reduce using rule 5 (Expressao -> .)
 
-    Exloop                         shift and go to state 34
-    Expressao                      shift and go to state 35
+    Expressao                      shift and go to state 37
 
 state 27
 
-    (32) Loop -> DO . Exloop LOOP
-    (33) Exloop -> . Expressao
+    (37) Loop -> Do . Expressao Loop2
     (4) Expressao -> . Expressao Cmd
     (5) Expressao -> .
 
+    LOOP            reduce using rule 5 (Expressao -> .)
     COMMENT1        reduce using rule 5 (Expressao -> .)
     COMMENT2        reduce using rule 5 (Expressao -> .)
     NAME            reduce using rule 5 (Expressao -> .)
@@ -972,18 +984,82 @@ state 27
     CHAR            reduce using rule 5 (Expressao -> .)
     MATH_OPERATOR   reduce using rule 5 (Expressao -> .)
     NUMBER          reduce using rule 5 (Expressao -> .)
-    WHILE           reduce using rule 5 (Expressao -> .)
     IF              reduce using rule 5 (Expressao -> .)
     ELSE            reduce using rule 5 (Expressao -> .)
     THEN            reduce using rule 5 (Expressao -> .)
+    WHILE           reduce using rule 5 (Expressao -> .)
     BEGIN           reduce using rule 5 (Expressao -> .)
     DO              reduce using rule 5 (Expressao -> .)
-    LOOP            reduce using rule 5 (Expressao -> .)
 
-    Exloop                         shift and go to state 36
-    Expressao                      shift and go to state 35
+    Expressao                      shift and go to state 38
 
 state 28
+
+    (38) Colon -> COLON .
+
+    NAME            reduce using rule 38 (Colon -> COLON .)
+
+
+state 29
+
+    (29) Begin -> BEGIN .
+
+    UNTIL           reduce using rule 29 (Begin -> BEGIN .)
+    REPEAT          reduce using rule 29 (Begin -> BEGIN .)
+    COMMENT1        reduce using rule 29 (Begin -> BEGIN .)
+    COMMENT2        reduce using rule 29 (Begin -> BEGIN .)
+    NAME            reduce using rule 29 (Begin -> BEGIN .)
+    SWAP            reduce using rule 29 (Begin -> BEGIN .)
+    VARIABLE        reduce using rule 29 (Begin -> BEGIN .)
+    KEY             reduce using rule 29 (Begin -> BEGIN .)
+    CR              reduce using rule 29 (Begin -> BEGIN .)
+    STRING          reduce using rule 29 (Begin -> BEGIN .)
+    EMIT            reduce using rule 29 (Begin -> BEGIN .)
+    DOT             reduce using rule 29 (Begin -> BEGIN .)
+    CHR             reduce using rule 29 (Begin -> BEGIN .)
+    DUP             reduce using rule 29 (Begin -> BEGIN .)
+    PRINTSTRING     reduce using rule 29 (Begin -> BEGIN .)
+    CHAR            reduce using rule 29 (Begin -> BEGIN .)
+    MATH_OPERATOR   reduce using rule 29 (Begin -> BEGIN .)
+    NUMBER          reduce using rule 29 (Begin -> BEGIN .)
+    IF              reduce using rule 29 (Begin -> BEGIN .)
+    ELSE            reduce using rule 29 (Begin -> BEGIN .)
+    THEN            reduce using rule 29 (Begin -> BEGIN .)
+    WHILE           reduce using rule 29 (Begin -> BEGIN .)
+    BEGIN           reduce using rule 29 (Begin -> BEGIN .)
+    DO              reduce using rule 29 (Begin -> BEGIN .)
+
+
+state 30
+
+    (31) Do -> DO .
+
+    LOOP            reduce using rule 31 (Do -> DO .)
+    COMMENT1        reduce using rule 31 (Do -> DO .)
+    COMMENT2        reduce using rule 31 (Do -> DO .)
+    NAME            reduce using rule 31 (Do -> DO .)
+    SWAP            reduce using rule 31 (Do -> DO .)
+    VARIABLE        reduce using rule 31 (Do -> DO .)
+    KEY             reduce using rule 31 (Do -> DO .)
+    CR              reduce using rule 31 (Do -> DO .)
+    STRING          reduce using rule 31 (Do -> DO .)
+    EMIT            reduce using rule 31 (Do -> DO .)
+    DOT             reduce using rule 31 (Do -> DO .)
+    CHR             reduce using rule 31 (Do -> DO .)
+    DUP             reduce using rule 31 (Do -> DO .)
+    PRINTSTRING     reduce using rule 31 (Do -> DO .)
+    CHAR            reduce using rule 31 (Do -> DO .)
+    MATH_OPERATOR   reduce using rule 31 (Do -> DO .)
+    NUMBER          reduce using rule 31 (Do -> DO .)
+    IF              reduce using rule 31 (Do -> DO .)
+    ELSE            reduce using rule 31 (Do -> DO .)
+    THEN            reduce using rule 31 (Do -> DO .)
+    WHILE           reduce using rule 31 (Do -> DO .)
+    BEGIN           reduce using rule 31 (Do -> DO .)
+    DO              reduce using rule 31 (Do -> DO .)
+
+
+state 31
 
     (8) Cmd -> NAME SET .
 
@@ -1003,10 +1079,10 @@ state 28
     CHAR            reduce using rule 8 (Cmd -> NAME SET .)
     MATH_OPERATOR   reduce using rule 8 (Cmd -> NAME SET .)
     NUMBER          reduce using rule 8 (Cmd -> NAME SET .)
-    WHILE           reduce using rule 8 (Cmd -> NAME SET .)
     IF              reduce using rule 8 (Cmd -> NAME SET .)
     ELSE            reduce using rule 8 (Cmd -> NAME SET .)
     THEN            reduce using rule 8 (Cmd -> NAME SET .)
+    WHILE           reduce using rule 8 (Cmd -> NAME SET .)
     COLON           reduce using rule 8 (Cmd -> NAME SET .)
     BEGIN           reduce using rule 8 (Cmd -> NAME SET .)
     DO              reduce using rule 8 (Cmd -> NAME SET .)
@@ -1017,7 +1093,7 @@ state 28
     SEMICOLON       reduce using rule 8 (Cmd -> NAME SET .)
 
 
-state 29
+state 32
 
     (9) Cmd -> NAME GET .
 
@@ -1037,10 +1113,10 @@ state 29
     CHAR            reduce using rule 9 (Cmd -> NAME GET .)
     MATH_OPERATOR   reduce using rule 9 (Cmd -> NAME GET .)
     NUMBER          reduce using rule 9 (Cmd -> NAME GET .)
-    WHILE           reduce using rule 9 (Cmd -> NAME GET .)
     IF              reduce using rule 9 (Cmd -> NAME GET .)
     ELSE            reduce using rule 9 (Cmd -> NAME GET .)
     THEN            reduce using rule 9 (Cmd -> NAME GET .)
+    WHILE           reduce using rule 9 (Cmd -> NAME GET .)
     COLON           reduce using rule 9 (Cmd -> NAME GET .)
     BEGIN           reduce using rule 9 (Cmd -> NAME GET .)
     DO              reduce using rule 9 (Cmd -> NAME GET .)
@@ -1051,7 +1127,7 @@ state 29
     SEMICOLON       reduce using rule 9 (Cmd -> NAME GET .)
 
 
-state 30
+state 33
 
     (11) Cmd -> VARIABLE NAME .
 
@@ -1071,10 +1147,10 @@ state 30
     CHAR            reduce using rule 11 (Cmd -> VARIABLE NAME .)
     MATH_OPERATOR   reduce using rule 11 (Cmd -> VARIABLE NAME .)
     NUMBER          reduce using rule 11 (Cmd -> VARIABLE NAME .)
-    WHILE           reduce using rule 11 (Cmd -> VARIABLE NAME .)
     IF              reduce using rule 11 (Cmd -> VARIABLE NAME .)
     ELSE            reduce using rule 11 (Cmd -> VARIABLE NAME .)
     THEN            reduce using rule 11 (Cmd -> VARIABLE NAME .)
+    WHILE           reduce using rule 11 (Cmd -> VARIABLE NAME .)
     COLON           reduce using rule 11 (Cmd -> VARIABLE NAME .)
     BEGIN           reduce using rule 11 (Cmd -> VARIABLE NAME .)
     DO              reduce using rule 11 (Cmd -> VARIABLE NAME .)
@@ -1085,7 +1161,7 @@ state 30
     SEMICOLON       reduce using rule 11 (Cmd -> VARIABLE NAME .)
 
 
-state 31
+state 34
 
     (18) Cmd -> CHR CHAR .
 
@@ -1105,10 +1181,10 @@ state 31
     CHAR            reduce using rule 18 (Cmd -> CHR CHAR .)
     MATH_OPERATOR   reduce using rule 18 (Cmd -> CHR CHAR .)
     NUMBER          reduce using rule 18 (Cmd -> CHR CHAR .)
-    WHILE           reduce using rule 18 (Cmd -> CHR CHAR .)
     IF              reduce using rule 18 (Cmd -> CHR CHAR .)
     ELSE            reduce using rule 18 (Cmd -> CHR CHAR .)
     THEN            reduce using rule 18 (Cmd -> CHR CHAR .)
+    WHILE           reduce using rule 18 (Cmd -> CHR CHAR .)
     COLON           reduce using rule 18 (Cmd -> CHR CHAR .)
     BEGIN           reduce using rule 18 (Cmd -> CHR CHAR .)
     DO              reduce using rule 18 (Cmd -> CHR CHAR .)
@@ -1119,7 +1195,7 @@ state 31
     SEMICOLON       reduce using rule 18 (Cmd -> CHR CHAR .)
 
 
-state 32
+state 35
 
     (19) Cmd -> CHR MATH_OPERATOR .
 
@@ -1139,10 +1215,10 @@ state 32
     CHAR            reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     MATH_OPERATOR   reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     NUMBER          reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
-    WHILE           reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     IF              reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     ELSE            reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     THEN            reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
+    WHILE           reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     COLON           reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     BEGIN           reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
     DO              reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
@@ -1153,13 +1229,13 @@ state 32
     SEMICOLON       reduce using rule 19 (Cmd -> CHR MATH_OPERATOR .)
 
 
-state 33
+state 36
 
-    (34) Function -> COLON NAME . Exp SEMICOLON
-    (35) Exp -> . Expressao
+    (39) Function -> Colon NAME . Expressao SEMICOLON
     (4) Expressao -> . Expressao Cmd
     (5) Expressao -> .
 
+    SEMICOLON       reduce using rule 5 (Expressao -> .)
     COMMENT1        reduce using rule 5 (Expressao -> .)
     COMMENT2        reduce using rule 5 (Expressao -> .)
     NAME            reduce using rule 5 (Expressao -> .)
@@ -1176,104 +1252,152 @@ state 33
     CHAR            reduce using rule 5 (Expressao -> .)
     MATH_OPERATOR   reduce using rule 5 (Expressao -> .)
     NUMBER          reduce using rule 5 (Expressao -> .)
-    WHILE           reduce using rule 5 (Expressao -> .)
     IF              reduce using rule 5 (Expressao -> .)
     ELSE            reduce using rule 5 (Expressao -> .)
     THEN            reduce using rule 5 (Expressao -> .)
+    WHILE           reduce using rule 5 (Expressao -> .)
     BEGIN           reduce using rule 5 (Expressao -> .)
     DO              reduce using rule 5 (Expressao -> .)
-    SEMICOLON       reduce using rule 5 (Expressao -> .)
 
-    Exp                            shift and go to state 37
-    Expressao                      shift and go to state 38
-
-state 34
-
-    (30) Loop -> BEGIN Exloop . UNTIL
-    (31) Loop -> BEGIN Exloop . REPEAT
-
-    UNTIL           shift and go to state 39
-    REPEAT          shift and go to state 40
-
-
-state 35
-
-    (33) Exloop -> Expressao .
-    (4) Expressao -> Expressao . Cmd
-    (6) Cmd -> . COMMENT1
-    (7) Cmd -> . COMMENT2
-    (8) Cmd -> . NAME SET
-    (9) Cmd -> . NAME GET
-    (10) Cmd -> . SWAP
-    (11) Cmd -> . VARIABLE NAME
-    (12) Cmd -> . NAME
-    (13) Cmd -> . KEY
-    (14) Cmd -> . CR
-    (15) Cmd -> . STRING
-    (16) Cmd -> . EMIT
-    (17) Cmd -> . DOT
-    (18) Cmd -> . CHR CHAR
-    (19) Cmd -> . CHR MATH_OPERATOR
-    (20) Cmd -> . DUP
-    (21) Cmd -> . PRINTSTRING
-    (22) Cmd -> . CHAR
-    (23) Cmd -> . MATH_OPERATOR
-    (24) Cmd -> . Loop
-    (25) Cmd -> . NUMBER
-    (26) Cmd -> . WHILE
-    (27) Cmd -> . IF
-    (28) Cmd -> . ELSE
-    (29) Cmd -> . THEN
-    (30) Loop -> . BEGIN Exloop UNTIL
-    (31) Loop -> . BEGIN Exloop REPEAT
-    (32) Loop -> . DO Exloop LOOP
-
-    UNTIL           reduce using rule 33 (Exloop -> Expressao .)
-    REPEAT          reduce using rule 33 (Exloop -> Expressao .)
-    LOOP            reduce using rule 33 (Exloop -> Expressao .)
-    COMMENT1        shift and go to state 4
-    COMMENT2        shift and go to state 5
-    NAME            shift and go to state 6
-    SWAP            shift and go to state 7
-    VARIABLE        shift and go to state 8
-    KEY             shift and go to state 9
-    CR              shift and go to state 10
-    STRING          shift and go to state 11
-    EMIT            shift and go to state 12
-    DOT             shift and go to state 13
-    CHR             shift and go to state 14
-    DUP             shift and go to state 17
-    PRINTSTRING     shift and go to state 18
-    CHAR            shift and go to state 15
-    MATH_OPERATOR   shift and go to state 16
-    NUMBER          shift and go to state 20
-    WHILE           shift and go to state 21
-    IF              shift and go to state 22
-    ELSE            shift and go to state 23
-    THEN            shift and go to state 24
-    BEGIN           shift and go to state 26
-    DO              shift and go to state 27
-
-    Cmd                            shift and go to state 41
-    Loop                           shift and go to state 19
-
-state 36
-
-    (32) Loop -> DO Exloop . LOOP
-
-    LOOP            shift and go to state 42
-
+    Expressao                      shift and go to state 39
 
 state 37
 
-    (34) Function -> COLON NAME Exp . SEMICOLON
+    (35) Loop -> Begin Expressao . Until
+    (36) Loop -> Begin Expressao . Repeat
+    (4) Expressao -> Expressao . Cmd
+    (30) Until -> . UNTIL
+    (33) Repeat -> . REPEAT
+    (6) Cmd -> . COMMENT1
+    (7) Cmd -> . COMMENT2
+    (8) Cmd -> . NAME SET
+    (9) Cmd -> . NAME GET
+    (10) Cmd -> . SWAP
+    (11) Cmd -> . VARIABLE NAME
+    (12) Cmd -> . NAME
+    (13) Cmd -> . KEY
+    (14) Cmd -> . CR
+    (15) Cmd -> . STRING
+    (16) Cmd -> . EMIT
+    (17) Cmd -> . DOT
+    (18) Cmd -> . CHR CHAR
+    (19) Cmd -> . CHR MATH_OPERATOR
+    (20) Cmd -> . DUP
+    (21) Cmd -> . PRINTSTRING
+    (22) Cmd -> . CHAR
+    (23) Cmd -> . MATH_OPERATOR
+    (24) Cmd -> . Loop
+    (25) Cmd -> . NUMBER
+    (26) Cmd -> . IF
+    (27) Cmd -> . ELSE
+    (28) Cmd -> . THEN
+    (32) Cmd -> . WHILE
+    (35) Loop -> . Begin Expressao Until
+    (36) Loop -> . Begin Expressao Repeat
+    (37) Loop -> . Do Expressao Loop2
+    (29) Begin -> . BEGIN
+    (31) Do -> . DO
 
-    SEMICOLON       shift and go to state 43
+    UNTIL           shift and go to state 43
+    REPEAT          shift and go to state 44
+    COMMENT1        shift and go to state 4
+    COMMENT2        shift and go to state 5
+    NAME            shift and go to state 6
+    SWAP            shift and go to state 7
+    VARIABLE        shift and go to state 8
+    KEY             shift and go to state 9
+    CR              shift and go to state 10
+    STRING          shift and go to state 11
+    EMIT            shift and go to state 12
+    DOT             shift and go to state 13
+    CHR             shift and go to state 14
+    DUP             shift and go to state 17
+    PRINTSTRING     shift and go to state 18
+    CHAR            shift and go to state 15
+    MATH_OPERATOR   shift and go to state 16
+    NUMBER          shift and go to state 20
+    IF              shift and go to state 21
+    ELSE            shift and go to state 22
+    THEN            shift and go to state 23
+    WHILE           shift and go to state 24
+    BEGIN           shift and go to state 29
+    DO              shift and go to state 30
 
+    Begin                          shift and go to state 26
+    Until                          shift and go to state 40
+    Repeat                         shift and go to state 41
+    Cmd                            shift and go to state 42
+    Loop                           shift and go to state 19
+    Do                             shift and go to state 27
 
 state 38
 
-    (35) Exp -> Expressao .
+    (37) Loop -> Do Expressao . Loop2
+    (4) Expressao -> Expressao . Cmd
+    (34) Loop2 -> . LOOP
+    (6) Cmd -> . COMMENT1
+    (7) Cmd -> . COMMENT2
+    (8) Cmd -> . NAME SET
+    (9) Cmd -> . NAME GET
+    (10) Cmd -> . SWAP
+    (11) Cmd -> . VARIABLE NAME
+    (12) Cmd -> . NAME
+    (13) Cmd -> . KEY
+    (14) Cmd -> . CR
+    (15) Cmd -> . STRING
+    (16) Cmd -> . EMIT
+    (17) Cmd -> . DOT
+    (18) Cmd -> . CHR CHAR
+    (19) Cmd -> . CHR MATH_OPERATOR
+    (20) Cmd -> . DUP
+    (21) Cmd -> . PRINTSTRING
+    (22) Cmd -> . CHAR
+    (23) Cmd -> . MATH_OPERATOR
+    (24) Cmd -> . Loop
+    (25) Cmd -> . NUMBER
+    (26) Cmd -> . IF
+    (27) Cmd -> . ELSE
+    (28) Cmd -> . THEN
+    (32) Cmd -> . WHILE
+    (35) Loop -> . Begin Expressao Until
+    (36) Loop -> . Begin Expressao Repeat
+    (37) Loop -> . Do Expressao Loop2
+    (29) Begin -> . BEGIN
+    (31) Do -> . DO
+
+    LOOP            shift and go to state 46
+    COMMENT1        shift and go to state 4
+    COMMENT2        shift and go to state 5
+    NAME            shift and go to state 6
+    SWAP            shift and go to state 7
+    VARIABLE        shift and go to state 8
+    KEY             shift and go to state 9
+    CR              shift and go to state 10
+    STRING          shift and go to state 11
+    EMIT            shift and go to state 12
+    DOT             shift and go to state 13
+    CHR             shift and go to state 14
+    DUP             shift and go to state 17
+    PRINTSTRING     shift and go to state 18
+    CHAR            shift and go to state 15
+    MATH_OPERATOR   shift and go to state 16
+    NUMBER          shift and go to state 20
+    IF              shift and go to state 21
+    ELSE            shift and go to state 22
+    THEN            shift and go to state 23
+    WHILE           shift and go to state 24
+    BEGIN           shift and go to state 29
+    DO              shift and go to state 30
+
+    Do                             shift and go to state 27
+    Loop2                          shift and go to state 45
+    Cmd                            shift and go to state 42
+    Loop                           shift and go to state 19
+    Begin                          shift and go to state 26
+
+state 39
+
+    (39) Function -> Colon NAME Expressao . SEMICOLON
     (4) Expressao -> Expressao . Cmd
     (6) Cmd -> . COMMENT1
     (7) Cmd -> . COMMENT2
@@ -1295,15 +1419,17 @@ state 38
     (23) Cmd -> . MATH_OPERATOR
     (24) Cmd -> . Loop
     (25) Cmd -> . NUMBER
-    (26) Cmd -> . WHILE
-    (27) Cmd -> . IF
-    (28) Cmd -> . ELSE
-    (29) Cmd -> . THEN
-    (30) Loop -> . BEGIN Exloop UNTIL
-    (31) Loop -> . BEGIN Exloop REPEAT
-    (32) Loop -> . DO Exloop LOOP
+    (26) Cmd -> . IF
+    (27) Cmd -> . ELSE
+    (28) Cmd -> . THEN
+    (32) Cmd -> . WHILE
+    (35) Loop -> . Begin Expressao Until
+    (36) Loop -> . Begin Expressao Repeat
+    (37) Loop -> . Do Expressao Loop2
+    (29) Begin -> . BEGIN
+    (31) Do -> . DO
 
-    SEMICOLON       reduce using rule 35 (Exp -> Expressao .)
+    SEMICOLON       shift and go to state 47
     COMMENT1        shift and go to state 4
     COMMENT2        shift and go to state 5
     NAME            shift and go to state 6
@@ -1320,88 +1446,92 @@ state 38
     CHAR            shift and go to state 15
     MATH_OPERATOR   shift and go to state 16
     NUMBER          shift and go to state 20
-    WHILE           shift and go to state 21
-    IF              shift and go to state 22
-    ELSE            shift and go to state 23
-    THEN            shift and go to state 24
-    BEGIN           shift and go to state 26
-    DO              shift and go to state 27
+    IF              shift and go to state 21
+    ELSE            shift and go to state 22
+    THEN            shift and go to state 23
+    WHILE           shift and go to state 24
+    BEGIN           shift and go to state 29
+    DO              shift and go to state 30
 
-    Cmd                            shift and go to state 41
+    Cmd                            shift and go to state 42
     Loop                           shift and go to state 19
-
-state 39
-
-    (30) Loop -> BEGIN Exloop UNTIL .
-
-    COMMENT1        reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    COMMENT2        reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    NAME            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    SWAP            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    VARIABLE        reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    KEY             reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    CR              reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    STRING          reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    EMIT            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    DOT             reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    CHR             reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    DUP             reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    PRINTSTRING     reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    CHAR            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    MATH_OPERATOR   reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    NUMBER          reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    WHILE           reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    IF              reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    ELSE            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    THEN            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    COLON           reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    BEGIN           reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    DO              reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    $end            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    UNTIL           reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    REPEAT          reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    LOOP            reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-    SEMICOLON       reduce using rule 30 (Loop -> BEGIN Exloop UNTIL .)
-
+    Begin                          shift and go to state 26
+    Do                             shift and go to state 27
 
 state 40
 
-    (31) Loop -> BEGIN Exloop REPEAT .
+    (35) Loop -> Begin Expressao Until .
 
-    COMMENT1        reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    COMMENT2        reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    NAME            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    SWAP            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    VARIABLE        reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    KEY             reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    CR              reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    STRING          reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    EMIT            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    DOT             reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    CHR             reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    DUP             reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    PRINTSTRING     reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    CHAR            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    MATH_OPERATOR   reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    NUMBER          reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    WHILE           reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    IF              reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    ELSE            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    THEN            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    COLON           reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    BEGIN           reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    DO              reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    $end            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    UNTIL           reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    REPEAT          reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    LOOP            reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
-    SEMICOLON       reduce using rule 31 (Loop -> BEGIN Exloop REPEAT .)
+    COMMENT1        reduce using rule 35 (Loop -> Begin Expressao Until .)
+    COMMENT2        reduce using rule 35 (Loop -> Begin Expressao Until .)
+    NAME            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    SWAP            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    VARIABLE        reduce using rule 35 (Loop -> Begin Expressao Until .)
+    KEY             reduce using rule 35 (Loop -> Begin Expressao Until .)
+    CR              reduce using rule 35 (Loop -> Begin Expressao Until .)
+    STRING          reduce using rule 35 (Loop -> Begin Expressao Until .)
+    EMIT            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    DOT             reduce using rule 35 (Loop -> Begin Expressao Until .)
+    CHR             reduce using rule 35 (Loop -> Begin Expressao Until .)
+    DUP             reduce using rule 35 (Loop -> Begin Expressao Until .)
+    PRINTSTRING     reduce using rule 35 (Loop -> Begin Expressao Until .)
+    CHAR            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    MATH_OPERATOR   reduce using rule 35 (Loop -> Begin Expressao Until .)
+    NUMBER          reduce using rule 35 (Loop -> Begin Expressao Until .)
+    IF              reduce using rule 35 (Loop -> Begin Expressao Until .)
+    ELSE            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    THEN            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    WHILE           reduce using rule 35 (Loop -> Begin Expressao Until .)
+    COLON           reduce using rule 35 (Loop -> Begin Expressao Until .)
+    BEGIN           reduce using rule 35 (Loop -> Begin Expressao Until .)
+    DO              reduce using rule 35 (Loop -> Begin Expressao Until .)
+    $end            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    UNTIL           reduce using rule 35 (Loop -> Begin Expressao Until .)
+    REPEAT          reduce using rule 35 (Loop -> Begin Expressao Until .)
+    LOOP            reduce using rule 35 (Loop -> Begin Expressao Until .)
+    SEMICOLON       reduce using rule 35 (Loop -> Begin Expressao Until .)
 
 
 state 41
 
+    (36) Loop -> Begin Expressao Repeat .
+
+    COMMENT1        reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    COMMENT2        reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    NAME            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    SWAP            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    VARIABLE        reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    KEY             reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    CR              reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    STRING          reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    EMIT            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    DOT             reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    CHR             reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    DUP             reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    PRINTSTRING     reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    CHAR            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    MATH_OPERATOR   reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    NUMBER          reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    IF              reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    ELSE            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    THEN            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    WHILE           reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    COLON           reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    BEGIN           reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    DO              reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    $end            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    UNTIL           reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    REPEAT          reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    LOOP            reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+    SEMICOLON       reduce using rule 36 (Loop -> Begin Expressao Repeat .)
+
+
+state 42
+
     (4) Expressao -> Expressao Cmd .
 
+    UNTIL           reduce using rule 4 (Expressao -> Expressao Cmd .)
+    REPEAT          reduce using rule 4 (Expressao -> Expressao Cmd .)
     COMMENT1        reduce using rule 4 (Expressao -> Expressao Cmd .)
     COMMENT2        reduce using rule 4 (Expressao -> Expressao Cmd .)
     NAME            reduce using rule 4 (Expressao -> Expressao Cmd .)
@@ -1418,78 +1548,178 @@ state 41
     CHAR            reduce using rule 4 (Expressao -> Expressao Cmd .)
     MATH_OPERATOR   reduce using rule 4 (Expressao -> Expressao Cmd .)
     NUMBER          reduce using rule 4 (Expressao -> Expressao Cmd .)
-    WHILE           reduce using rule 4 (Expressao -> Expressao Cmd .)
     IF              reduce using rule 4 (Expressao -> Expressao Cmd .)
     ELSE            reduce using rule 4 (Expressao -> Expressao Cmd .)
     THEN            reduce using rule 4 (Expressao -> Expressao Cmd .)
+    WHILE           reduce using rule 4 (Expressao -> Expressao Cmd .)
     BEGIN           reduce using rule 4 (Expressao -> Expressao Cmd .)
     DO              reduce using rule 4 (Expressao -> Expressao Cmd .)
-    UNTIL           reduce using rule 4 (Expressao -> Expressao Cmd .)
-    REPEAT          reduce using rule 4 (Expressao -> Expressao Cmd .)
     LOOP            reduce using rule 4 (Expressao -> Expressao Cmd .)
     SEMICOLON       reduce using rule 4 (Expressao -> Expressao Cmd .)
 
 
-state 42
-
-    (32) Loop -> DO Exloop LOOP .
-
-    COMMENT1        reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    COMMENT2        reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    NAME            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    SWAP            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    VARIABLE        reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    KEY             reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    CR              reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    STRING          reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    EMIT            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    DOT             reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    CHR             reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    DUP             reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    PRINTSTRING     reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    CHAR            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    MATH_OPERATOR   reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    NUMBER          reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    WHILE           reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    IF              reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    ELSE            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    THEN            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    COLON           reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    BEGIN           reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    DO              reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    $end            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    UNTIL           reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    REPEAT          reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    LOOP            reduce using rule 32 (Loop -> DO Exloop LOOP .)
-    SEMICOLON       reduce using rule 32 (Loop -> DO Exloop LOOP .)
-
-
 state 43
 
-    (34) Function -> COLON NAME Exp SEMICOLON .
+    (30) Until -> UNTIL .
 
-    COMMENT1        reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    COMMENT2        reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    NAME            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    SWAP            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    VARIABLE        reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    KEY             reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    CR              reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    STRING          reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    EMIT            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    DOT             reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    CHR             reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    DUP             reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    PRINTSTRING     reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    CHAR            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    MATH_OPERATOR   reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    NUMBER          reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    WHILE           reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    IF              reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    ELSE            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    THEN            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    COLON           reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    BEGIN           reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    DO              reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
-    $end            reduce using rule 34 (Function -> COLON NAME Exp SEMICOLON .)
+    COMMENT1        reduce using rule 30 (Until -> UNTIL .)
+    COMMENT2        reduce using rule 30 (Until -> UNTIL .)
+    NAME            reduce using rule 30 (Until -> UNTIL .)
+    SWAP            reduce using rule 30 (Until -> UNTIL .)
+    VARIABLE        reduce using rule 30 (Until -> UNTIL .)
+    KEY             reduce using rule 30 (Until -> UNTIL .)
+    CR              reduce using rule 30 (Until -> UNTIL .)
+    STRING          reduce using rule 30 (Until -> UNTIL .)
+    EMIT            reduce using rule 30 (Until -> UNTIL .)
+    DOT             reduce using rule 30 (Until -> UNTIL .)
+    CHR             reduce using rule 30 (Until -> UNTIL .)
+    DUP             reduce using rule 30 (Until -> UNTIL .)
+    PRINTSTRING     reduce using rule 30 (Until -> UNTIL .)
+    CHAR            reduce using rule 30 (Until -> UNTIL .)
+    MATH_OPERATOR   reduce using rule 30 (Until -> UNTIL .)
+    NUMBER          reduce using rule 30 (Until -> UNTIL .)
+    IF              reduce using rule 30 (Until -> UNTIL .)
+    ELSE            reduce using rule 30 (Until -> UNTIL .)
+    THEN            reduce using rule 30 (Until -> UNTIL .)
+    WHILE           reduce using rule 30 (Until -> UNTIL .)
+    COLON           reduce using rule 30 (Until -> UNTIL .)
+    BEGIN           reduce using rule 30 (Until -> UNTIL .)
+    DO              reduce using rule 30 (Until -> UNTIL .)
+    $end            reduce using rule 30 (Until -> UNTIL .)
+    UNTIL           reduce using rule 30 (Until -> UNTIL .)
+    REPEAT          reduce using rule 30 (Until -> UNTIL .)
+    LOOP            reduce using rule 30 (Until -> UNTIL .)
+    SEMICOLON       reduce using rule 30 (Until -> UNTIL .)
+
+
+state 44
+
+    (33) Repeat -> REPEAT .
+
+    COMMENT1        reduce using rule 33 (Repeat -> REPEAT .)
+    COMMENT2        reduce using rule 33 (Repeat -> REPEAT .)
+    NAME            reduce using rule 33 (Repeat -> REPEAT .)
+    SWAP            reduce using rule 33 (Repeat -> REPEAT .)
+    VARIABLE        reduce using rule 33 (Repeat -> REPEAT .)
+    KEY             reduce using rule 33 (Repeat -> REPEAT .)
+    CR              reduce using rule 33 (Repeat -> REPEAT .)
+    STRING          reduce using rule 33 (Repeat -> REPEAT .)
+    EMIT            reduce using rule 33 (Repeat -> REPEAT .)
+    DOT             reduce using rule 33 (Repeat -> REPEAT .)
+    CHR             reduce using rule 33 (Repeat -> REPEAT .)
+    DUP             reduce using rule 33 (Repeat -> REPEAT .)
+    PRINTSTRING     reduce using rule 33 (Repeat -> REPEAT .)
+    CHAR            reduce using rule 33 (Repeat -> REPEAT .)
+    MATH_OPERATOR   reduce using rule 33 (Repeat -> REPEAT .)
+    NUMBER          reduce using rule 33 (Repeat -> REPEAT .)
+    IF              reduce using rule 33 (Repeat -> REPEAT .)
+    ELSE            reduce using rule 33 (Repeat -> REPEAT .)
+    THEN            reduce using rule 33 (Repeat -> REPEAT .)
+    WHILE           reduce using rule 33 (Repeat -> REPEAT .)
+    COLON           reduce using rule 33 (Repeat -> REPEAT .)
+    BEGIN           reduce using rule 33 (Repeat -> REPEAT .)
+    DO              reduce using rule 33 (Repeat -> REPEAT .)
+    $end            reduce using rule 33 (Repeat -> REPEAT .)
+    UNTIL           reduce using rule 33 (Repeat -> REPEAT .)
+    REPEAT          reduce using rule 33 (Repeat -> REPEAT .)
+    LOOP            reduce using rule 33 (Repeat -> REPEAT .)
+    SEMICOLON       reduce using rule 33 (Repeat -> REPEAT .)
+
+
+state 45
+
+    (37) Loop -> Do Expressao Loop2 .
+
+    COMMENT1        reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    COMMENT2        reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    NAME            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    SWAP            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    VARIABLE        reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    KEY             reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    CR              reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    STRING          reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    EMIT            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    DOT             reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    CHR             reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    DUP             reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    PRINTSTRING     reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    CHAR            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    MATH_OPERATOR   reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    NUMBER          reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    IF              reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    ELSE            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    THEN            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    WHILE           reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    COLON           reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    BEGIN           reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    DO              reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    $end            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    UNTIL           reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    REPEAT          reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    LOOP            reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+    SEMICOLON       reduce using rule 37 (Loop -> Do Expressao Loop2 .)
+
+
+state 46
+
+    (34) Loop2 -> LOOP .
+
+    COMMENT1        reduce using rule 34 (Loop2 -> LOOP .)
+    COMMENT2        reduce using rule 34 (Loop2 -> LOOP .)
+    NAME            reduce using rule 34 (Loop2 -> LOOP .)
+    SWAP            reduce using rule 34 (Loop2 -> LOOP .)
+    VARIABLE        reduce using rule 34 (Loop2 -> LOOP .)
+    KEY             reduce using rule 34 (Loop2 -> LOOP .)
+    CR              reduce using rule 34 (Loop2 -> LOOP .)
+    STRING          reduce using rule 34 (Loop2 -> LOOP .)
+    EMIT            reduce using rule 34 (Loop2 -> LOOP .)
+    DOT             reduce using rule 34 (Loop2 -> LOOP .)
+    CHR             reduce using rule 34 (Loop2 -> LOOP .)
+    DUP             reduce using rule 34 (Loop2 -> LOOP .)
+    PRINTSTRING     reduce using rule 34 (Loop2 -> LOOP .)
+    CHAR            reduce using rule 34 (Loop2 -> LOOP .)
+    MATH_OPERATOR   reduce using rule 34 (Loop2 -> LOOP .)
+    NUMBER          reduce using rule 34 (Loop2 -> LOOP .)
+    IF              reduce using rule 34 (Loop2 -> LOOP .)
+    ELSE            reduce using rule 34 (Loop2 -> LOOP .)
+    THEN            reduce using rule 34 (Loop2 -> LOOP .)
+    WHILE           reduce using rule 34 (Loop2 -> LOOP .)
+    COLON           reduce using rule 34 (Loop2 -> LOOP .)
+    BEGIN           reduce using rule 34 (Loop2 -> LOOP .)
+    DO              reduce using rule 34 (Loop2 -> LOOP .)
+    $end            reduce using rule 34 (Loop2 -> LOOP .)
+    UNTIL           reduce using rule 34 (Loop2 -> LOOP .)
+    REPEAT          reduce using rule 34 (Loop2 -> LOOP .)
+    LOOP            reduce using rule 34 (Loop2 -> LOOP .)
+    SEMICOLON       reduce using rule 34 (Loop2 -> LOOP .)
+
+
+state 47
+
+    (39) Function -> Colon NAME Expressao SEMICOLON .
+
+    COMMENT1        reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    COMMENT2        reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    NAME            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    SWAP            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    VARIABLE        reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    KEY             reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    CR              reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    STRING          reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    EMIT            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    DOT             reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    CHR             reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    DUP             reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    PRINTSTRING     reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    CHAR            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    MATH_OPERATOR   reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    NUMBER          reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    IF              reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    ELSE            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    THEN            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    WHILE           reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    COLON           reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    BEGIN           reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    DO              reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
+    $end            reduce using rule 39 (Function -> Colon NAME Expressao SEMICOLON .)
 

@@ -85,6 +85,15 @@ class Lexer():
         t.value = float(t.value) if '.' in t.value else int(t.value)
         return t
 
+    def t_COMMENT1(self, t):
+        r'\\\s.+'
+        t.lexer.lineno += t.value.count('\n')
+    
+    def t_COMMENT2(self, t):
+        #r'\((.*?)\)'
+        r'\(([^)]*)\)'
+        t.lexer.lineno += t.value.count('\n')
+
     def t_MATH_OPERATOR(self, t):
         r"\+|-|\*|>=|<=|>|<|=|/|%"
         return t
@@ -126,20 +135,6 @@ class Lexer():
         r"[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]"
         return t
     
-    def t_NAME(self, t):
-        r"[a-zA-Z]+"
-        return t
-    
-    def t_GET(self, t):
-        r"\@"
-        return t
-    
-    def t_SET(self, t):
-        r"\!"
-        return t
-
-    ## IF THEN ELSE
-
     def t_IF(self, t):
         r"[Ii][Ff]"
         return t
@@ -151,14 +146,20 @@ class Lexer():
     def t_THEN(self, t):
         r"[Tt][Hh][Ee][Nn]"
         return t    
-
-    def t_COMMENT1(self, t):
-        r'\\\s.+'
-        t.lexer.lineno += t.value.count('\n')
     
-    def t_COMMENT2(self, t):
-        r'\(\s.+\)'
-        t.lexer.lineno += t.value.count('\n')
+    def t_NAME(self, t):
+        r"[a-zA-Z0-9]+"
+        return t
+    
+    def t_GET(self, t):
+        r"\@"
+        return t
+    
+    def t_SET(self, t):
+        r"\!"
+        return t
+
+    ## IF THEN ELSE
 
     def t_newline(self, t):
         r"\n+"

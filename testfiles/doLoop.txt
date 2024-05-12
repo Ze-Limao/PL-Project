@@ -1,0 +1,4 @@
+10 0 DO 
+    ."Lp it:"
+    i .
+LOOP 

@@ -2,27 +2,23 @@ import sys
 from translator import Translator
 from analisadorlexico import Lexer
 from analisadorsintatico import Parser
-import re
 
 def treat_data(data):
-    buffer = ''
     treated_data = []
+    buffer = ''
     for line in data:
-        if line.startswith(':'):
-            if buffer:  # Append current buffer if it's not empty
+        if '\\' in line:
+            if buffer:
                 treated_data.append(buffer)
-            buffer = line.strip() + ' '  # Start new buffer
-        else:
-            buffer += line.strip() + ' '
-        if ';' in line:
+                buffer = ''
+        buffer += line.strip() + ' '
+        if ';' in line or '\\' in line:
             treated_data.append(buffer)
             buffer = ''
-    if buffer:  # Append remaining buffer if it's not empty
+    if buffer:
         treated_data.append(buffer)
-    print("Treated data")
-    print(treated_data)
-    print("End treated data")
     return treated_data
+
 
 def main(args):
     i = 0
@@ -34,15 +30,10 @@ def main(args):
             data = file.readlines()
         data = treat_data(data)
         for line in data:
-            print(data)
-            print(line)
-            print("Ganda linha")
             result = parser.parse(line)
-            print("Ganda linha")
-            print(i)
             i+=1
             if result:
-                print(str(result) + " LOL")
+                print(result)
     else:
         while True:
             try:
@@ -57,47 +48,37 @@ def main(args):
     
     translator.code_to_file()
     translator_code_aux = translator.code
-    
-    # Parte dos loops
-    if translator.loops:
-        print("Entrei nos loops FILHA DA PUTA")
-        print(translator.loops)
-        i = 0
-        while i < len(translator.loops):
-            data = translator.loops[i]
-            print("-------------------")
-            print(data)
-            print("-------------------")
-            translator.code = []
-            translator.code.append("\nloop" + str(i+1) + ":")
-            result2 = parser.parse(data)
-            if result2:
-                print(result2)
-            print("Loop " + data)
-            translator.function_to_file()
-            print(translator.code)
-            i += 1
 
     # Parte das funções
     if translator.functions:
         i = 0
         while i < len(translator.functions):
-            print("CARALHO " + str(i))
             function_name = translator.function_names[i]
             data = translator.functions[i]
             if ("pusha " + function_name) in translator_code_aux:
                 translator.code = []
                 translator.code.append(f"\n{function_name}:")
-                print(data + " blayeb")
-                result2 = parser.parse(data)
-                if result2:
-                    print(result2)
+                for line in data:
+                    translator.code.append(line)
 
-                print("Function " + function_name)
                 translator.function_to_file()
-                print(translator.code)
             i += 1
 
-
+    # Parte dos loops
+    if translator.loops:
+        i = 0
+        while i < len(translator.loops):
+            data = translator.loops[i]
+            translator.code = []
+            translator.code.append("\nloop" + str(i+1) + ":")
+            for line in data:
+                translator.code.append(line)
+            translator.loop_to_file(i+1)
+            i += 1
+            
+    filename = "../outputs/output.txt"
+    with open(filename, 'a') as file:
+        file.write(f"stop\n")
+        
 if __name__ == '__main__':
     main(args=sys.argv)

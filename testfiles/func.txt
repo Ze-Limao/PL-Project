@@ -1,2 +1,4 @@
 : TOFU ." Yummy bean curd!" ;
 TOFU
+: TOFU2 ." YUMMYYYYY bean curd !" ;
+TOFU2
