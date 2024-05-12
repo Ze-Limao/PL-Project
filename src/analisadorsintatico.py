@@ -20,12 +20,14 @@ class Parser():
                 | Line Function
                 | 
         '''
+        print("Line")
         return p
     
     def p_Expressao(self, p):
         '''Expressao : Expressao Cmd
                      |  
         '''
+        print("Expressao")
         return p
 
     def p_comment1(self, p):
@@ -39,12 +41,12 @@ class Parser():
     def p_set(self, p):
         '''Cmd : NAME SET '''
         p[0] = p[1]
-        self.translator.getset(p[2], p[3])
+        self.translator.getset(p[1], p[2])
 
     def p_get(self, p):
         '''Cmd : NAME GET '''
         p[0] = p[1]
-        self.translator.getset(p[2], p[3])
+        self.translator.getset(p[1], p[2])
 
     def p_swap(self, p):
         '''Cmd : SWAP'''
@@ -52,31 +54,20 @@ class Parser():
         p[0] = p[1]
         self.translator.swap()
 
-    def p_do(self, p):
-        '''Cmd : NUMBER DO'''
-        p[0] = p[1]
-        self.translator.do(p[2])
-
-    #def p_lp(self, p):
-    #    '''Cmd : Cmd LOOP
-    #    '''
-    #    p[0] = p[1]
-    #    return p
-
     def p_init_var(self, p):
         '''Cmd : VARIABLE NAME'''
         p[0] = p[1]
-        self.translator.init_var(p[3])
+        self.translator.init_var(p[2])
 
     def p_call(self, p):
         '''Cmd : NAME '''
         p[0] = p[1]
-        self.translator.call(p[2])
+        self.translator.call(p[1])
 
     def p_input_key(self, p):
         '''Cmd : KEY'''
         p[0] = p[1]
-        self.translator.input_key(p[2])
+        self.translator.input_key(p[1])
 
     def p_cr(self, p):
         '''Cmd : CR'''
@@ -86,7 +77,7 @@ class Parser():
     def p_string(self, p):
         '''Cmd : STRING'''
         p[0] = p[1]
-        self.translator.push(p[2])
+        self.translator.push(p[1])
 
     def p_print2(self, p):
         '''Cmd : EMIT
@@ -97,6 +88,7 @@ class Parser():
     def p_print(self, p):
         '''Cmd : DOT
         '''
+        print("DOT")
         p[0] = p[1]
         self.translator.print()
     
@@ -105,7 +97,7 @@ class Parser():
                | CHR MATH_OPERATOR
         '''
         p[0] = p[1]
-        self.translator.char(p[3])
+        self.translator.char(p[2])
     
     def p_dup(self,p):
         '''Cmd : DUP        
@@ -117,7 +109,7 @@ class Parser():
     def p_printstring(self, p):
         '''Cmd : PRINTSTRING'''
         p[0] = p[1]
-        self.translator.print_string(p[2])
+        self.translator.print_string(p[1])
     
     def p_char2(self, p):
         '''Cmd : CHAR'''
@@ -170,7 +162,6 @@ class Parser():
         print("LOOPINHO1")
         print(p[3])
         #print(p[2] + " yee")
-        self.translator.push(p[1])
         
         return p
 
@@ -191,7 +182,6 @@ class Parser():
         print("LOOPINHO3")
         print(p[3])
         #print(p[2] + " yee")
-        self.translator.push(p[1])
 
         return p
 

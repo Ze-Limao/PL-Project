@@ -25,6 +25,7 @@ class Translator:
         print("push")
         self.stack.append(value)
         if type(value) == str:
+            print("É Push")
             self.code.append(f"pushs \"{value}\"")
         if type(value) == int:
             self.code.append(f"pushi {value}")
@@ -44,13 +45,13 @@ class Translator:
         return value
 
     def swap(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
-        print("swap")
-        self.stack.append(a)
-        self.stack.append(b)
+        #a = self.stack.pop()
+        #b = self.stack.pop()
+        #print("swap")
+        #self.stack.append(a)
+        #self.stack.append(b)
         self.code.append("swap")
-        return a, b
+        #return a, b
     
     def math(self, operator):
         b = self.stack.pop()
@@ -96,10 +97,12 @@ class Translator:
     def print(self):
         print("print") 
         result = self.stack.pop()
-        if isinstance(result, int):
+        if result == int(result):
             self.code.append(f"writei") # EMIT
         elif isinstance(result, str):
             self.code.append(f"writes")
+        else:
+            self.code.append(f"writef")
         return result
     
     def char(self, value):

@@ -89,7 +89,6 @@ Cmd : COMMENT1
     | NAME SET
     | NAME GET
     | SWAP 
-    | NUMBER DO 
     | VARIABLE NAME 
     | NAME 
     | KEY
